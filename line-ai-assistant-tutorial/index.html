@@ -855,26 +855,45 @@ requests</code></pre>
 
                 <!-- 新增提示詞失靈與靈異現象的 Troubleshooting -->
                 <div class="student-tip border-teal-300 bg-teal-50 mb-6">
-                    <strong class="text-teal-900 text-lg">🤔 靈異現象：為什麼在 Dify 測試能完美回答（如越南文），但 LINE 卻回覆「未產生文字回應」？</strong><br>
+                    <strong class="text-teal-900 text-lg">🤔 靈異現象：為什麼在 Dify 測試能完美回答（如越南文），但 LINE 卻回覆「未產生文字回應」？或者連中文都不回答了？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        有同學測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>（如下圖）。
+                        有同學測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>。甚至換了萬國版提示詞後，連中文都不回答了！（如下圖）。
                     </span>
                     
                     <img src="擷取_2026_03_10_17_45_00_168.jpg" alt="Dify測試成功但LINE失敗" class="tutorial-img mt-4 mb-2">
                     <p class="img-caption">圖解：Dify 網頁預覽(右)測試越南文成功，但 LINE(中) 卻抓不到文字</p>
+                    <img src="擷取_2026_03_10_17_58_09_533.jpg" alt="換了萬國提示詞後全部不回答" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖解：換了強制語言提示詞後，因為缺乏「退路設定」，導致 AI 怕犯錯而全面罷工</p>
 
                     <span class="text-gray-700 mt-2 block">
-                        <strong>💡 原理解析 (這包含了兩個最常見的超級陷阱)：</strong><br>
+                        <strong>💡 原理解析 (這包含了三個最常見的超級陷阱)：</strong><br>
                         <ol class="list-decimal pl-5 mt-2 space-y-3">
                             <li><strong>陷阱一：忘記發佈 (Draft vs. API 落差)！</strong><br>
                             您在 Dify 網頁上測試的永遠是「草稿 (Draft)」，而 LINE 呼叫的永遠是「已發佈的正式版 (API)」。如果您改了提示詞，<strong>卻沒有按右上角的「發佈 ➔ 更新」</strong>，LINE 機器人用的就還是舊的笨大腦，自然會產生不同的結果！</li>
                             <li><strong>陷阱二：舊提示詞的「語言黑洞」！</strong><br>
                             如果您之前的提示詞寫著「輸入英文就回英文，輸入中文就回中文，絕對不可違反」，當 AI 在 API 模式下收到「越南文」時，它為了「不違反規則」，乾脆選擇<strong>閉嘴不說話（不輸出任何文字）</strong>，導致 Vercel 抓不到答案而報錯！</li>
+                            <li><strong>陷阱三：過度強制的規則缺乏「退路」 (導致全面罷工)！</strong><br>
+                            如果您使用了「絕對不可違反」、「100%」這種極度強烈的字眼，卻沒有告訴 AI「如果不知道是什麼語言時該怎麼辦」，AI (特別是 Gemini) 為了避免受罰，就會選擇最安全的做法——通通不回答。
+                            </li>
                         </ol>
                         <br>
-                        <strong>👉 完美解法：換上「萬用多國語言提示詞」並確實發佈！</strong><br>
-                        請將提示詞的語言規則改為上述「為什麼機器人不看我上傳的 PDF 講義」區塊中提供的<strong>【最高強制規則：萬用語言跟隨】</strong>寫法，並且修改完 <strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的多國語言大腦才會正式套用到 LINE 機器人身上！
+                        <strong>👉 完美解法：換上「柔性強制 + 退路設定」的終極提示詞並確實發佈！</strong><br>
+                        請將提示詞改為以下結構，並給予一個「預設語言（中文）」。修改完 <strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>！
                     </span>
+<pre><code class="language-text">【核心身分】
+你是一位親切且專業的友善醫療Agent。
+
+【語言跟隨原則】
+請你具備多國語言能力。在回答時，請「盡可能」使用與使用者輸入時相同的語言進行回覆。
+- 遇到英文，用英文回。
+- 遇到越南文，用越南文回。
+- 若無法辨識語言或遇到困難，請預設使用「繁體中文」進行回覆。
+
+【檢索與回答優先順序】
+回答使用者問題時，請嚴格遵循以下順序：
+1. 【優先檢索知識庫】：請務必優先檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料。
+2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定，才允許使用搜尋工具尋找最新資訊。若有使用，請附上參考網址。
+3. 【誠實作答】：若前兩者都找不到答案，請回答「不好意思，助教目前沒有這方面的資訊喔」，絕對不可自行編造。</code></pre>
                 </div>
 
                 <hr class="mt-12">
