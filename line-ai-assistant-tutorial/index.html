@@ -93,7 +93,7 @@
             
             <article class="prose prose-slate prose-lg max-w-none">
                 <h1 class="text-center text-blue-700 mb-2">🎓 企業級 LINE AI 助教建置終極實戰講義</h1>
-                <p class="lead text-center text-gray-500 mt-0">Vercel、GitHub 與 Dify 整合 (圖文 100% 避雷版)</p>
+                <p class="lead text-center text-gray-500 mt-0">Vercel、GitHub 與 Dify 整合 (文藻 郭大維老師)</p>
                 
                 <p>各位同學好！本講義將帶領大家從零開始，將 LINE 官方帳號升級為具備「連網搜尋」、「翻閱講義」以及「漂亮按鈕回覆」能力的專業 AI 教學助理。<br>
                 本講義已收錄歷屆學長姐踩過的所有坑，並詳細解析系統架構。請務必<strong>嚴格按照步驟執行，絕對不可跳步或自作聰明！</strong></p>
@@ -288,8 +288,8 @@
                     請點擊「Add file -> Create new file」，在檔名框直接輸入 <code>api/main.py</code> (注意中間有個斜線) <strong>(如 圖6 所示)</strong>，GitHub 就會自動幫你生出 <code>api</code> 資料夾並把檔案放進去！
                 </div>
 
-                <!-- 圖6：GitHub 資料夾建立 -->
-                <img src="fig06.png" alt="GitHub 建立資料夾" class="tutorial-img">
+                <!-- 圖6：GitHub 資料夾建立 (限制寬度以求美觀) -->
+                <img src="fig06.png" alt="GitHub 建立資料夾" class="tutorial-img md:max-w-2xl">
                 <p class="img-caption">圖6：GitHub 建立 api 資料夾與 main.py 截圖</p>
 
                 <h4>1. <code>api/main.py</code> (終極 Agent 支援版：完美攔截串流文字與錯誤回報)</h4>
@@ -612,7 +612,7 @@ requests</code></pre>
                     <div class="student-tip border-purple-300 bg-purple-100 mt-6">
                         <strong class="text-purple-900 text-lg">🎓 實戰抉擇：該選 Agent 還是 Chatflow？</strong><br>
                         <ul class="mt-2 text-purple-800">
-                            <li class="mb-2"><strong>選擇 Agent (智能體)：</strong> 當您需要 AI 同時具備「查講義」跟「上網查最新資料」的能力，並且希望 AI 像個活人一樣，根據問題複雜度「自主決定」要使用哪個工具時。</li>
+                            <li class="mb-2"><strong>選擇 Agent (智能體)：</strong> 當您需要 AI 同時具備「查講義」跟「上網查最新資料」的能力，並且希望 AI像個活人一樣，根據問題複雜度「自主決定」要使用哪個工具時。</li>
                             <li><strong>選擇 Chatflow (聊天流)：</strong> 當您只需要一個「極度乖巧、只會照著講義回答、絕對不上網亂查」的專屬客服，且希望整個檢索、思考流程像心智圖一樣一目了然時。</li>
                         </ul>
                     </div>
@@ -724,7 +724,7 @@ requests</code></pre>
                         <ul>
                             <li>在 LINE Developers Console 的 Messaging API 頁籤中，找到 <strong>LINE Official Account features</strong> 區塊。</li>
                             <li>點擊 <strong>Auto-reply messages</strong> 旁邊的 <strong>Edit</strong> 按鈕，系統會另開視窗進入「LINE Official Account Manager (LINE 官方帳號管理後台)」。</li>
-                            <li>在左側選選單選擇「設定」->「回應設定」。</li>
+                            <li>在左側選單選擇「設定」->「回應設定」。</li>
                             <li><strong>基本設定：</strong> 回應模式請勾選「聊天機器人」。</li>
                             <li><strong>詳細設定：</strong> Webhook 請選擇「啟用」；<strong>「自動回應訊息」請務必選擇「停用」</strong>！</li>
                         </ul>
@@ -854,7 +854,7 @@ requests</code></pre>
                         有同學測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>。甚至換了萬國版提示詞後，連中文都不回答了！（如下圖）。
                     </span>
                     
-                    <img src="擷取_2026_03_10_17_45_00_168.jpg" alt="Dify測試成功但LINE失敗" class="tutorial-img mt-4 mb-2">
+                    <img src="擷取_2026_03_10_17_45_00_168.jpg" alt="Dify 測試成功但 LINE 失敗" class="tutorial-img mt-4 mb-2">
                     <p class="img-caption">圖解：Dify 網頁預覽(右)測試越南文成功，但 LINE(中) 卻抓不到文字</p>
                     <img src="擷取_2026_03_10_17_58_09_533.jpg" alt="換了萬國提示詞後全部不回答" class="tutorial-img mt-4 mb-2">
                     <p class="img-caption">圖解：換了強制語言提示詞後，因為缺乏「退路設定」，導致 AI 怕犯錯而全面罷工</p>
@@ -905,7 +905,7 @@ requests</code></pre>
                 <div class="scenario-box border-orange-300 bg-orange-50">
                     <h3 class="text-orange-800 mt-0">🔍 階段二：X 光機顯影 — 抓出真實的 API 拒絕原因</h3>
                     <p class="m-0"><strong>現象：</strong> 為了查出真正原因，我們將 <code>main.py</code> 換成「進階除錯版」。再次測試後，機器人吐出了真實的英文錯誤訊息，隨後又變成「Dify 處理完畢，但未產生文字回應」。</p>
-                    <img src="擷取_2026_03_10_14_36_23_6.jpg" alt="Agent不支援blocking模式與未產生文字回應" class="tutorial-img mt-4 mb-2">
+                    <img src="擷取_2026_03_10_14_36_23_6.jpg" alt="Agent 不支援 blocking 模式與未產生文字回應" class="tutorial-img mt-4 mb-2">
                     <p class="m-0 mt-2"><strong>偵探解析：</strong> 
                     <br>1. <code>does not support blocking mode</code>：這表示我們已經成功將 Dify 從「聊天流」升級為「智能體 (Agent)」，但 Agent 強制要求使用 <strong>streaming (串流模式)</strong> 來接收資料，而舊程式碼還在用 blocking (阻塞模式). 
                     <br>2. <code>未產生文字回應</code>：將程式碼改用串流模式後，Vercel 成功收到了資料，但因為 Agent 吐出的資料事件名稱叫做 <code>agent_message</code>，而最初的程式碼只會抓取 <code>message</code>，所以文字漏接了執行。</p>
