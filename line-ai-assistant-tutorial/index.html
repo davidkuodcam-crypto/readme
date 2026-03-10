@@ -266,11 +266,9 @@
                     <li><strong>取得第二把鑰匙 (Channel Access Token)：</strong> 接著點擊上方的 <strong>Messaging API</strong> 頁籤往下滑，找到 <strong>Channel access token (long-lived)</strong>，點擊下方的 <strong>Issue</strong> 按鈕，產生後複製整段 Token 並貼到記事本。</li>
                 </ol>
 
-                <!-- 圖5：預留位 -->
-                <div class="image-placeholder">
-                    📸 圖5：LINE Developer 後台取得金鑰畫面
-                    <span>(建議在此放上：1. Basic settings 中的 Channel secret 位置、2. Messaging API 中的 Channel access token 發行與複製位置)</span>
-                </div>
+                <!-- 圖5：LINE Developer 後台取得金鑰畫面 -->
+                <img src="fig05.png" alt="LINE Developer 後台取得金鑰畫面" class="tutorial-img">
+                <p class="img-caption">圖5：LINE Developer 後台取得金鑰畫面</p>
 
                 <hr>
 
@@ -910,7 +908,7 @@ requests</code></pre>
                     <img src="擷取_2026_03_10_14_36_23_6.jpg" alt="Agent不支援blocking模式與未產生文字回應" class="tutorial-img mt-4 mb-2">
                     <p class="m-0 mt-2"><strong>偵探解析：</strong> 
                     <br>1. <code>does not support blocking mode</code>：這表示我們已經成功將 Dify 從「聊天流」升級為「智能體 (Agent)」，但 Agent 強制要求使用 <strong>streaming (串流模式)</strong> 來接收資料，而舊程式碼還在用 blocking (阻塞模式)。
-                    <br>2. <code>未產生文字回應</code>：將程式碼改用串流模式後，Vercel 成功收到了資料，但因為 Agent 吐出的資料事件名稱叫做 <code>agent_message</code>，而最初的程式碼只會抓取 <code>message</code>，所以文字漏接了。</p>
+                    <br>2. <code>未產生文字回應</code>：將程式碼改用串流模式後，Vercel 成功收到了資料，但因為 Agent 吐出的資料事件名稱叫做 <code>agent_message</code>，而最初的程式碼只會抓取 <code>message</code>，所以文字漏接了執行。</p>
                 </div>
 
                 <div class="scenario-box border-green-300 bg-green-50">
