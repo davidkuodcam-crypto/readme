@@ -95,13 +95,24 @@
                 <h1 class="text-center text-blue-700 mb-2">🎓 企業級 LINE AI 助教建置終極實戰講義</h1>
                 <p class="lead text-center text-gray-500 mt-0">Vercel、GitHub 與 Dify 整合 (文藻 郭大維老師)</p>
                 
-                <p>各位同學好！本講義將帶領大家從零開始，將 LINE 官方帳號升級為具備「連網搜尋」、「翻閱講義」以及「漂亮按鈕回覆」能力的專業 AI 教學助理。<br>
-                本講義已收錄歷屆學長姐踩過的所有坑，並詳細解析系統架構。請務必<strong>嚴格按照步驟執行，絕對不可跳步或自作聰明！</strong></p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100 mb-6">
+                    <h3 class="text-blue-800 mt-0 mb-3">🎯 核心學習目標與開發遠景</h3>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        本實戰講義旨在帶領開發者從零開始，完整掌握 <strong>LINE 官方帳號的建立與營運經營</strong>，並透過最新技術建構出一套具備「連網搜尋最新資訊」、「精準翻閱多格式專屬知識庫」以及「視覺化 Flex 按鈕回覆」等強大功能的專業級企業 AI 助理。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-2"><strong>為何我們選擇這套技術架構作為開發基礎？</strong></p>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-0">
+                        <li><strong>LINE 官方帳號 (前端)：</strong> 不僅擁有極高的使用者普及率，更重要的是讓我們能藉由開發學習，掌握前端入口的互動設計，並精準追蹤 <code>userId</code> 來紀錄是誰在提問，利於後續追蹤與客戶經營。</li>
+                        <li><strong>GitHub (版本控制與自動化)：</strong> GitHub 在此不僅僅是用於原始碼的版本控制，它更是串接持續整合與持續部署 (CI/CD) 流程的自動化樞紐。</li>
+                        <li><strong>Vercel 雲端服務 (中轉站與安全防護)：</strong> 作為可靠的中介伺服器。基於嚴謹的安全性考量，我們絕不會將 API Key 直接寫在程式碼中，而是利用 Vercel 的「環境變數 (Environment Variables)」進行動態加密存取，確保金鑰的高隱密性與防護。</li>
+                        <li><strong>Dify LLM 平台 (後端)：</strong> 作為強大的 AI 處理中樞，Dify 除了優異的檢索能力外，還支援完整的使用數據統計與日誌追蹤，幫助營運者不斷分析並優化大腦模型。</li>
+                    </ul>
+                </div>
 
                 <hr>
 
                 <h2>壹、 系統架構與大腦運作原理解析</h2>
-                <p>在動手實作前，我們必須先理解這套系統是如何運作的。<strong>（請參考下方的 圖1）</strong>這張架構圖以「使用者（學生）」為起點，清晰地劃分了四個主要區域：</p>
+                <p>在動手實作前，我們必須先理解這套系統是如何運作的。<strong>（請參考下方的 圖1）</strong>這張架構圖以「使用者」為起點，清晰地劃分了四個主要區域：</p>
 
                 <!-- 圖1：整體架構圖 -->
                 <img src="fig01.jpg" alt="整體系統架構圖" class="tutorial-img">
@@ -109,7 +120,7 @@
 
                 <h3>1. 系統的四個核心區域</h3>
                 <ol>
-                    <li><strong>使用者介面 (LINE Messaging Platform)：</strong> 這是學生唯一接觸的地方。他們發送「Message / Question」（問題），並接收「Response」（回答），完全在 LINE App 內完成。</li>
+                    <li><strong>使用者介面 (LINE Messaging Platform)：</strong> 這是使用者唯一接觸的地方。他們發送「Message / Question」（問題），並接收「Response」（回答），完全在 LINE App 內完成。</li>
                     <li><strong>中轉與驗證 (Webhook Server) - 核心變更點：</strong>
                         <ul>
                             <li><strong>Vercel (Deployed on Vercel)：</strong> 這是應用程式實際運行的雲端伺服器。</li>
@@ -124,15 +135,15 @@
                 <h3>2. 實戰情境解析：系統是如何應對不同狀況的？</h3>
                 
                 <div class="scenario-box">
-                    <h4 class="text-blue-800 mt-0 flex items-center"><span class="mr-2">💡</span> 情境一：學生問一般概念（純大腦運作）</h4>
-                    <p class="m-0"><strong>情境：</strong> 晚上 10 點，學生在 LINE 傳送：「助教，請問什麼是機器學習？」<br>
-                    <strong>運作：</strong> 學生發送後，LINE 將訊息打包丟給 Vercel。Vercel 確認簽章無誤並解析發言者後，將訊息丟給 Dify 大腦。因為是通用名詞，Dify 直接啟動內部的 LLM 模型 (Gemini) 來生成通俗易懂的解釋，並循原路傳回學生手機。</p>
+                    <h4 class="text-blue-800 mt-0 flex items-center"><span class="mr-2">💡</span> 情境一：使用者問一般概念（純大腦運作）</h4>
+                    <p class="m-0"><strong>情境：</strong> 晚上 10 點，使用者在 LINE 傳送：「助理，請問什麼是機器學習？」<br>
+                    <strong>運作：</strong> 使用者發送後，LINE 將訊息打包丟給 Vercel。Vercel 確認簽章無誤並解析發言者後，將訊息丟給 Dify 大腦。因為是通用名詞，Dify 直接啟動內部的 LLM 模型 (Gemini) 來生成通俗易懂的解釋，並循原路傳回使用者手機。</p>
                 </div>
 
                 <div class="scenario-box">
-                    <h4 class="text-blue-800 mt-0 flex items-center"><span class="mr-2">💡</span> 情境二：學生問課程規定（啟動 RAG 知識庫）</h4>
-                    <p class="m-0"><strong>情境：</strong> 學生在 LINE 傳送：「請問這學期期末報告要交幾頁？」<br>
-                    <strong>運作：</strong> Dify 收到問題後，<strong>不會直接問 Gemini</strong>（因為 Gemini 根本不知道老師的規定）。它會先去翻閱您上傳到「RAG 知識庫」的課程大綱。在文件裡找到「規定：最少 5 頁」後，Dify 才會把這段文字連同問題丟給 Gemini：「根據這段規定回答學生」。Gemini 據此生成精準回覆傳回給學生。</p>
+                    <h4 class="text-blue-800 mt-0 flex items-center"><span class="mr-2">💡</span> 情境二：使用者問專案規定（啟動 RAG 知識庫）</h4>
+                    <p class="m-0"><strong>情境：</strong> 使用者在 LINE 傳送：「請問這項專案計畫要交幾頁？」<br>
+                    <strong>運作：</strong> Dify 收到問題後，<strong>不會直接問 Gemini</strong>（因為 Gemini 根本不知道內部的規定）。它會先去翻閱您上傳到「RAG 知識庫」的專案文件。在文件裡找到「規定：最少 5 頁」後，Dify 才會把這段文字連同問題丟給 Gemini：「根據這段規定回答使用者」。Gemini 據此生成精準回覆傳回給使用者。</p>
                 </div>
 
                 <div class="scenario-box">
@@ -142,25 +153,25 @@
                 </div>
 
                 <h3>3. 靈魂所在：LLM 模型與 RAG 知識庫的完美結合</h3>
-                <p>如果我們把整個 Dify 平台想像成一間 <strong>「助教辦公室」</strong>：</p>
+                <p>如果我們把整個 Dify 平台想像成一間 <strong>「助理辦公室」</strong>：</p>
                 <ul>
                     <li><strong>Dify 系統本身：</strong> 只是這間辦公室的「行政人員」，負責收發信件和管理檔案。</li>
                     <li><strong>RAG Knowledge Base (知識庫)：</strong> 是辦公室裡的「大腦記憶庫或參考書櫃」。</li>
-                    <li><strong>LLM Models (大語言模型，如 Gemini)：</strong> 這才是真正坐在辦公桌前，擁有思考能力的那位<strong>「聰明助教本人」</strong>！</li>
+                    <li><strong>LLM Models (大語言模型，如 Gemini)：</strong> 這才是真正坐在辦公桌前，擁有思考能力的那位<strong>「聰明助理本人」</strong>！</li>
                 </ul>
 
                 <div class="bg-white border border-gray-200 shadow-sm p-6 rounded-lg my-6">
                     <h4 class="text-pink-600 mt-0 border-b pb-2">在這套架構中，LLM 模型主要負責以下三個無可取代的「大腦運算」功能：</h4>
                     <ul class="list-none pl-0">
-                        <li class="mb-4"><strong>① 聽懂「人類的不完美語言」 (語意理解)：</strong><br>學生傳來的訊息常有錯字或簡寫（如「期末pjt要教啥？」）。沒有 LLM 的機器人會當機，但 LLM 能瞬間理解「pjt = project = 報告」，推斷出學生想問繳交規定。</li>
-                        <li class="mb-4"><strong>② 扮演「專屬助教」 (人設與語氣生成)：</strong><br>真正把您設定的提示詞「演出來」的是 LLM 模型. 它會決定以「專業、有耐心的資訊科技助教」人設與溫和語氣來回答。</li>
-                        <li class="mb-0"><strong>③ 將生硬的「參考書內容」轉化為「溫暖的對話」 (RAG 的靈魂結合)：</strong><br>當知識庫翻出生硬的條文（如「遲交一天扣10%」）時，LLM 會重新消化，寫出帶有溫度的人話（如「同學你好！...請務必把握時間準備！」）。</li>
+                        <li class="mb-4"><strong>① 聽懂「人類的不完美語言」 (語意理解)：</strong><br>使用者傳來的訊息常有錯字或簡寫（如「期末pjt要教啥？」）。沒有 LLM 的機器人會當機，但 LLM 能瞬間理解「pjt = project = 報告」，推斷出使用者想問繳交規定。</li>
+                        <li class="mb-4"><strong>② 扮演「專屬助理」 (人設與語氣生成)：</strong><br>真正把您設定的提示詞「演出來」的是 LLM 模型. 它會決定以「專業、有耐心的企業助理」人設與溫和語氣來回答。</li>
+                        <li class="mb-0"><strong>③ 將生硬的「參考書內容」轉化為「溫暖的對話」 (RAG 的靈魂結合)：</strong><br>當知識庫翻出生硬的條文（如「遲交一天扣10%」）時，LLM 會重新消化，寫出帶有溫度的人話（如「您好！...請務必把握時間準備！」）。</li>
                     </ul>
                 </div>
 
                 <div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded">
                     <h4 class="text-blue-800 mt-0">💡 總結：為什麼要綁定知識庫？（如何有效降低 AI 幻覺）</h4>
-                    <p class="m-0 text-gray-700">如果 Dify 的行政人員沒有把參考書（PDF 知識庫）交給助教（LLM），助教為了交差，就會<strong>「憑藉自己過去在網路上看過的文章」開始瞎掰（這在 AI 領域被稱為「幻覺 Hallucination」）</strong>，導致回答超長又完全不符合課程規定！</p>
+                    <p class="m-0 text-gray-700">如果 Dify 的行政人員沒有把參考書（PDF 知識庫）交給助理（LLM），助理為了交差，就會<strong>「憑藉自己過去在網路上看過的文章」開始瞎掰（這在 AI 領域被稱為「幻覺 Hallucination」）</strong>，導致回答超長又完全不符合內部規定！</p>
                     <div class="mt-4 mb-3">
                         <strong class="text-blue-900">🎯 Dify 降低幻覺的實戰武器 (後續步驟會教您如何一一設定)：</strong>
                         <ul class="mt-2 text-gray-700">
@@ -171,7 +182,7 @@
                             <li><strong>武器五：開啟來源引用 (Citation)：</strong> 強迫 AI 在回答時必須標註「這句話是從講義哪裡看來的」，做到字字有憑據。</li>
                         </ul>
                     </div>
-                    <p class="m-0 text-gray-700">所以後續「把知識庫掛載到助教身上」與「進行參數微調」是非常關鍵的步驟！<strong>（Dify 內部的知識庫向量檢索原理，請參考下方的 圖2）</strong></p>
+                    <p class="m-0 text-gray-700">所以後續「把知識庫掛載到助理身上」與「進行參數微調」是非常關鍵的步驟！<strong>（Dify 內部的知識庫向量檢索原理，請參考下方的 圖2）</strong></p>
                 </div>
 
                 <!-- 圖2：Dify RAG 圖 -->
@@ -201,8 +212,8 @@
                 <p class="img-caption">圖3：OpenAI 取得 API Key 畫面</p>
                 
                 <div class="student-tip">
-                    <strong>🎓 新手避雷針：OpenAI 金鑰不是免費吃到飽！</strong><br>
-                    如果您在後續 Dify 上傳 PDF 時遇到「餘額不足 (Quota Exceeded)」錯誤，代表您的 OpenAI 帳號沒有額度。請至 OpenAI 後台綁定信用卡，儲值最低金額 (約 5 美金/150台幣)，這足夠您切碎好幾百本原文書了！
+                    <strong>🎓 開發提醒：OpenAI 金鑰不是免費吃到飽！</strong><br>
+                    如果您在後續 Dify 上傳 PDF 時遇到「餘額不足 (Quota Exceeded)」錯誤，代表您的 OpenAI 帳號沒有額度。請至 OpenAI 後台綁定信用卡，儲值最低金額 (約 5 美金/150台幣)，這足夠您切碎大量的文件檔案了！
                 </div>
 
                 <h3>👉 任務二：取得 Gemini API Key (負責思考與回覆)</h3>
@@ -227,10 +238,10 @@
                     <h3 class="text-indigo-800 mt-0 mb-4 flex items-center">
                         <span class="mr-2">🗺️</span> 概念先修：解碼 LINE Messaging API Channel 建立流程與 LDC / LOAM 關係
                     </h3>
-                    <p class="text-gray-700 m-0 mb-4">建立 LINE 官方帳號的 Messaging API channel 是一個需要在開發者平台 (LDC) 與管理後台 (LOAM) 之間反覆跳轉的過程。為了解決開發者與營運者常遇到的混亂，以下為您整理的詳細說明與流程圖，將整個流程拆解為四個主要步驟，幫助您理解為什麼會出現反覆跳轉的情況：</p>
+                    <p class="text-gray-700 m-0 mb-4">建立 LINE 官方帳號的 Messaging API channel 是一個需要在開發者平台 (LDC) 與管理後台 (LOAM) 之間反覆跳轉的過程。為了解決開發者與營運者常遇到的混亂，以下為您整理的詳細說明與流程圖 <strong>(請參考 圖5)</strong>，將整個流程拆解為四個主要步驟，幫助您理解為什麼會出現反覆跳轉的情況：</p>
 
                     <img src="fig04.5.jpg" alt="解碼 LINE Messaging API Channel 建立流程與 LDC / LOAM 關係" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：LINE Messaging API Channel 建立流程與 LDC / LOAM 關係</p>
+                    <p class="img-caption">圖5：LINE Messaging API Channel 建立流程與 LDC / LOAM 關係圖解</p>
 
                     <h4 class="text-indigo-700 mt-6 mb-2">1. 流程核心概念：分工與連結</h4>
                     <p class="text-gray-700 m-0 mb-2">在開始建立之前，我們必須先釐清兩個平台扮演的角色。<strong>Messaging API Channel</strong> 就像是一座橋樑，它在 LDC 中被定義，但必須與在 LOAM 中建立的「官方帳號實體」綁定在一起，才能在 LINE App 上真正運作。</p>
@@ -258,7 +269,7 @@
                 </div>
                 <!-- ================= 新增區塊結束 ================= -->
 
-                <p><strong>👉 實際操作步驟與取得金鑰（畫面請參考 圖5）：</strong></p>
+                <p><strong>👉 實際操作步驟與取得金鑰（畫面請參考 圖6）：</strong></p>
                 <ol>
                     <li>前往 <strong>LINE Developers Console</strong> (<code>https://developers.line.biz/</code>) 登入。</li>
                     <li>建立 <strong>Provider</strong> 後，點擊 <strong>Create a Messaging API channel</strong> 建立機器人頻道。</li>
@@ -266,9 +277,11 @@
                     <li><strong>取得第二把鑰匙 (Channel Access Token)：</strong> 接著點擊上方的 <strong>Messaging API</strong> 頁籤往下滑，找到 <strong>Channel access token (long-lived)</strong>，點擊下方的 <strong>Issue</strong> 按鈕，產生後複製整段 Token 並貼到記事本。</li>
                 </ol>
 
-                <!-- 圖5：LINE Developer 後台取得金鑰畫面 -->
-                <img src="fig05.png" alt="LINE Developer 後台取得金鑰畫面" class="tutorial-img">
-                <p class="img-caption">圖5：LINE Developer 後台取得金鑰畫面</p>
+                <!-- 圖6：LINE Developer 後台取得金鑰畫面 -->
+                <div class="image-placeholder">
+                    📸 圖6：LINE Developer 後台取得金鑰畫面
+                    <span>(建議在此放上：1. Basic settings 中的 Channel secret 位置、2. Messaging API 中的 Channel access token 發行與複製位置)</span>
+                </div>
 
                 <hr>
 
@@ -276,21 +289,22 @@
                 
                 <div class="advanced-tech-box">
                     <strong class="text-fuchsia-800">🚀 進階技術升級：隱藏長網址，讓 LINE 顯示「精美點擊按鈕」！</strong><br>
-                    <p class="text-gray-700 m-0 mt-2">LINE 官方的純文字訊息其實<strong>不支援</strong>類似 <code>[文字](網址)</code> 這樣的 Markdown 超連結語法. 如果直接傳送，學生會看到一長串醜陋的網址。<br>
-                    為了解決這個痛點，我們在下方的 <code>main.py</code> 程式碼中加入了<strong>正則表達式 (Regex) 與 Flex Message (動態卡片) 轉換技術</strong>！只要 Dify 產生了超連結，我們的中轉站就會自動把它轉成漂亮的「點擊按鈕」，讓學生的體驗好到破表！</p>
+                    <p class="text-gray-700 m-0 mt-2">LINE 官方的純文字訊息其實<strong>不支援</strong>類似 <code>[文字](網址)</code> 這樣的 Markdown 超連結語法. 如果直接傳送，使用者會看到一長串醜陋的網址。<br>
+                    為了解決這個痛點，我們在下方的 <code>main.py</code> 程式碼中加入了<strong>正則表達式 (Regex) 與 Flex Message (動態卡片) 轉換技術</strong>！只要 Dify 產生了超連結，我們的中轉站就會自動把它轉成漂亮的「點擊按鈕」，讓使用者的體驗大幅提升！<br>
+                    <br><span class="text-indigo-700 mt-2 block"><strong>🎯 補充說明 (呈現效果)：</strong> 當 LINE 交談時，若 Dify 產生了包含網址的回答，程式會自動將密密麻麻的網址從純文字訊息中<strong>徹底移除</strong>。使用者畫面上只會出現乾淨的文字，以及下方的超連結按鈕，按鈕上則會直接顯示代表性的標題文字，而不會再露出雜亂的網址。</span></p>
                 </div>
 
                 <p>請在 GitHub 建立名為 <code>line-dify-FriendlyHealthcareGuidelines</code> 的專案，並建立以下 4 個檔案：</p>
 
                 <div class="student-tip">
-                    <strong>🎓 新手避雷針：GitHub 網頁版怎麼建資料夾？</strong><br>
+                    <strong>🎓 開發提醒：GitHub 網頁版怎麼建資料夾？</strong><br>
                     GitHub 網頁版<strong>沒有</strong>「新增資料夾」的按鈕！<br>
-                    請點擊「Add file -> Create new file」，在檔名框直接輸入 <code>api/main.py</code> (注意中間有個斜線) <strong>(如 圖6 所示)</strong>，GitHub 就會自動幫你生出 <code>api</code> 資料夾並把檔案放進去！
+                    請點擊「Add file -> Create new file」，在檔名框直接輸入 <code>api/main.py</code> (注意中間有個斜線) <strong>(如 圖7 所示)</strong>，GitHub 就會自動幫你生出 <code>api</code> 資料夾並把檔案放進去！
                 </div>
 
-                <!-- 圖6：GitHub 資料夾建立 (限制寬度以求美觀) -->
+                <!-- 圖7：GitHub 資料夾建立 (限制寬度以求美觀) -->
                 <img src="fig06.png" alt="GitHub 建立資料夾" class="tutorial-img md:max-w-2xl">
-                <p class="img-caption">圖6：GitHub 建立 api 資料夾與 main.py 截圖</p>
+                <p class="img-caption">圖7：GitHub 建立 api 資料夾與 main.py 截圖</p>
 
                 <h4>1. <code>api/main.py</code> (終極 Agent 支援版：完美攔截串流文字與錯誤回報)</h4>
 <pre><code class="language-python">from fastapi import FastAPI, Request, Header, HTTPException
@@ -451,18 +465,18 @@ requests</code></pre>
                     <span class="text-gray-700">由於 Vercel 系統升級，若您使用 3.9 部署時遇到 <code>Failed to run "uv lock"</code> 或版本衝突的紅色錯誤，請將此檔案內容改為 <strong><code>3.12</code></strong>，Vercel 即可順利建置！</span>
                 </div>
 
-                <p><strong>全部完成後，GitHub 專案根目錄的最終檔案結構，應該會如 圖7 所示：</strong></p>
+                <p><strong>全部完成後，GitHub 專案根目錄的最終檔案結構，應該會如 圖8 所示：</strong></p>
 
-                <!-- 圖7：GitHub 結構 -->
+                <!-- 圖8：GitHub 結構 -->
                 <img src="fig07.png" alt="GitHub 檔案結構" class="tutorial-img">
-                <p class="img-caption">圖7：GitHub 專案根目錄最終檔案結構截圖</p>
+                <p class="img-caption">圖8：GitHub 專案根目錄最終檔案結構截圖</p>
 
                 <hr>
 
                 <h2>伍、 實作步驟四：Dify 智能體建置與「資料搜尋優先序」設定 🌟</h2>
                 
                 <h3>階段 A：模型綁定</h3>
-                <p><strong>（模型綁定畫面請參考 圖8）</strong></p>
+                <p><strong>（模型綁定畫面請參考 圖9）</strong></p>
                 <ol>
                     <li>登入 Dify，點擊右上角大頭貼 -> <strong>模型供應商</strong>。</li>
                     <li>找到 <strong>OpenAI</strong> 區塊，點擊「設定」，貼上您的 <code>sk-</code> 金鑰。
@@ -474,22 +488,25 @@ requests</code></pre>
                     <li>點擊右上角 <strong>「系統模型設定」</strong>：系統推理模型選擇 <code>gemini-2.5-flash</code>；Embedding 模型選擇 OpenAI 的 <code>text-embedding-3-small</code>。</li>
                 </ol>
 
-                <!-- 圖8：Dify 模型供應商綁定畫面 -->
-                <img src="fig08.png" alt="Dify 模型供應商綁定畫面" class="tutorial-img">
-                <p class="img-caption">圖8：Dify 模型供應商綁定畫面</p>
+                <!-- 圖9：Dify 模型供應商綁定畫面 -->
+                <div class="image-placeholder">
+                    📸 圖9：Dify 模型供應商綁定畫面
+                    <span>(建議在此放上 OpenAI 與 Google 綁定成功後，以及「系統模型設定」的畫面截圖)</span>
+                </div>
 
                 <!-- ================= 增修：階段 B 擴充檢索設定 ================= -->
                 <h3>階段 B：上傳知識庫與「檢索策略」設定 (資料能不能被準確抓出的關鍵！)</h3>
                 <p>許多新手以為把 PDF 丟上去就事了，其實<strong>「正確設定檢索策略」才是後續 LINE 能不能精準回答的靈魂</strong>！</p>
                 <ol>
-                    <li>點擊頂部 <strong>「知識庫 (Knowledge)」</strong> -> 建立知識庫 -> 上傳您的 PDF 講義。</li>
+                    <li>點擊頂部 <strong>「知識庫 (Knowledge)」</strong> -> 建立知識庫 -> 上傳您的文件。<br>
+                    <span class="text-gray-600 text-sm mt-1 block">💡 <strong>補充說明：</strong> Dify 知識庫不僅支援 PDF，還全面支援包含 <strong>TXT, Markdown, MD, HTML, DOCX, CSV, XLSX</strong> 等多種常見檔案格式，請依需求彈性上傳。</span></li>
                     <li><strong>【重要】設定索引方式與檢索策略：</strong> 在上傳過程的「分段與清洗」設定中，請務必選擇 <strong>「高品質 (High Quality)」</strong> 索引，讓系統使用我們剛才綁定的 OpenAI 進行文件向量化。</li>
                     <li><strong>設定檢索模式 (Retrieval Setting)：</strong> 建議選擇 <strong>「向量檢索 (Vector Search)」</strong> 或效果更好的 <strong>「混合檢索 (Hybrid Search)」</strong>，這決定了 AI 在茫茫字海中找尋答案的方式。</li>
                     <li>等待進度條跑完，文件狀態變成綠色「可用」即完成上傳。</li>
                 </ol>
 
                 <div class="image-placeholder">
-                    📸 圖9：Dify 知識庫建立與高品質檢索設定畫面
+                    📸 圖10：Dify 知識庫建立與高品質檢索設定畫面
                     <span>(建議在此放上：上傳過程中選擇「高品質」索引與「向量/混合檢索」的設定截圖)</span>
                 </div>
                 <!-- ================= 增修區塊結束 ================= -->
@@ -499,21 +516,21 @@ requests</code></pre>
                 <!-- ================= 新增：釐清上下文與檢索節點的關係 ================= -->
                 <div class="student-tip">
                     <strong class="text-blue-800 text-lg">🎓 觀念釐清：我需要手動加入「知識檢索節點」嗎？</strong><br>
-                    <p class="m-0 mt-2">許多同學看過網路上的其他教學，會問：「上傳 PDF 後，是不是要在畫面上拉一個『知識檢索節點』才能把資料提煉出來？」</p>
+                    <p class="m-0 mt-2">許多開發者看過網路上的其他教學，會問：「上傳 PDF 後，是不是要在畫面上拉一個『知識檢索節點』才能把資料提煉出來？」</p>
                     <p class="m-0 mt-2"><strong>解答：這取決於您建立的應用類型！</strong><br>
                     如果您建立的是「工作流 (Workflow)」或是「聊天流程 (Chatflow)」，確實需要手動拖拉一個「知識檢索節點」把它串起來。<br>
-                    但本講義為了讓助教具備更強大的「自主思考與多工具自動切換能力」，我們帶您建立的是<strong>「智能體 (Agent)」</strong>！在 Agent 模式的介面中，<strong>只要將知識庫加入左側的「上下文 (Context)」區塊，系統就會自動在背後建立並掛載強大的檢索節點機制</strong>，不需要您手動拉線！</p>
+                    但本講義為了讓助理具備更強大的「自主思考與多工具自動切換能力」，我們帶您建立的是<strong>「智能體 (Agent)」</strong>！在 Agent 模式的介面中，<strong>只要將知識庫加入左側的「上下文 (Context)」區塊，系統就會自動在背後建立並掛載強大的檢索節點機制</strong>，不需要您手動拉線！</p>
                 </div>
                 <!-- ================= 新獄區塊結束 ================= -->
 
                 <div class="advanced-tech-box">
                     <strong class="text-fuchsia-800">🚀 進階技術升級：三大資料庫優先序設定</strong><br>
-                    <p class="text-gray-700 m-0 mt-2">為了讓助教能夠連上網路，我們不能只選基礎的聊天助手，必須升級為<strong>「智能體 (Agent)」</strong>！<br>
+                    <p class="text-gray-700 m-0 mt-2">為了讓助理能夠連上網路，我們不能只選基礎的聊天助手，必須升級為<strong>「智能體 (Agent)」</strong>！<br>
                     我們將透過「掛載工具」與「系統提示詞」的魔法，強迫 AI 按照這個順序找答案：<br>
-                    <strong>1. 網路最新資訊 (Google/DuckDuckGo) -> 2. 上傳的知識庫 (PDF) -> 3. LLM 內建知識。</strong></p>
+                    <strong>1. 網路最新資訊 (Google/DuckDuckGo) -> 2. 上傳的知識庫 (文件) -> 3. LLM 內建知識。</strong></p>
                 </div>
 
-                <p>這一步我們要把「網路優先序」和「降低幻覺」全部設定起來。<strong>（各項設定請對照 圖10 與 圖11）</strong></p>
+                <p>這一步我們要把「網路優先序」和「降低幻覺」全部設定起來。<strong>（各項設定請對照 圖11 與 圖12）</strong></p>
 
                 <ol>
                     <li>點擊 <strong>「工作室 (Studio)」</strong> -> 建立空白應用。
@@ -527,16 +544,16 @@ requests</code></pre>
                         <!-- 增修：API Key / 工具選擇秘訣 -->
                         <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2 rounded">
                             <strong class="text-blue-800">💡 工具選擇秘訣 (SerpApi vs DuckDuckGo)：</strong><br>
-                            <span class="text-gray-700 text-sm">如果您選擇 <code>Google Search</code>，系統會要求您填寫 <strong>SerpApi API key</strong> (需自行前往 serpapi.com 免費註冊取得，並在授權配置中貼上，每月限額 100 次).<br>若不想處理金鑰或是怕額度爆掉，強烈建議改用 <strong><code>DuckDuckGo</code></strong>！它完全免費且免金鑰，對於助教找資料已經非常足夠！</span>
+                            <span class="text-gray-700 text-sm">如果您選擇 <code>Google Search</code>，系統會要求您填寫 <strong>SerpApi API key</strong> (需自行前往 serpapi.com 免費註冊取得，並在授權配置中貼上，每月限額 100 次).<br>若不想處理金鑰或是怕額度爆掉，強烈建議改用 <strong><code>DuckDuckGo</code></strong>！它完全免費且免金鑰，對於助理找資料已經非常足夠！</span>
                         </div>
                     </li>
                     
                     <!-- 增修：強調上下文即檢索節點 -->
-                    <li><strong>掛載大腦 (把上下文當作檢索節點)：</strong> 在 <strong>「上下文 (Context)」</strong> 區塊，點擊 <strong>「+ 新增」</strong>，勾選您剛才上傳的 PDF 知識庫！<strong>（完成這步，就等同於接上了檢索節點）</strong></li>
+                    <li><strong>掛載大腦 (把上下文當作檢索節點)：</strong> 在 <strong>「上下文 (Context)」</strong> 區塊，點擊 <strong>「+ 新增」</strong>，勾選您剛才上傳的知識庫！<strong>（完成這步，就等同於接上了檢索節點）</strong></li>
                     
                     <div class="anti-hallucination-box">
                         <strong class="text-green-800">🎯 降低幻覺設定 ①：調整檢索策略與召回測試</strong><br>
-                        游標移到剛加入的知識庫上，點擊旁邊出現的 <strong>「設定 (⚙️齒輪圖示)」</strong>。將 <strong>「相似度閾值 (Score Threshold)」</strong> 開啟，並設定為 <code>0.5</code> 或更高. 這樣可以過濾掉不相關的低分段落！設定完畢後，強烈建議點擊原知識庫頁面中的「召回測試 (Retrieval Testing)」，輸入幾個測試問題，看看系統有沒有成功把 PDF 內的段落抓出來。
+                        游標移到剛加入的知識庫上，點擊旁邊出現的 <strong>「設定 (⚙️齒輪圖示)」</strong>。將 <strong>「相似度閾值 (Score Threshold)」</strong> 開啟，並設定為 <code>0.5</code> 或更高. 這樣可以過濾掉不相關的低分段落！設定完畢後，強烈建議點擊原知識庫頁面中的「召回測試 (Retrieval Testing)」，輸入幾個測試問題，看看系統有沒有成功把文件內的段落抓出來。
                     </div>
 
                     <li><strong>設定人設與優先序 (提示詞核心)：</strong> 這是讓 Agent 乖乖聽話去翻找知識庫的關鍵！在上方的 <strong>「提示詞 (Instructions)」</strong> 區塊，請完整複製貼上以下設定。這段提示詞不僅賦予它靈魂，更<strong>強制規定了它的檢索行為</strong>：
@@ -548,10 +565,10 @@ requests</code></pre>
 - 絕對不可違反此語言跟隨規則。
 
 【人設與核心任務】
-你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
-1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
+你是一位親切且專業的企業助理。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
+1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫資料來回答。
 2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊. 若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
-3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助教目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
+3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助理目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
                     </li>
                     
                     <li><strong>確認模型：</strong> 右上角確認選擇的是 <code>Gemini</code> 模型 (<code>gemini-2.5-flash</code>)。</li>
@@ -570,15 +587,15 @@ requests</code></pre>
                     <li><strong>取得第三把鑰匙：</strong> 點擊左側 <strong>「API 存取 (API Access)」</strong> -> <strong>「API 金鑰」</strong>，產生並複製貼到記事本備用。</li>
                 </ol>
 
-                <!-- 圖10：預留位 -->
+                <!-- 圖11：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖10：Dify 智能體 (Agent) 工具與提示詞優先序設定畫面
+                    📸 圖11：Dify 智能體 (Agent) 工具與提示詞優先序設定畫面
                     <span>(建議在此標註：1.選擇Agent模式、2.掛載DuckDuckGo工具、3.填寫優先序提示詞)</span>
                 </div>
 
-                <!-- 圖11：預留位 -->
+                <!-- 圖12：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖11：Dify 降低幻覺參數設定畫面
+                    📸 圖12：Dify 降低幻覺參數設定畫面
                     <span>(建議在此標註：1.知識庫分數閾值設定、2.溫度調低為0.1、3.開啟引用功能)</span>
                 </div>
 
@@ -587,30 +604,30 @@ requests</code></pre>
                     <h3 class="text-purple-800 mt-0 mb-4 flex items-center">
                         <span class="mr-2">🔀</span> 同場加映：追求極致控制權的「聊天流 / 工作流 (Chatflow)」模式
                     </h3>
-                    <p class="text-gray-700 m-0 mb-4">在前面的教學中，我們使用了「智能體 (Agent)」模式，它的好處是只要給予提示詞，AI 就會<strong>自動決定</strong>何時要上網搜尋、何時要翻找知識庫。但如果您希望<strong>100% 掌控 AI 的思考路徑</strong>，或者不需要連網功能，只想要它單純做 PDF 檢索，那麼建立 <strong>「聊天流 (Chatflow)」</strong> 是您更好的選擇！</p>
+                    <p class="text-gray-700 m-0 mb-4">在前面的教學中，我們使用了「智能體 (Agent)」模式，它的好處是只要給予提示詞，AI 就會<strong>自動決定</strong>何時要上網搜尋、何時要翻找知識庫。但如果您希望<strong>100% 掌控 AI 的思考路徑</strong>，或者不需要連網功能，只想要它單純做文件檢索，那麼建立 <strong>「聊天流 (Chatflow)」</strong> 是您更好的選擇！</p>
 
-                    <p class="text-gray-700 font-bold mb-2">👇 根據學長姐的實戰經驗，聊天流的四大核心節點設定如下：</p>
+                    <p class="text-gray-700 font-bold mb-2">👇 根據實戰經驗，聊天流的四大核心節點設定如下 <strong>(請參考 圖13)</strong>：</p>
                     
                     <img src="擷取_2026_03_10_13_22_09_313.jpg" alt="Dify 聊天流 (Chatflow) 節點設定畫面" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：Dify 聊天流 (Chatflow) 基礎知識庫檢索架構</p>
+                    <p class="img-caption">圖13：Dify 聊天流 (Chatflow) 基礎知識庫檢索架構圖解</p>
 
                     <ul class="list-none pl-0 text-gray-700 space-y-4 mt-6">
                         <li><strong class="bg-purple-100 text-purple-800 px-3 py-1 rounded-md shadow-sm border border-purple-200">1. 開始節點 (Start)</strong><br>這是對話流程的起點，負責接收使用者在 LINE 上輸入的問題。在後續節點中，這個輸入通常會被稱為 <code>sys.query</code> 變數。</li>
                         
                         <li><strong class="bg-purple-100 text-purple-800 px-3 py-1 rounded-md shadow-sm border border-purple-200">2. 知識檢索節點 (Knowledge Retrieval)</strong><br>
                         ⚠️ <strong>注意：在聊天流中，您必須手動將這個節點拉出來！</strong><br>
-                        請在此節點的右側面板中，選擇您剛剛上傳的「知識庫 (PDF)」，並將「查詢變數 (Query)」設定對應到 <code>sys.query</code> (也就是學生的問題)。這樣系統才會拿著問題去 PDF 裡面翻找資料。</li>
+                        請在此節點的右側面板中，選擇您剛剛上傳的「知識庫」，並將「查詢變數 (Query)」設定對應到 <code>sys.query</code> (也就是使用者的問題)。這樣系統才會拿著問題去文件裡面翻找資料。</li>
                         
                         <li><strong class="bg-purple-100 text-purple-800 px-3 py-1 rounded-md shadow-sm border border-purple-200">3. LLM 節點 (大語言模型)</strong><br>這是負責思考與講話的大腦. 您必須將前一步「知識檢索」所找到的結果 (通常是一個 <code>result</code> 變數陣列) 塞進 LLM 的提示詞 (Prompt) 之中。例如在 SYSTEM 提示詞中告訴它：<br>
                         <code class="block bg-white p-2 mt-2 border border-gray-200 rounded text-sm text-gray-600">請根據以下檢索到的資料來回答問題：<br>{{#知識檢索.result#}}</code></li>
                         
-                        <li><strong class="bg-purple-100 text-purple-800 px-3 py-1 rounded-md shadow-sm border border-purple-200">4. 直接回覆節點 (Direct Reply)</strong><br>最後一步，將 LLM 節點的輸出結果 (通常叫 <code>text</code>) 連接到此節點. 這段文字就會透過 Vercel 傳回學生的 LINE 手機上。</li>
+                        <li><strong class="bg-purple-100 text-purple-800 px-3 py-1 rounded-md shadow-sm border border-purple-200">4. 直接回覆節點 (Direct Reply)</strong><br>最後一步，將 LLM 節點的輸出結果 (通常叫 <code>text</code>) 連接到此節點. 這段文字就會透過 Vercel 傳回使用者的 LINE 手機上。</li>
                     </ul>
 
                     <div class="student-tip border-purple-300 bg-purple-100 mt-6">
                         <strong class="text-purple-900 text-lg">🎓 實戰抉擇：該選 Agent 還是 Chatflow？</strong><br>
                         <ul class="mt-2 text-purple-800">
-                            <li class="mb-2"><strong>選擇 Agent (智能體)：</strong> 當您需要 AI 同時具備「查講義」跟「上網查最新資料」的能力，並且希望 AI像個活人一樣，根據問題複雜度「自主決定」要使用哪個工具時。</li>
+                            <li class="mb-2"><strong>選擇 Agent (智能體)：</strong> 當您需要 AI 同時具備「查資料」跟「上網查最新資訊」的能力，並且希望 AI像個活人一樣，根據問題複雜度「自主決定」要使用哪個工具時。</li>
                             <li><strong>選擇 Chatflow (聊天流)：</strong> 當您只需要一個「極度乖巧、只會照著講義回答、絕對不上網亂查」的專屬客服，且希望整個檢索、思考流程像心智圖一樣一目了然時。</li>
                         </ul>
                     </div>
@@ -624,24 +641,24 @@ requests</code></pre>
                     <li>登入 Vercel，點擊 <code>Add New...</code> -> <code>Project</code>，匯入 GitHub 專案。
                         <div class="student-tip border-blue-300 bg-blue-50 mt-4 mb-4">
                             <strong class="text-blue-900 text-lg">🎓 常見雷區：Vercel 找不到 GitHub 中的 line-dify-FriendlyHealthcareGuidelines？</strong><br>
-                            <span class="text-gray-700 mt-2 block">當您在 GitHub 建立的專案（例如 <code>line-dify-FriendlyHealthcareGuidelines</code>）設定為 <strong>Private (私有)</strong> 時，Vercel 預設是沒有讀取權限的，導致在 Import 清單中找不到該專案。</span>
+                            <span class="text-gray-700 mt-2 block">當您在 GitHub 建立的專案（例如 <code>line-dify-FriendlyHealthcareGuidelines</code>）設定為 <strong>Private (私有)</strong> 時，Vercel 預設是沒有讀取權限的，導致在 Import 清單中找不到該專案 <strong>(請參考 圖14 與 圖15)</strong>。</span>
                             
                             <img src="擷取_2026_03_10_13_27_39_10.png" alt="GitHub 專案為 Private 狀態" class="tutorial-img mt-3 mb-2">
-                            <p class="img-caption">圖解：確認 GitHub 專案是否為 Private 狀態</p>
+                            <p class="img-caption">圖14：確認 GitHub 專案是否為 Private 狀態</p>
 
                             <img src="擷取_2026_03_10_13_28_17_583.png" alt="Vercel 找不到專案" class="tutorial-img mt-3 mb-2">
-                            <p class="img-caption">圖解：Vercel Import 清單中找不到剛建好的私有專案</p>
+                            <p class="img-caption">圖15：Vercel Import 清單中找不到剛建好的私有專案</p>
 
                             <span class="text-gray-700 mt-2 block">
                                 <strong>👉 解法步驟：</strong><br>
-                                1. 在 Vercel 匯入清單的 GitHub 帳號下拉選單中（如上圖下拉選單），點擊 <strong>「Adjust GitHub App Permissions」</strong>。<br>
+                                1. 在 Vercel 匯入清單的 GitHub 帳號下拉選單中（如 圖14 下拉選單所示），點擊 <strong>「Adjust GitHub App Permissions」</strong>。<br>
                                 2. 系統會跳轉到 GitHub，請往下滑找到 <strong>Repository access</strong> 區塊。<br>
                                 3. 將選項改為 <strong>All repositories</strong>（或維持特定專案，但手動把 <code>line-dify-FriendlyHealthcareGuidelines</code> 搜尋並勾選加入）。<br>
                                 4. 點擊 Save 儲存後，回到 Vercel 重新整理頁面，專案就會出現了！
                             </span>
                         </div>
                     </li>
-                    <li><strong>展開 Environment Variables (環境變數)</strong>，新增我們在記事本的三把鑰匙 <strong>(填寫畫面請參考 圖12)</strong>：
+                    <li><strong>展開 Environment Variables (環境變數)</strong>，新增我們在記事本的三把鑰匙 <strong>(填寫畫面請參考 圖18)</strong>：
                         <div class="warning-box mt-2 mb-2">
                             <strong>⚠️ 致命地雷警告：絕對不可有「空白鍵」與「雙引號」！</strong><br>
                             <span class="text-gray-700 block mt-1">貼上變數數值 (Value) 時，請睜大眼睛檢查以下兩點，只要犯了一點，機器人就會顯示「大腦處理中發生錯誤」：
@@ -662,10 +679,10 @@ requests</code></pre>
 
                 <div class="student-tip border-green-300 bg-green-50 mt-6 mb-4">
                     <strong class="text-green-900 text-lg">🤔 常見疑惑：為什麼點開 Vercel 網址，畫面上只顯示 {"detail":"Not Found"}？</strong><br>
-                    <span class="text-gray-700 mt-2 block">許多同學在 Vercel 部署成功後，會興奮地直接點擊那個 Domains 網址，結果看到畫面一片白，只寫著 <code>{"detail":"Not Found"}</code>（如下方截圖）。這是不是代表失敗了？</span>
+                    <span class="text-gray-700 mt-2 block">許多開發者在 Vercel 部署成功後，會興奮地直接點擊那個 Domains 網址，結果看到畫面一片白，只寫著 <code>{"detail":"Not Found"}</code>（如 圖16 所示）。這是不是代表失敗了？</span>
                     
                     <img src="擷取_2026_03_10_13_46_14_548.png" alt="Vercel 顯示 Not Found 是正常現象" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：點擊 Vercel 網址出現 Not Found，其實是正常的！</p>
+                    <p class="img-caption">圖16：點擊 Vercel 網址出現 Not Found，其實是正常的！</p>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>👉 解答：恭喜您，這代表部署「完全成功」！</strong><br>
@@ -676,10 +693,10 @@ requests</code></pre>
 
                 <div class="student-tip border-red-300 bg-red-50 mt-6 mb-8">
                     <strong class="text-red-900 text-lg">🚨 突發狀況救援：部署出現紅色錯誤「Failed to run \"uv lock\"」與版本升級衝突？</strong><br>
-                    <span class="text-gray-700 mt-2 block">如果您在 Vercel 點擊 Deploy 後，出現 <code>Error: Failed to run "uv lock"</code> 或是關於 Python 版本不相容的錯誤（如下方截圖），這是因為 Vercel 系統近期強制升級了 Python 環境要求，預設改為使用 <code>3.12</code>，與我們先前設定的舊版 <code>3.9</code> 產生了版本衝突。</span>
+                    <span class="text-gray-700 mt-2 block">如果您在 Vercel 點擊 Deploy 後，出現 <code>Error: Failed to run "uv lock"</code> 或是關於 Python 版本不相容的錯誤（如 圖17 所示），這是因為 Vercel 系統近期強制升級了 Python 環境要求，預設改為使用 <code>3.12</code>，與我們先前設定的舊版 <code>3.9</code> 產生了版本衝突。</span>
                     
                     <img src="擷取_2026_03_10_13_36_33_402.png" alt="Vercel 部署錯誤 Failed to run uv lock" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：Vercel 部署日誌顯示 Python 版本升級衝突與 uv lock 錯誤</p>
+                    <p class="img-caption">圖17：Vercel 部署日誌顯示 Python 版本升級衝突與 uv lock 錯誤</p>
 
                     <span class="text-gray-700 mt-2 block">
                     <strong>👉 完美解法 (免重跑)：</strong><br>
@@ -687,9 +704,9 @@ requests</code></pre>
                     儲存後，<strong>Vercel 會自動偵測到 GitHub 的修改並自動重新執行部署</strong>，您只需要在 Vercel 畫面等待一下，這次就會亮起綠色的 Success 囉！</span>
                 </div>
 
-                <!-- 圖12：預留位 -->
+                <!-- 圖18：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖12：Vercel 部署與環境變數設定畫面
+                    📸 圖18：Vercel 部署與環境變數設定畫面
                     <span>(建議在此放上 Vercel Environment Variables 填寫 Name 與 Value 列表的截圖)</span>
                 </div>
 
@@ -703,7 +720,7 @@ requests</code></pre>
 
                 <ol>
                     <li>回到 LINE Developer Console 的 <code>Messaging API</code> 頁籤。</li>
-                    <li>在 <strong>Webhook URL</strong> 貼上網址並加上 <code>/webhook</code> <strong>(如 圖13 所示)</strong>。<br>
+                    <li>在 <strong>Webhook URL</strong> 貼上網址並加上 <code>/webhook</code> <strong>(如 圖19 所示)</strong>。<br>
                         <em>(正確範例：<code>https://line-dify-xxx.vercel.app/webhook</code>)</em></li>
                     <li>點擊 <code>Verify</code>. 跳出 Success 代表成功！<strong>並開啟下方 <code>Use webhook</code> 開關。</strong>
                         
@@ -714,7 +731,7 @@ requests</code></pre>
                                 <strong>1. 點擊「Verify (驗證)」時（LINE 平台 ➔ Vercel 伺服器）：</strong><br>
                                 LINE 官方後台會主動發送一個「測試用」的假請求到您的 Vercel 網址（就像在敲門）。如果您的 Vercel 伺服器活著，且 Python 程式碼正確，它會回傳一個 <code>200 OK</code> 的信號. 這時 LINE 就會顯示 <strong>Success</strong>，代表「門敲通了，伺服器有在聽」！<br><br>
                                 <strong>2. 開啟「Use webhook」開關時（開啟訊息轉發閘門）：</strong><br>
-                                這是一個總閘門. 就算 Verify 成功，如果不開這個開關，LINE 還是會把學生傳的訊息扣留在自己的系統裡。開啟後，等於您正式命令 LINE：<strong>「從現在起，只要有學生對我的帳號傳訊息，請立刻轉傳 (POST) 一份到這個 Vercel 網址！」</strong> 這樣 Vercel 才能收到問題並交給 AI 處理。
+                                這是一個總閘門. 就算 Verify 成功，如果不開這個開關，LINE 還是會把使用者傳的訊息扣留在自己的系統裡。開啟後，等於您正式命令 LINE：<strong>「從現在起，只要有使用者對我的帳號傳訊息，請立刻轉傳 (POST) 一份到這個 Vercel 網址！」</strong> 這樣 Vercel 才能收到問題並交給 AI 處理。
                             </span>
                         </div>
                     </li>
@@ -729,15 +746,15 @@ requests</code></pre>
                     </li>
                 </ol>
 
-                <!-- 圖13：預留位 -->
+                <!-- 圖19：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖13：LINE Webhook 網址設定與關閉自動回覆畫面
+                    📸 圖19：LINE Webhook 網址設定與關閉自動回覆畫面
                     <span>(建議在此放上：1. Webhook URL 填寫處 2. LINE Official Account Manager 中將「自動回應訊息」設為「停用」的畫面截圖)</span>
                 </div>
 
                 <div class="text-center mt-12 bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm">
-                    <h3 class="text-green-600 m-0">🎉 恭喜大功告成！最後一步：加入您的專屬 AI 助教</h3>
-                    <p class="text-green-800 mt-2 mb-4">系統已經全部架設完畢！現在，請拿起您的手機，將這位聰明的 AI 助教加入 LINE 好友：</p>
+                    <h3 class="text-green-600 m-0">🎉 恭喜大功告成！最後一步：加入您的專屬 AI 助理</h3>
+                    <p class="text-green-800 mt-2 mb-4">系統已經全部架設完畢！現在，請拿起您的手機，將這位聰明的 AI 助理加入 LINE 好友：</p>
                     
                     <ul class="text-left text-gray-700 max-w-2xl mx-auto bg-white p-6 rounded-lg border border-green-100 shadow-sm list-none">
                         <li class="mb-4">
@@ -750,7 +767,7 @@ requests</code></pre>
                         </li>
                     </ul>
 
-                    <p class="text-green-800 mt-6 mb-0 font-bold text-lg">趕快在 LINE 上跟它打聲招呼，試著問一個講義裡面的問題吧！它會自動翻閱資料並回答您喔！</p>
+                    <p class="text-green-800 mt-6 mb-0 font-bold text-lg">趕快在 LINE 上跟它打聲招呼，試著問一個文件裡面的問題吧！它會自動翻閱資料並回答您喔！</p>
                 </div>
                 
                 <!-- 新增除錯指南區塊 -->
@@ -762,12 +779,12 @@ requests</code></pre>
                 <div class="student-tip border-blue-300 bg-blue-50 mb-6">
                     <strong class="text-blue-900 text-lg">🤔 常見問題：發現機器人名字打錯了，要如何修改 Channel Name？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        許多同學在 <strong>LINE Developers Console (LDC)</strong> 的 Basic settings 頁面中，會發現 <code>Channel name</code> 是反灰或無法直接編輯的狀態（如下圖）。<br>
+                        許多開發者在 <strong>LINE Developers Console (LDC)</strong> 的 Basic settings 頁面中，會發現 <code>Channel name</code> 是反灰或無法直接編輯的狀態（如 圖20 所示）。<br>
                         請回想一下我們在講義前面提過的「LDC 與 LOAM 分工圖」：LDC 只管技術，<strong>「帳號名稱、頭像」等外觀營運設定，全部歸 LOAM (官方帳號管理後台) 管！</strong>
                     </span>
                     
                     <img src="擷取_2026_03_10_17_02_11_120.png" alt="LINE Developers 修改名稱提示" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：注意畫面上方的那行提示小字，點擊錄色連結即可跳轉至修改頁面</p>
+                    <p class="img-caption">圖20：注意畫面上方的那行提示小字，點擊錄色連結即可跳轉至修改頁面</p>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>👉 正確修改步驟：</strong><br>
@@ -785,11 +802,11 @@ requests</code></pre>
                 <div class="student-tip border-yellow-300 bg-yellow-50 mb-6">
                     <strong class="text-yellow-900 text-lg">🤔 為什麼機器人不看我上傳的 PDF 講義，反而自己亂找網路資料？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        有同學上傳了專屬的門診規定 PDF，但在 LINE 詢問「門診時間」時，機器人卻回答了網路上查到的一般資訊，完全沒有參考知識庫的內容。
+                        有開發者上傳了專屬的門診規定 PDF，但在 LINE 詢問「門診時間」時，機器人卻回答了網路上查到的一般資訊，完全沒有參考知識庫的內容 <strong>(如 圖21 所示)</strong>。
                     </span>
                     
                     <img src="擷取_2026_03_10_17_32_54_937.jpg" alt="Agent 忽略知識庫優先上網搜尋" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：因為提示詞中設定了「網路搜尋優先」，導致機器人找到網路答案就不理會 PDF 知識庫了</p>
+                    <p class="img-caption">圖21：因為提示詞中設定了「網路搜尋優先」，導致機器人找到網路答案就不理會 PDF 知識庫了</p>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>💡 原理解析 (提示詞的邏輯陷阱)：</strong><br>
@@ -806,10 +823,10 @@ requests</code></pre>
 - 絕對不可違反此語言跟隨規則。
 
 【人設與核心任務】
-你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
-1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
+你是一位親切且專業的企業助理。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
+1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫資料來回答。
 2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊. 若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
-3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助教目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
+3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助理目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
                     <span class="text-gray-700 mt-2 block">
                         <em>⚠️ 注意：修改完提示詞後，<strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的優先順序才會套用到 LINE 機器人身上喔！</em>
                     </span>
@@ -849,13 +866,13 @@ requests</code></pre>
                 <div class="student-tip border-teal-300 bg-teal-50 mb-6">
                     <strong class="text-teal-900 text-lg">🤔 靈異現象：為什麼在 Dify 測試能完美回答（如越南文），但 LINE 卻回覆「未產生文字回應」？或者連中文都不回答了？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        有同學測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>。甚至換了萬國版提示詞後，連中文都不回答了！（如下圖）。
+                        有開發者測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>。甚至換了萬國版提示詞後，連中文都不回答了！（如 圖22 與 圖23 所示）。
                     </span>
                     
                     <img src="擷取_2026_03_10_17_45_00_168.jpg" alt="Dify 測試成功但 LINE 失敗" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：Dify 網頁預覽(右)測試越南文成功，但 LINE(中) 卻抓不到文字</p>
+                    <p class="img-caption">圖22：Dify 網頁預覽(右)測試越南文成功，但 LINE(中) 卻抓不到文字</p>
                     <img src="擷取_2026_03_10_17_58_09_533.jpg" alt="換了萬國提示詞後全部不回答" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：換了強制語言提示詞後，因為缺乏「退路設定」，導致 AI 怕犯錯而全面罷工</p>
+                    <p class="img-caption">圖23：換了強制語言提示詞後，因為缺乏「退路設定」，導致 AI 怕犯錯而全面罷工</p>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>💡 原理解析 (這包含了三個最常見的超級陷阱)：</strong><br>
@@ -873,7 +890,7 @@ requests</code></pre>
                         請將提示詞改為以下結構，並給予一個「預設語言（中文）」。修改完 <strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>！
                     </span>
 <pre><code class="language-text">【核心身分】
-你是一位親切且專業的友善醫療Agent。
+你是一位親切且專業的企業助理。
 
 【語言跟隨原則】
 請你具備多國語言能力。在回答時，請「盡可能」使用與使用者輸入時相同的語言進行回覆。
@@ -883,27 +900,29 @@ requests</code></pre>
 
 【檢索與回答優先順序】
 回答使用者問題時，請嚴格遵循以下順序：
-1. 【優先檢索知識庫】：請務必優先檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料. 
+1. 【優先檢索知識庫】：請務必優先檢索你的「上下文(Context)」中所掛載的知識庫資料. 
 2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定，才允許使用搜尋工具尋找最新資訊. 若有使用，請附上參考網址。
-3. 【誠實作答】：若前兩者都找不到答案，請回答「不好意思，助教目前沒有這方面的資訊喔」，絕對不可自行編造。</code></pre>
+3. 【誠實作答】：若前兩者都找不到答案，請回答「不好意思，助理目前沒有這方面的資訊喔」，絕對不可自行編造。</code></pre>
                 </div>
 
                 <hr class="mt-12">
 
                 <h2>玖、 實戰案例探討：從「大腦發生錯誤」到「成功回覆」的破關全紀錄</h2>
-                <p class="text-gray-700">在系統建置的最後一哩路，許多同學會遇到 LINE 機器人回覆錯誤訊息的狀況. 以下收錄了真實的除錯歷程，幫助您了解如何像偵探一樣找出問題並解決它：</p>
+                <p class="text-gray-700">在系統建置的最後一哩路，許多開發者會遇到 LINE 機器人回覆錯誤訊息的狀況. 以下收錄了真實的除錯歷程，幫助您了解如何像偵探一樣找出問題並解決它：</p>
 
                 <div class="scenario-box border-red-300 bg-red-50">
                     <h3 class="text-red-800 mt-0">💥 階段一：瞎子摸象 —「大腦處理中發生錯誤...」</h3>
-                    <p class="m-0"><strong>現象：</strong> 滿懷期待傳送訊息給機器人，它卻秒回「大腦處理中發生錯誤...」。</p>
+                    <p class="m-0"><strong>現象：</strong> 滿懷期待傳送訊息給機器人，它卻秒回「大腦處理中發生錯誤...」 <strong>(如 圖24 所示)</strong>。</p>
                     <img src="擷取_2026_03_10_13_55_45_746.png" alt="大腦處理中發生錯誤" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖24：大腦處理中發生錯誤</p>
                     <p class="m-0"><strong>偵探解析：</strong> 這句話是我們寫在舊版程式碼裡的「備用防呆訊息」。看到這句話其實是好事，代表 <strong>LINE ➔ Vercel 的通訊是完美暢通的</strong>！問題出在 Vercel 去敲 Dify 大門時被警衛擋下來了。最常見的原因是 <code>DIFY_API_KEY</code> 貼錯（例如多出雙引號 <code>""</code> 或空白鍵）。</p>
                 </div>
 
                 <div class="scenario-box border-orange-300 bg-orange-50">
                     <h3 class="text-orange-800 mt-0">🔍 階段二：X 光機顯影 — 抓出真實的 API 拒絕原因</h3>
-                    <p class="m-0"><strong>現象：</strong> 為了查出真正原因，我們將 <code>main.py</code> 換成「進階除錯版」。再次測試後，機器人吐出了真實的英文錯誤訊息，隨後又變成「Dify 處理完畢，但未產生文字回應」。</p>
+                    <p class="m-0"><strong>現象：</strong> 為了查出真正原因，我們將 <code>main.py</code> 換成「進階除錯版」。再次測試後，機器人吐出了真實的英文錯誤訊息，隨後又變成「Dify 處理完畢，但未產生文字回應」 <strong>(如 圖25 所示)</strong>。</p>
                     <img src="擷取_2026_03_10_14_36_23_6.jpg" alt="Agent 不支援 blocking 模式與未產生文字回應" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖25：Agent 不支援 blocking 模式與未產生文字回應</p>
                     <p class="m-0 mt-2"><strong>偵探解析：</strong> 
                     <br>1. <code>does not support blocking mode</code>：這表示我們已經成功將 Dify 從「聊天流」升級為「智能體 (Agent)」，但 Agent 強制要求使用 <strong>streaming (串流模式)</strong> 來接收資料，而舊程式碼還在用 blocking (阻塞模式). 
                     <br>2. <code>未產生文字回應</code>：將程式碼改用串流模式後，Vercel 成功收到了資料，但因為 Agent 吐出的資料事件名稱叫做 <code>agent_message</code>，而最初的程式碼只會抓取 <code>message</code>，所以文字漏接了執行。</p>
@@ -911,9 +930,10 @@ requests</code></pre>
 
                 <div class="scenario-box border-green-300 bg-green-50">
                     <h3 class="text-green-800 mt-0">🎉 階段三：完美破關 — 換上終極版程式碼！</h3>
-                    <p class="m-0"><strong>最終解決方案：</strong> 只要將 Vercel 的 <code>main.py</code> 替換為講義中最新的<strong>「終極 Agent 支援版」</strong>（開啟了 <code>stream=True</code> 並加入 <code>agent_message</code> 攔截邏輯），Vercel 就能完美接收 Agent 一個字一個字思考並吐出的答案了！</p>
+                    <p class="m-0"><strong>最終解決方案：</strong> 只要將 Vercel 的 <code>main.py</code> 替換為講義中最新的<strong>「終極 Agent 支援版」</strong>（開啟了 <code>stream=True</code> 並加入 <code>agent_message</code> 攔截邏輯），Vercel 就能完美接收 Agent 一個字一個字思考並吐出的答案了！ <strong>(如 圖26 所示)</strong></p>
                     <img src="擷取_2026_03_10_14_39_14_602.jpg" alt="成功回覆畫面" class="tutorial-img mt-4 mb-2">
-                    <p class="mt-4 mb-0 text-green-900 font-bold text-lg text-center">恭喜您！當看到機器人能夠完美回答「你是誰？」並處理您的提問時，代表您的企業級 LINE AI 助教已經正式上線運作了！</p>
+                    <p class="img-caption">圖26：成功回覆畫面</p>
+                    <p class="mt-4 mb-0 text-green-900 font-bold text-lg text-center">恭喜您！當看到機器人能夠完美回答「你是誰？」並處理您的提問時，代表您的企業級 LINE AI 助理已經正式上線運作了！</p>
                 </div>
                 
             </article>
