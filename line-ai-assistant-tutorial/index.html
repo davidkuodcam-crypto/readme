@@ -104,7 +104,7 @@
                 <p>在動手實作前，我們必須先理解這套系統是如何運作的。<strong>（請參考下方的 圖1）</strong>這張架構圖以「使用者（學生）」為起點，清晰地劃分了四個主要區域：</p>
 
                 <!-- 圖1：整體架構圖 -->
-                <img src="架構圖.jpg" alt="整體系統架構圖" class="tutorial-img">
+                <img src="fig01.jpg" alt="整體系統架構圖" class="tutorial-img">
                 <p class="img-caption">圖1：整體系統架構圖</p>
 
                 <h3>1. 系統的四個核心區域</h3>
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- 圖2：Dify RAG 圖 -->
-                <img src="Dify RAG架構圖.jpg" alt="Dify RAG架構圖" class="tutorial-img">
+                <img src="fig02.jpg" alt="Dify RAG架構圖" class="tutorial-img">
                 <p class="img-caption">圖2：Dify RAG 核心架構與向量資料庫運作細節圖</p>
 
                 <hr>
@@ -488,7 +488,7 @@ requests</code></pre>
 
                 <!-- ================= 增修：階段 B 擴充檢索設定 ================= -->
                 <h3>階段 B：上傳知識庫與「檢索策略」設定 (資料能不能被準確抓出的關鍵！)</h3>
-                <p>很多新手以為把 PDF 丟上去就沒事了，其實<strong>「正確設定檢索策略」才是後續 LINE 能不能精準回答的靈魂</strong>！</p>
+                <p>很多新手以為把 PDF 丟上去就事了，其實<strong>「正確設定檢索策略」才是後續 LINE 能不能精準回答的靈魂</strong>！</p>
                 <ol>
                     <li>點擊頂部 <strong>「知識庫 (Knowledge)」</strong> -> 建立知識庫 -> 上傳您的 PDF 講義。</li>
                     <li><strong>【重要】設定索引方式與檢索策略：</strong> 在上傳過程的「分段與清洗」設定中，請務必選擇 <strong>「高品質 (High Quality)」</strong> 索引，讓系統使用我們剛才綁定的 OpenAI 進行文件向量化。</li>
@@ -683,7 +683,7 @@ requests</code></pre>
                 </div>
 
                 <div class="student-tip border-red-300 bg-red-50 mt-6 mb-8">
-                    <strong class="text-red-900 text-lg">🚨 突發狀況救援：部署出現紅色錯誤「Failed to run "uv lock"」與版本升級衝突？</strong><br>
+                    <strong class="text-red-900 text-lg">🚨 突發狀況救援：部署出現紅色錯誤「Failed to run \"uv lock\"」與版本升級衝突？</strong><br>
                     <span class="text-gray-700 mt-2 block">如果您在 Vercel 點擊 Deploy 後，出現 <code>Error: Failed to run "uv lock"</code> 或是關於 Python 版本不相容的錯誤（如下方截圖），這是因為 Vercel 系統近期強制升級了 Python 環境要求，預設改為使用 <code>3.12</code>，與我們先前設定的舊版 <code>3.9</code> 產生了版本衝突。</span>
                     
                     <img src="擷取_2026_03_10_13_36_33_402.png" alt="Vercel 部署錯誤 Failed to run uv lock" class="tutorial-img mt-4 mb-2">
@@ -834,19 +834,19 @@ requests</code></pre>
                         <strong>👉 請看機器人回覆的英文錯誤，對症下藥：</strong><br>
                         <ul class="list-disc pl-5 mt-2 space-y-3">
                             <li>
-                                <strong>看到 "Invalid API key" 或 "401 Unauthorized"：</strong> <br>
+                                <strong>看到 \"Invalid API key\" 或 \"401 Unauthorized\"：</strong> <br>
                                 代表 Vercel 裡面的 <code>DIFY_API_KEY</code> 貼錯了！請回到 Vercel 檢查有沒有多出雙引號 <code>""</code> 或結尾的空白鍵。修改後務必點擊 <strong>Redeploy</strong>！
                             </li>
                             <li>
-                                <strong>看到 "Provider not initialized" 或 "Model not available"：</strong> <br>
+                                <strong>看到 \"Provider not initialized\" 或 \"Model not available\"：</strong> <br>
                                 這是最常見的！代表 Dify 內部的「模型 (如 Gemini / OpenAI)」沒有設定好或金鑰失效。請登入 Dify 點擊右上角大頭貼 ->「模型供應商」，重新檢查您的 Gemini API Key 是否正確亮起綠燈。
                             </li>
                             <li>
-                                <strong>看到 "Agent Chat App does not support blocking mode"：</strong> <br>
+                                <strong>看到 \"Agent Chat App does not support blocking mode\"：</strong> <br>
                                 代表您已經從「聊天流」升級為「智能體 (Agent)」，但 Vercel 上的 Python 程式碼還是舊版的！請回到講義「步驟三」，複製 <strong>最新支援 Streaming 串流模式</strong> 的 <code>main.py</code> 程式碼，貼到 GitHub 並重新部署即可解決。
                             </li>
                             <li>
-                                <strong>看到 "Dify 處理完畢，但未產生文字回應"：</strong> <br>
+                                <strong>看到 \"Dify 處理完畢，但未產生文字回應\"：</strong> <br>
                                 代表 Vercel 有收到 Dify 的串流資料，但沒有成功攔截到對話內容。請確認您使用的是講義中最新的 <code>main.py</code> 程式碼 (已加入對 <code>agent_message</code> 事件的支援)。
                             </li>
                         </ul>
