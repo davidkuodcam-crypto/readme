@@ -214,11 +214,9 @@
                     <li>畫面上會產生一串以 <code>AIza</code> 開頭的代碼，<strong>請複製這串金鑰，並一樣存放到您的電腦記事本裡備用！</strong></li>
                 </ol>
 
-                <!-- 圖4：預留位 -->
-                <div class="image-placeholder">
-                    📸 圖4：Google AI Studio 取得 API Key 畫面
-                    <span>(建議在此放上 Google AI Studio 點擊 Create API key 產生 AIza 金鑰的截圖)</span>
-                </div>
+                <!-- 圖4：取得 API Key -->
+                <img src="fig04.png" alt="Google AI Studio 取得 API Key 畫面" class="tutorial-img">
+                <p class="img-caption">圖4：Google AI Studio 取得 API Key 畫面</p>
 
                 <hr>
 
@@ -564,7 +562,7 @@ requests</code></pre>
                     
                     <div class="anti-hallucination-box">
                         <strong class="text-green-800">🎯 降低幻覺設定 ②：調低大腦溫度</strong><br>
-                        點擊右上角模型選擇下方的 <strong>「參數設定 (Parameters 按鈕)」</strong>。在滑出的選單中找到 <strong>「溫度 (Temperature)」</strong> 的拉桿，將它往左拉，設定為 <code>0.1</code>。溫度越低，回答越保守嚴謹！
+                        點擊右上角模型選擇下方 <strong>「參數設定 (Parameters 按鈕)」</strong>。在滑出的選單中找到 <strong>「溫度 (Temperature)」</strong> 的拉桿，將它往左拉，設定為 <code>0.1</code>。溫度越低，回答越保守嚴謹！
                     </div>
 
                     <div class="anti-hallucination-box">
@@ -773,7 +771,7 @@ requests</code></pre>
                     </span>
                     
                     <img src="擷取_2026_03_10_17_02_11_120.png" alt="LINE Developers 修改名稱提示" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：注意畫面上方的那行提示小字，點擊綠色連結即可跳轉至修改頁面</p>
+                    <p class="img-caption">圖解：注意畫面上方的那行提示小字，點擊錄色連結即可跳轉至修改頁面</p>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>👉 正確修改步驟：</strong><br>
@@ -821,16 +819,16 @@ requests</code></pre>
                     </span>
                 </div>
 
-                <div class="student-tip border-red-300 bg-red-50 mb-6">
-                    <strong class="text-red-900 text-lg">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
-                    <span class="text-gray-700 mt-2 block">
+                <div class=\"student-tip border-red-300 bg-red-50 mb-6\">
+                    <strong class=\"text-red-900 text-lg\">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
+                    <span class=\"text-gray-700 mt-2 block\">
                         如果您在 LINE 上發言，機器人回覆了這段帶有警告符號的文字，請先<strong>不要慌張，這其實是好消息！</strong><br>
                         這代表您的 <strong>LINE ➔ Vercel 的連線是 100% 完美的</strong>，而且我們最新升級的程式碼成功像 X 光機一樣，把 Dify 拒絕回答的「真實原因」給照出來了！
                     </span>
                     
-                    <span class="text-gray-700 mt-2 block">
+                    <span class=\"text-gray-700 mt-2 block\">
                         <strong>👉 請看機器人回覆的英文錯誤，對症下藥：</strong><br>
-                        <ul class="list-disc pl-5 mt-2 space-y-3">
+                        <ul class=\"list-disc pl-5 mt-2 space-y-3\">
                             <li>
                                 <strong>看到 \"Invalid API key\" 或 \"401 Unauthorized\"：</strong> <br>
                                 代表 Vercel 裡面的 <code>DIFY_API_KEY</code> 貼錯了！請回到 Vercel 檢查有沒有多出雙引號 <code>""</code> 或結尾的空白鍵。修改後務必點擊 <strong>Redeploy</strong>！
