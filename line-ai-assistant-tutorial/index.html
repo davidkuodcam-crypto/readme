@@ -758,6 +758,30 @@ requests</code></pre>
                 <hr class="mt-12">
                 
                 <h2>捌、 常見問題與除錯指南 (Troubleshooting)</h2>
+                
+                <!-- 新增改名字的 Troubleshooting -->
+                <div class="student-tip border-blue-300 bg-blue-50 mb-6">
+                    <strong class="text-blue-900 text-lg">🤔 常見問題：發現機器人名字打錯了，要如何修改 Channel Name？</strong><br>
+                    <span class="text-gray-700 mt-2 block">
+                        很多同學在 <strong>LINE Developers Console (LDC)</strong> 的 Basic settings 頁面中，會發現 <code>Channel name</code> 是反灰或無法直接編輯的狀態（如下圖）。<br>
+                        請回想一下我們在講義前面提過的「LDC 與 LOAM 分工圖」：LDC 只管技術，<strong>「帳號名稱、頭像」等外觀營運設定，全部歸 LOAM (官方帳號管理後台) 管！</strong>
+                    </span>
+                    
+                    <img src="擷取_2026_03_10_17_02_11_120.png" alt="LINE Developers 修改名稱提示" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖解：注意畫面上方的那行提示小字，點擊綠色連結即可跳轉至修改頁面</p>
+
+                    <span class="text-gray-700 mt-2 block">
+                        <strong>👉 正確修改步驟：</strong><br>
+                        <ol class="list-decimal pl-5 mt-2 space-y-2">
+                            <li>請仔細看您畫面上方有一行字：<code>You can change your app name and icon in <strong>LINE Official Account Manager</strong></code>。</li>
+                            <li>點擊那串綠色的 <strong>LINE Official Account Manager</strong> 連結，系統會自動幫您跳轉到該帳號的營運後台。</li>
+                            <li>在跳轉後的 LOAM 後台中，點選右上角的「設定 (Settings)」 ➔ 「帳號設定 (Account settings)」。</li>
+                            <li>在「基本設定 (Basic settings)」區塊中，找到「帳號名稱 (Account name)」進行修改並儲存即可！</li>
+                            <li><em>注意：LINE 官方規定，帳號名稱修改後，通常需要等待 7 天才能再次修改，請謹慎輸入喔！</em></li>
+                        </ol>
+                    </span>
+                </div>
+
                 <div class="student-tip border-red-300 bg-red-50 mb-6">
                     <strong class="text-red-900 text-lg">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
                     <span class="text-gray-700 mt-2 block">
@@ -785,6 +809,40 @@ requests</code></pre>
                                 代表 Vercel 有收到 Dify 的串流資料，但沒有成功攔截到對話內容。請確認您使用的是講義中最新的 <code>main.py</code> 程式碼 (已加入對 <code>agent_message</code> 事件的支援)。
                             </li>
                         </ul>
+                    </span>
+                </div>
+
+                <!-- 新增提示詞失靈的 Troubleshooting -->
+                <div class="student-tip border-purple-300 bg-purple-50 mb-6">
+                    <strong class="text-purple-900 text-lg">🤔 提示詞失靈？為什麼規定它「用英文回答」，它還是回中文？</strong><br>
+                    <span class="text-gray-700 mt-2 block">
+                        有同學在 Dify 的提示詞 (Instructions) 中加入了：<code>使用者用甚麼語言問，你就以該語言回答</code>。但當使用者在 LINE 詢問 <strong>"who are you"</strong> 時，AI 還是固執地回覆 <strong>"你好！我是一位友善的醫療Agent..."</strong>（如下圖）。
+                    </span>
+                    
+                    <img src="擷取_2026_03_10_17_03_37_728.jpg" alt="提示詞語言設定失靈現象" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖解：提示詞已寫明語言規則，但 AI 的自我介紹依然被「中文人設」強制錨定</p>
+
+                    <span class="text-gray-700 mt-2 block">
+                        <strong>💡 原理解析 (人設錨定效應)：</strong><br>
+                        因為您的提示詞通篇都是用中文撰寫（包含了它的人設與規則），大語言模型已經深深「錨定」自己是一個中文助手。當被問到 "who are you" 時，它會優先提取提示詞中的中文人設來回答，從而忽略了寫在最下方、語氣較弱的語言轉換規則。<br><br>
+                        <strong>👉 完美解法 (提示詞結構升級)：</strong><br>
+                        面對這種情況，我們必須把語言規則拉到<strong>「最前面」</strong>，並給予<strong>「最高強制性」</strong>的標籤。請將您的 Dify 提示詞替換為以下結構：
+                    </span>
+                    
+<pre><code class="language-text">【最高強制規則：語言跟隨】
+你必須嚴格偵測使用者的輸入語言，並「完全使用該語言」進行回覆。
+- 如果使用者輸入英文 (例如: who are you, hello)，你必須 100% 用英文回覆 (例如: I am a friendly medical agent...)。
+- 如果使用者輸入中文，你才用中文回覆。
+- 絕對不可違反此語言規則。
+
+【人設與核心任務】
+你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下優先順序進行檢索與回答：
+1. 【網路最新資訊】：請優先使用搜尋工具查找網路上的最新資訊。如果找到且相關，若要提供網址，請務必使用 [網頁標題](網址) 的 Markdown 格式回覆。
+2. 【知識庫資料】：如果網路上無相關資訊，請務必檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
+3. 【LLM 內建知識】：若前兩者都無法找到答案，才使用你自己的內建知識回答。若完全不知情，請回答「助教目前沒有這方面的資訊喔」。
+請保持語氣友善，並且絕對不可自行編造不存在的規定。</code></pre>
+                    <span class="text-gray-700 mt-2 block">
+                        <em>⚠️ 注意：修改完提示詞後，<strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的大腦規則才會套用到 LINE 機器人身上喔！</em>
                     </span>
                 </div>
 
