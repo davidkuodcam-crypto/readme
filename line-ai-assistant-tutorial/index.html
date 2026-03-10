@@ -163,7 +163,7 @@
                 <div class="bg-white border border-gray-200 shadow-sm p-6 rounded-lg my-6">
                     <h4 class="text-pink-600 mt-0 border-b pb-2">在這套架構中，LLM 模型主要負責以下三個無可取代的「大腦運算」功能：</h4>
                     <ul class="list-none pl-0">
-                        <li class="mb-4"><strong>① 聽懂「人類的不完美語言」 (語意理解)：</strong><br>使用者傳來的訊息常有錯字或簡寫（如「期末pjt要教啥？」）。沒有 LLM 的機器人會當機，但 LLM 能瞬間理解「pjt = project = 報告」，推斷出使用者想問繳交規定。</li>
+                        <li class="mb-4"><strong>① 聽懂「人類的不完美語言」 (語意理解)：</strong><br>使用者傳來的訊息常有錯字或簡寫（如「專案pjt要交啥？」）。沒有 LLM 的機器人會當機，但 LLM 能瞬間理解「pjt = project = 專案」，推斷出使用者想問繳交規定。</li>
                         <li class="mb-4"><strong>② 扮演「專屬助理」 (人設與語氣生成)：</strong><br>真正把您設定的提示詞「演出來」的是 LLM 模型. 它會決定以「專業、有耐心的企業助理」人設與溫和語氣來回答。</li>
                         <li class="mb-0"><strong>③ 將生硬的「參考書內容」轉化為「溫暖的對話」 (RAG 的靈魂結合)：</strong><br>當知識庫翻出生硬的條文（如「遲交一天扣10%」）時，LLM 會重新消化，寫出帶有溫度的人話（如「您好！...請務必把握時間準備！」）。</li>
                     </ul>
@@ -278,10 +278,8 @@
                 </ol>
 
                 <!-- 圖6：LINE Developer 後台取得金鑰畫面 -->
-                <div class="image-placeholder">
-                    📸 圖6：LINE Developer 後台取得金鑰畫面
-                    <span>(建議在此放上：1. Basic settings 中的 Channel secret 位置、2. Messaging API 中的 Channel access token 發行與複製位置)</span>
-                </div>
+                <img src="fig05.png" alt="LINE Developer 後台取得金鑰畫面" class="tutorial-img">
+                <p class="img-caption">圖6：LINE Developer 後台取得金鑰與 Token 畫面</p>
 
                 <hr>
 
@@ -289,9 +287,8 @@
                 
                 <div class="advanced-tech-box">
                     <strong class="text-fuchsia-800">🚀 進階技術升級：隱藏長網址，讓 LINE 顯示「精美點擊按鈕」！</strong><br>
-                    <p class="text-gray-700 m-0 mt-2">LINE 官方的純文字訊息其實<strong>不支援</strong>類似 <code>[文字](網址)</code> 這樣的 Markdown 超連結語法. 如果直接傳送，使用者會看到一長串醜陋的網址。<br>
-                    為了解決這個痛點，我們在下方的 <code>main.py</code> 程式碼中加入了<strong>正則表達式 (Regex) 與 Flex Message (動態卡片) 轉換技術</strong>！只要 Dify 產生了超連結，我們的中轉站就會自動把它轉成漂亮的「點擊按鈕」，讓使用者的體驗大幅提升！<br>
-                    <br><span class="text-indigo-700 mt-2 block"><strong>🎯 補充說明 (呈現效果)：</strong> 當 LINE 交談時，若 Dify 產生了包含網址的回答，程式會自動將密密麻麻的網址從純文字訊息中<strong>徹底移除</strong>。使用者畫面上只會出現乾淨的文字，以及下方的超連結按鈕，按鈕上則會直接顯示代表性的標題文字，而不會再露出雜亂的網址。</span></p>
+                    <p class="text-gray-700 m-0 mt-2">LINE 官方的純文字訊息其實<strong>不支援</strong>類似 <code>[文字](網址)</code> 這樣的 Markdown 超連結語法. 如果直接傳送，使用者會看到一長串密密麻麻的醜陋網址。<br>
+                    為了解決這個痛點，我們在下方的 <code>main.py</code> 程式碼中加入了<strong>正則表達式 (Regex) 與 Flex Message (動態卡片) 轉換技術</strong>！只要 Dify 產生了超連結，我們的中轉站就會自動將密密麻麻的網址從純文字訊息中<strong>徹底移除</strong>，只保留乾淨的代表性標題文字，並在下方自動生成漂亮的「超連結點擊按鈕」，讓使用者的體驗大幅提升！</p>
                 </div>
 
                 <p>請在 GitHub 建立名為 <code>line-dify-FriendlyHealthcareGuidelines</code> 的專案，並建立以下 4 個檔案：</p>
@@ -391,8 +388,8 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
             links = re.findall(r'\[([^\]]+)\]\((https?://[^\)]+)\)', answer)
             
             if links:
-                # 將原文中的 Markdown 網址格式移除，保留純文字，並加入提示
-                clean_text = re.sub(r'\[([^\]]+)\]\((https?://[^\)]+)\)', r'\1 (請點擊下方按鈕)', answer)
+                # 將原文中的 Markdown 網址格式移除，只保留純文字標題，避免畫面充斥密密麻麻的網址
+                clean_text = re.sub(r'\[([^\]]+)\]\((https?://[^\)]+)\)', r'【\1】 (請點擊下方按鈕)', answer)
                 
                 # 製作 Flex Message 按鈕陣列 (LINE 限制不能太多，此處取前 4 個連結)
                 buttons = []
@@ -403,7 +400,7 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
                         "margin": "sm",
                         "action": {
                             "type": "uri",
-                            "label": title[:20], # LINE 規定按鈕文字最多 20 字
+                            "label": title[:20], # LINE 規定按鈕文字最多 20 字，作為代表性文字
                             "uri": url
                         }
                     })
@@ -411,7 +408,7 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
                 # 組裝完整的 Flex Message 卡片
                 messages = [{
                     "type": "flex",
-                    "altText": "助教傳送了一個連結給您",
+                    "altText": "助理傳送了一個連結給您",
                     "contents": {
                         "type": "bubble",
                         "body": {
@@ -489,17 +486,15 @@ requests</code></pre>
                 </ol>
 
                 <!-- 圖9：Dify 模型供應商綁定畫面 -->
-                <div class="image-placeholder">
-                    📸 圖9：Dify 模型供應商綁定畫面
-                    <span>(建議在此放上 OpenAI 與 Google 綁定成功後，以及「系統模型設定」的畫面截圖)</span>
-                </div>
+                <img src="fig08.png" alt="Dify 模型供應商綁定畫面" class="tutorial-img">
+                <p class="img-caption">圖9：Dify 模型供應商綁定操作圖</p>
 
                 <!-- ================= 增修：階段 B 擴充檢索設定 ================= -->
                 <h3>階段 B：上傳知識庫與「檢索策略」設定 (資料能不能被準確抓出的關鍵！)</h3>
                 <p>許多新手以為把 PDF 丟上去就事了，其實<strong>「正確設定檢索策略」才是後續 LINE 能不能精準回答的靈魂</strong>！</p>
                 <ol>
                     <li>點擊頂部 <strong>「知識庫 (Knowledge)」</strong> -> 建立知識庫 -> 上傳您的文件。<br>
-                    <span class="text-gray-600 text-sm mt-1 block">💡 <strong>補充說明：</strong> Dify 知識庫不僅支援 PDF，還全面支援包含 <strong>TXT, Markdown, MD, HTML, DOCX, CSV, XLSX</strong> 等多種常見檔案格式，請依需求彈性上傳。</span></li>
+                    <span class="text-gray-700 mt-2 block">💡 <strong>補充說明：</strong> Dify 知識庫不僅支援 PDF，還全面支援包含 <strong>TXT, Markdown, MD, HTML, DOCX, CSV, XLSX</strong> 等多種常見檔案格式，請依需求彈性上傳。</span></li>
                     <li><strong>【重要】設定索引方式與檢索策略：</strong> 在上傳過程的「分段與清洗」設定中，請務必選擇 <strong>「高品質 (High Quality)」</strong> 索引，讓系統使用我們剛才綁定的 OpenAI 進行文件向量化。</li>
                     <li><strong>設定檢索模式 (Retrieval Setting)：</strong> 建議選擇 <strong>「向量檢索 (Vector Search)」</strong> 或效果更好的 <strong>「混合檢索 (Hybrid Search)」</strong>，這決定了 AI 在茫茫字海中找尋答案的方式。</li>
                     <li>等待進度條跑完，文件狀態變成綠色「可用」即完成上傳。</li>
@@ -544,7 +539,7 @@ requests</code></pre>
                         <!-- 增修：API Key / 工具選擇秘訣 -->
                         <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2 rounded">
                             <strong class="text-blue-800">💡 工具選擇秘訣 (SerpApi vs DuckDuckGo)：</strong><br>
-                            <span class="text-gray-700 text-sm">如果您選擇 <code>Google Search</code>，系統會要求您填寫 <strong>SerpApi API key</strong> (需自行前往 serpapi.com 免費註冊取得，並在授權配置中貼上，每月限額 100 次).<br>若不想處理金鑰或是怕額度爆掉，強烈建議改用 <strong><code>DuckDuckGo</code></strong>！它完全免費且免金鑰，對於助理找資料已經非常足夠！</span>
+                            <span class="text-gray-700 mt-2 block">如果您選擇 <code>Google Search</code>，系統會要求您填寫 <strong>SerpApi API key</strong> (需自行前往 serpapi.com 免費註冊取得，並在授權配置中貼上，每月限額 100 次)。<br>若不想處理金鑰或是怕額度爆掉，強烈建議改用 <strong><code>DuckDuckGo</code></strong>！它完全免費且免金鑰，對於助理找資料已經非常足夠！</span>
                         </div>
                     </li>
                     
@@ -552,7 +547,7 @@ requests</code></pre>
                     <li><strong>掛載大腦 (把上下文當作檢索節點)：</strong> 在 <strong>「上下文 (Context)」</strong> 區塊，點擊 <strong>「+ 新增」</strong>，勾選您剛才上傳的知識庫！<strong>（完成這步，就等同於接上了檢索節點）</strong></li>
                     
                     <div class="anti-hallucination-box">
-                        <strong class="text-green-800">🎯 降低幻覺設定 ①：調整檢索策略與召回測試</strong><br>
+                        <strong class="text-green-800">🎯 降低幻覺設定 ①：調整檢索策略與召回測試 (操作見 圖10)</strong><br>
                         游標移到剛加入的知識庫上，點擊旁邊出現的 <strong>「設定 (⚙️齒輪圖示)」</strong>。將 <strong>「相似度閾值 (Score Threshold)」</strong> 開啟，並設定為 <code>0.5</code> 或更高. 這樣可以過濾掉不相關的低分段落！設定完畢後，強烈建議點擊原知識庫頁面中的「召回測試 (Retrieval Testing)」，輸入幾個測試問題，看看系統有沒有成功把文件內的段落抓出來。
                     </div>
 
