@@ -153,7 +153,7 @@
                     <h4 class="text-pink-600 mt-0 border-b pb-2">在這套架構中，LLM 模型主要負責以下三個無可取代的「大腦運算」功能：</h4>
                     <ul class="list-none pl-0">
                         <li class="mb-4"><strong>① 聽懂「人類的不完美語言」 (語意理解)：</strong><br>學生傳來的訊息常有錯字或簡寫（如「期末pjt要教啥？」）。沒有 LLM 的機器人會當機，但 LLM 能瞬間理解「pjt = project = 報告」，推斷出學生想問繳交規定。</li>
-                        <li class="mb-4"><strong>② 扮演「專屬助教」 (人設與語氣生成)：</strong><br>真正把您設定的提示詞「演出來」的是 LLM 模型。它會決定以「專業、有耐心的資訊科技助教」人設與溫和語氣來回答。</li>
+                        <li class="mb-4"><strong>② 扮演「專屬助教」 (人設與語氣生成)：</strong><br>真正把您設定的提示詞「演出來」的是 LLM 模型. 它會決定以「專業、有耐心的資訊科技助教」人設與溫和語氣來回答。</li>
                         <li class="mb-0"><strong>③ 將生硬的「參考書內容」轉化為「溫暖的對話」 (RAG 的靈魂結合)：</strong><br>當知識庫翻出生硬的條文（如「遲交一天扣10%」）時，LLM 會重新消化，寫出帶有溫度的人話（如「同學你好！...請務必把握時間準備！」）。</li>
                     </ul>
                 </div>
@@ -229,7 +229,7 @@
                     </h3>
                     <p class="text-gray-700 m-0 mb-4">建立 LINE 官方帳號的 Messaging API channel 是一個需要在開發者平台 (LDC) 與管理後台 (LOAM) 之間反覆跳轉的過程。為了解決開發者與營運者常遇到的混亂，以下為您整理的詳細說明與流程圖，將整個流程拆解為四個主要步驟，幫助您理解為什麼會出現反覆跳轉的情況：</p>
 
-                    <img src="Line建立Messaging API Channel的過程.jpg" alt="解碼 LINE Messaging API Channel 建立流程與 LDC / LOAM 關係" class="tutorial-img mt-4 mb-2">
+                    <img src="fig04.5.jpg" alt="解碼 LINE Messaging API Channel 建立流程與 LDC / LOAM 關係" class="tutorial-img mt-4 mb-2">
                     <p class="img-caption">圖解：LINE Messaging API Channel 建立流程與 LDC / LOAM 關係</p>
 
                     <h4 class="text-indigo-700 mt-6 mb-2">1. 流程核心概念：分工與連結</h4>
@@ -673,7 +673,7 @@ requests</code></pre>
 
                     <span class="text-gray-700 mt-2 block">
                         <strong>👉 解答：恭喜您，這代表部署「完全成功」！</strong><br>
-                        因為我們的 Python 程式碼 (FastAPI) 為了安全，只有設定接收 <strong>「POST」</strong> 請求的 <code>/webhook</code> 專屬通道。瀏覽器直接點開網址是一種找尋首頁的「GET」請求，而且沒有加上路徑，所以系統理所當然會回報「找不到頁面 (Not Found)」。<br>
+                        因為我們的 Python 程式碼 (FastAPI) 為了安全，只有設定接收 <strong>「POST」</strong> 請求的 <code>/webhook</code> 專屬通道. 瀏覽器直接點開網址是一種找尋首頁的「GET」請求，而且沒有加上路徑，所以系統理所當然會回報「找不到頁面 (Not Found)」。<br>
                         這代表您的雲端伺服器非常健康且防護正常！請安心進入下一個步驟，將這串網址加上 <code>/webhook</code> 貼到 LINE 後台，LINE 就能正確跟它溝通了。
                     </span>
                 </div>
@@ -702,7 +702,7 @@ requests</code></pre>
                 <h2>柒、 實作步驟六：LINE 最終串接與後台設定</h2>
                 
                 <div class="warning-box">
-                    <strong>⚠️ Webhook 網址結尾漏字：</strong> Vercel 給的網址只是大門，您必須加上 <code>/webhook</code> 才能導向程式！
+                    <strong>⚠️ Webhook 網址結尾漏字：</strong> Vercel 給的網址呈現大門，您必須加上 <code>/webhook</code> 才能導向程式！
                 </div>
 
                 <ol>
@@ -766,7 +766,7 @@ requests</code></pre>
                 <div class="student-tip border-blue-300 bg-blue-50 mb-6">
                     <strong class="text-blue-900 text-lg">🤔 常見問題：發現機器人名字打錯了，要如何修改 Channel Name？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        很多同學在 <strong>LINE Developers Console (LDC)</strong> 的 Basic settings 頁面中，會發現 <code>Channel name</code> 是反灰或無法直接編輯的狀態（如下圖）。<br>
+                        許多同學在 <strong>LINE Developers Console (LDC)</strong> 的 Basic settings 頁面中，會發現 <code>Channel name</code> 是反灰或無法直接編輯的狀態（如下圖）。<br>
                         請回想一下我們在講義前面提過的「LDC 與 LOAM 分工圖」：LDC 只管技術，<strong>「帳號名稱、頭像」等外觀營運設定，全部歸 LOAM (官方帳號管理後台) 管！</strong>
                     </span>
                     
@@ -819,16 +819,16 @@ requests</code></pre>
                     </span>
                 </div>
 
-                <div class=\"student-tip border-red-300 bg-red-50 mb-6\">
-                    <strong class=\"text-red-900 text-lg\">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
-                    <span class=\"text-gray-700 mt-2 block\">
+                <div class="student-tip border-red-300 bg-red-50 mb-6">
+                    <strong class="text-red-900 text-lg">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
+                    <span class="text-gray-700 mt-2 block">
                         如果您在 LINE 上發言，機器人回覆了這段帶有警告符號的文字，請先<strong>不要慌張，這其實是好消息！</strong><br>
                         這代表您的 <strong>LINE ➔ Vercel 的連線是 100% 完美的</strong>，而且我們最新升級的程式碼成功像 X 光機一樣，把 Dify 拒絕回答的「真實原因」給照出來了！
                     </span>
                     
-                    <span class=\"text-gray-700 mt-2 block\">
+                    <span class="text-gray-700 mt-2 block">
                         <strong>👉 請看機器人回覆的英文錯誤，對症下藥：</strong><br>
-                        <ul class=\"list-disc pl-5 mt-2 space-y-3\">
+                        <ul class="list-disc pl-5 mt-2 space-y-3">
                             <li>
                                 <strong>看到 \"Invalid API key\" 或 \"401 Unauthorized\"：</strong> <br>
                                 代表 Vercel 裡面的 <code>DIFY_API_KEY</code> 貼錯了！請回到 Vercel 檢查有沒有多出雙引號 <code>""</code> 或結尾的空白鍵。修改後務必點擊 <strong>Redeploy</strong>！
