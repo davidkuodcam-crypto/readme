@@ -548,11 +548,18 @@ requests</code></pre>
                     </div>
 
                     <li><strong>設定人設與優先序 (提示詞核心)：</strong> 這是讓 Agent 乖乖聽話去翻找知識庫的關鍵！在上方的 <strong>「提示詞 (Instructions)」</strong> 區塊，請完整複製貼上以下設定。這段提示詞不僅賦予它靈魂，更<strong>強制規定了它的檢索行為</strong>：
-<pre><code class="language-text">你是一位嚴格且專業的教學助教。回答學生問題時，請嚴格遵循以下優先順序進行檢索與回答：
-1. 【網路最新資訊】：請優先使用搜尋工具(如 DuckDuckGo) 查找網路上的最新資訊。如果找到且相關，若要提供網址，請務必使用 [網頁標題](網址) 的 Markdown 格式回覆。
-2. 【知識庫資料】：如果網路上無相關資訊，請務必檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
-3. 【LLM 內建知識】：若前兩者都無法找到答案，才使用你自己的內建知識回答。若完全不知情，請回答「助教目前沒有這方面的資訊喔」。
-請保持語氣友善，並且絕對不可自行編造不存在的規定。</code></pre>
+<pre><code class="language-text">【最高強制規則：萬用語言跟隨】
+請你具備多國語言能力，並自動偵測使用者的輸入語言，接著「100% 使用該語言」進行回覆。
+- 使用者輸入中文，就用中文回覆。
+- 使用者輸入英文，就用英文回覆。
+- 使用者輸入越南文、印尼文或其他任何語言，就嚴格使用該語言回覆。
+- 絕對不可違反此語言跟隨規則。
+
+【人設與核心任務】
+你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
+1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
+2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊。若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
+3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助教目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
                     </li>
                     
                     <li><strong>確認模型：</strong> 右上角確認選擇的是 <code>Gemini</code> 模型 (<code>gemini-2.5-flash</code>)。</li>
@@ -782,6 +789,40 @@ requests</code></pre>
                     </span>
                 </div>
 
+                <!-- 新增不看PDF的 Troubleshooting -->
+                <div class="student-tip border-yellow-300 bg-yellow-50 mb-6">
+                    <strong class="text-yellow-900 text-lg">🤔 為什麼機器人不看我上傳的 PDF 講義，反而自己亂找網路資料？</strong><br>
+                    <span class="text-gray-700 mt-2 block">
+                        有同學上傳了專屬的門診規定 PDF，但在 LINE 詢問「門診時間」時，機器人卻回答了網路上查到的一般資訊，完全沒有參考知識庫的內容。
+                    </span>
+                    
+                    <img src="擷取_2026_03_10_17_32_54_937.jpg" alt="Agent 忽略知識庫優先上網搜尋" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖解：因為提示詞中設定了「網路搜尋優先」，導致機器人找到網路答案就不理會 PDF 知識庫了</p>
+
+                    <span class="text-gray-700 mt-2 block">
+                        <strong>💡 原理解析 (提示詞的邏輯陷阱)：</strong><br>
+                        大語言模型是非常聽話的。在舊版的提示詞中，我們寫了：「1. 優先使用搜尋工具... 2. 如果網路上無相關資訊，請檢索上下文...」。當您問一個常見問題（如門診時間）時，機器人立刻就在 Google 上找到了答案，既然符合「找到資料」的條件，它自然就不會走到第二步去翻閱您的 PDF 了！這也是「提示詞工程」最核心的邏輯問題。<br><br>
+                        <strong>👉 完美解法 (對調提示詞優先順序)：</strong><br>
+                        如果您希望機器人「凡事以您的 PDF 為主，查不到才准上網」，請將提示詞的順序對調，換成以下這段具有「最高強制性」與「正確邏輯順序」的指令：
+                    </span>
+                    
+<pre><code class="language-text">【最高強制規則：萬用語言跟隨】
+請你具備多國語言能力，並自動偵測使用者的輸入語言，接著「100% 使用該語言」進行回覆。
+- 使用者輸入中文，就用中文回覆。
+- 使用者輸入英文，就用英文回覆。
+- 使用者輸入越南文、印尼文或其他任何語言，就嚴格使用該語言回覆。
+- 絕對不可違反此語言跟隨規則。
+
+【人設與核心任務】
+你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
+1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
+2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊。若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
+3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助教目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
+                    <span class="text-gray-700 mt-2 block">
+                        <em>⚠️ 注意：修改完提示詞後，<strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的優先順序才會套用到 LINE 機器人身上喔！</em>
+                    </span>
+                </div>
+
                 <div class="student-tip border-red-300 bg-red-50 mb-6">
                     <strong class="text-red-900 text-lg">🚨 災情回報：機器人回覆「⚠️ Dify 大腦回報錯誤：...」</strong><br>
                     <span class="text-gray-700 mt-2 block">
@@ -812,37 +853,27 @@ requests</code></pre>
                     </span>
                 </div>
 
-                <!-- 新增提示詞失靈的 Troubleshooting -->
-                <div class="student-tip border-purple-300 bg-purple-50 mb-6">
-                    <strong class="text-purple-900 text-lg">🤔 提示詞失靈？為什麼規定它「用英文回答」，它還是回中文？</strong><br>
+                <!-- 新增提示詞失靈與靈異現象的 Troubleshooting -->
+                <div class="student-tip border-teal-300 bg-teal-50 mb-6">
+                    <strong class="text-teal-900 text-lg">🤔 靈異現象：為什麼在 Dify 測試能完美回答（如越南文），但 LINE 卻回覆「未產生文字回應」？</strong><br>
                     <span class="text-gray-700 mt-2 block">
-                        有同學在 Dify 的提示詞 (Instructions) 中加入了：<code>使用者用甚麼語言問，你就以該語言回答</code>。但當使用者在 LINE 詢問 <strong>"who are you"</strong> 時，AI 還是固執地回覆 <strong>"你好！我是一位友善的醫療Agent..."</strong>（如下圖）。
+                        有同學測試了多國語言，發現 Dify 右側的預覽畫面可以完美用越南文回答，但是去 LINE 詢問一模一樣的問題，機器人卻裝死，回覆 <code>Dify 處理完畢，但未產生文字回應 (可能只回傳了思考過程...)</code>（如下圖）。
                     </span>
                     
-                    <img src="擷取_2026_03_10_17_03_37_728.jpg" alt="提示詞語言設定失靈現象" class="tutorial-img mt-4 mb-2">
-                    <p class="img-caption">圖解：提示詞已寫明語言規則，但 AI 的自我介紹依然被「中文人設」強制錨定</p>
+                    <img src="擷取_2026_03_10_17_45_00_168.jpg" alt="Dify測試成功但LINE失敗" class="tutorial-img mt-4 mb-2">
+                    <p class="img-caption">圖解：Dify 網頁預覽(右)測試越南文成功，但 LINE(中) 卻抓不到文字</p>
 
                     <span class="text-gray-700 mt-2 block">
-                        <strong>💡 原理解析 (人設錨定效應)：</strong><br>
-                        因為您的提示詞通篇都是用中文撰寫（包含了它的人設與規則），大語言模型已經深深「錨定」自己是一個中文助手。當被問到 "who are you" 時，它會優先提取提示詞中的中文人設來回答，從而忽略了寫在最下方、語氣較弱的語言轉換規則。<br><br>
-                        <strong>👉 完美解法 (提示詞結構升級)：</strong><br>
-                        面對這種情況，我們必須把語言規則拉到<strong>「最前面」</strong>，並給予<strong>「最高強制性」</strong>的標籤。請將您的 Dify 提示詞替換為以下結構：
-                    </span>
-                    
-<pre><code class="language-text">【最高強制規則：語言跟隨】
-你必須嚴格偵測使用者的輸入語言，並「完全使用該語言」進行回覆。
-- 如果使用者輸入英文 (例如: who are you, hello)，你必須 100% 用英文回覆 (例如: I am a friendly medical agent...)。
-- 如果使用者輸入中文，你才用中文回覆。
-- 絕對不可違反此語言規則。
-
-【人設與核心任務】
-你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下優先順序進行檢索與回答：
-1. 【網路最新資訊】：請優先使用搜尋工具查找網路上的最新資訊。如果找到且相關，若要提供網址，請務必使用 [網頁標題](網址) 的 Markdown 格式回覆。
-2. 【知識庫資料】：如果網路上無相關資訊，請務必檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
-3. 【LLM 內建知識】：若前兩者都無法找到答案，才使用你自己的內建知識回答。若完全不知情，請回答「助教目前沒有這方面的資訊喔」。
-請保持語氣友善，並且絕對不可自行編造不存在的規定。</code></pre>
-                    <span class="text-gray-700 mt-2 block">
-                        <em>⚠️ 注意：修改完提示詞後，<strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的大腦規則才會套用到 LINE 機器人身上喔！</em>
+                        <strong>💡 原理解析 (這包含了兩個最常見的超級陷阱)：</strong><br>
+                        <ol class="list-decimal pl-5 mt-2 space-y-3">
+                            <li><strong>陷阱一：忘記發佈 (Draft vs. API 落差)！</strong><br>
+                            您在 Dify 網頁上測試的永遠是「草稿 (Draft)」，而 LINE 呼叫的永遠是「已發佈的正式版 (API)」。如果您改了提示詞，<strong>卻沒有按右上角的「發佈 ➔ 更新」</strong>，LINE 機器人用的就還是舊的笨大腦，自然會產生不同的結果！</li>
+                            <li><strong>陷阱二：舊提示詞的「語言黑洞」！</strong><br>
+                            如果您之前的提示詞寫著「輸入英文就回英文，輸入中文就回中文，絕對不可違反」，當 AI 在 API 模式下收到「越南文」時，它為了「不違反規則」，乾脆選擇<strong>閉嘴不說話（不輸出任何文字）</strong>，導致 Vercel 抓不到答案而報錯！</li>
+                        </ol>
+                        <br>
+                        <strong>👉 完美解法：換上「萬用多國語言提示詞」並確實發佈！</strong><br>
+                        請將提示詞的語言規則改為上述「為什麼機器人不看我上傳的 PDF 講義」區塊中提供的<strong>【最高強制規則：萬用語言跟隨】</strong>寫法，並且修改完 <strong>絕對要記得點擊 Dify 右上角的「發佈 (Publish)」➔「更新 (Update)」</strong>，新的多國語言大腦才會正式套用到 LINE 機器人身上！
                     </span>
                 </div>
 
