@@ -474,11 +474,9 @@ requests</code></pre>
                     <li>點擊右上角 <strong>「系統模型設定」</strong>：系統推理模型選擇 <code>gemini-2.5-flash</code>；Embedding 模型選擇 OpenAI 的 <code>text-embedding-3-small</code>。</li>
                 </ol>
 
-                <!-- 圖8：預留位 -->
-                <div class="image-placeholder">
-                    📸 圖8：Dify 模型供應商綁定畫面
-                    <span>(建議在此放上 OpenAI 與 Google 綁定成功後，以及「系統模型設定」的畫面截圖)</span>
-                </div>
+                <!-- 圖8：Dify 模型供應商綁定畫面 -->
+                <img src="fig08.png" alt="Dify 模型供應商綁定畫面" class="tutorial-img">
+                <p class="img-caption">圖8：Dify 模型供應商綁定畫面</p>
 
                 <!-- ================= 增修：階段 B 擴充檢索設定 ================= -->
                 <h3>階段 B：上傳知識庫與「檢索策略」設定 (資料能不能被準確抓出的關鍵！)</h3>
@@ -491,7 +489,7 @@ requests</code></pre>
                 </ol>
 
                 <div class="image-placeholder">
-                    📸 圖 B-1：Dify 知識庫建立與高品質檢索設定畫面
+                    📸 圖9：Dify 知識庫建立與高品質檢索設定畫面
                     <span>(建議在此放上：上傳過程中選擇「高品質」索引與「向量/混合檢索」的設定截圖)</span>
                 </div>
                 <!-- ================= 增修區塊結束 ================= -->
@@ -515,7 +513,7 @@ requests</code></pre>
                     <strong>1. 網路最新資訊 (Google/DuckDuckGo) -> 2. 上傳的知識庫 (PDF) -> 3. LLM 內建知識。</strong></p>
                 </div>
 
-                <p>這一步我們要把「網路優先序」和「降低幻覺」全部設定起來。<strong>（各項設定請對照 圖9 與 圖9-1）</strong></p>
+                <p>這一步我們要把「網路優先序」和「降低幻覺」全部設定起來。<strong>（各項設定請對照 圖10 與 圖11）</strong></p>
 
                 <ol>
                     <li>點擊 <strong>「工作室 (Studio)」</strong> -> 建立空白應用。
@@ -552,7 +550,7 @@ requests</code></pre>
 【人設與核心任務】
 你是一位親切且專業的友善醫療Agent。回答使用者問題時，請嚴格遵循以下「優先順序」進行檢索與回答：
 1. 【優先檢索知識庫】：請務必「優先」檢索你的「上下文(Context)」中所掛載的知識庫(PDF)資料來回答。
-2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊。若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
+2. 【網路搜尋輔助】：如果知識庫中「完全找不到」相關規定或解答，才允許使用網路搜尋工具(如 Google Search 或 DuckDuckGo) 尋找最新資訊. 若使用網路資訊，請務必使用 [網頁標題](網址) 的 Markdown 格式附上參考網址。
 3. 【LLM 內建知識】：若前兩者都無法找到答案，請誠實回答「助教目前沒有這方面的資訊喔」，絕對不可自行編造不存在的規定。</code></pre>
                     </li>
                     
@@ -572,15 +570,15 @@ requests</code></pre>
                     <li><strong>取得第三把鑰匙：</strong> 點擊左側 <strong>「API 存取 (API Access)」</strong> -> <strong>「API 金鑰」</strong>，產生並複製貼到記事本備用。</li>
                 </ol>
 
-                <!-- 圖9：預留位 -->
+                <!-- 圖10：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖9：Dify 智能體 (Agent) 工具與提示詞優先序設定畫面
+                    📸 圖10：Dify 智能體 (Agent) 工具與提示詞優先序設定畫面
                     <span>(建議在此標註：1.選擇Agent模式、2.掛載DuckDuckGo工具、3.填寫優先序提示詞)</span>
                 </div>
 
-                <!-- 圖9-1：預留位 -->
+                <!-- 圖11：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖9-1：Dify 降低幻覺參數設定畫面
+                    📸 圖11：Dify 降低幻覺參數設定畫面
                     <span>(建議在此標註：1.知識庫分數閾值設定、2.溫度調低為0.1、3.開啟引用功能)</span>
                 </div>
 
@@ -643,7 +641,7 @@ requests</code></pre>
                             </span>
                         </div>
                     </li>
-                    <li><strong>展開 Environment Variables (環境變數)</strong>，新增我們在記事本的三把鑰匙 <strong>(填寫畫面請參考 圖10)</strong>：
+                    <li><strong>展開 Environment Variables (環境變數)</strong>，新增我們在記事本的三把鑰匙 <strong>(填寫畫面請參考 圖12)</strong>：
                         <div class="warning-box mt-2 mb-2">
                             <strong>⚠️ 致命地雷警告：絕對不可有「空白鍵」與「雙引號」！</strong><br>
                             <span class="text-gray-700 block mt-1">貼上變數數值 (Value) 時，請睜大眼睛檢查以下兩點，只要犯了一點，機器人就會顯示「大腦處理中發生錯誤」：
@@ -689,9 +687,9 @@ requests</code></pre>
                     儲存後，<strong>Vercel 會自動偵測到 GitHub 的修改並自動重新執行部署</strong>，您只需要在 Vercel 畫面等待一下，這次就會亮起綠色的 Success 囉！</span>
                 </div>
 
-                <!-- 圖10：預留位 -->
+                <!-- 圖12：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖10：Vercel 部署與環境變數設定畫面
+                    📸 圖12：Vercel 部署與環境變數設定畫面
                     <span>(建議在此放上 Vercel Environment Variables 填寫 Name 與 Value 列表的截圖)</span>
                 </div>
 
@@ -705,7 +703,7 @@ requests</code></pre>
 
                 <ol>
                     <li>回到 LINE Developer Console 的 <code>Messaging API</code> 頁籤。</li>
-                    <li>在 <strong>Webhook URL</strong> 貼上網址並加上 <code>/webhook</code> <strong>(如 圖11 所示)</strong>。<br>
+                    <li>在 <strong>Webhook URL</strong> 貼上網址並加上 <code>/webhook</code> <strong>(如 圖13 所示)</strong>。<br>
                         <em>(正確範例：<code>https://line-dify-xxx.vercel.app/webhook</code>)</em></li>
                     <li>點擊 <code>Verify</code>. 跳出 Success 代表成功！<strong>並開啟下方 <code>Use webhook</code> 開關。</strong>
                         
@@ -731,9 +729,9 @@ requests</code></pre>
                     </li>
                 </ol>
 
-                <!-- 圖11：預留位 -->
+                <!-- 圖13：預留位 -->
                 <div class="image-placeholder">
-                    📸 圖11：LINE Webhook 網址設定與關閉自動回覆畫面
+                    📸 圖13：LINE Webhook 網址設定與關閉自動回覆畫面
                     <span>(建議在此放上：1. Webhook URL 填寫處 2. LINE Official Account Manager 中將「自動回應訊息」設為「停用」的畫面截圖)</span>
                 </div>
 
