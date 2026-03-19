@@ -61,7 +61,7 @@
 
     <div id="toast" class="toast">已成功複製到剪貼簿！</div>
 
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header -->
         <header class="mb-12 text-center md:text-left">
@@ -76,7 +76,7 @@
         </header>
 
         <!-- 前言 -->
-        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-100 mb-6 shadow-sm">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 sm:p-8 rounded-2xl border border-blue-100 mb-6 shadow-sm">
             <h2 class="text-2xl font-bold text-blue-900 mb-4 border-none p-0 flex items-center gap-3">
                 <span class="text-3xl">✨</span> 前言：進入 AI 全端開發的世界
             </h2>
@@ -90,25 +90,35 @@
 
         <!-- 頂部下載按鈕 -->
         <div class="text-center mt-8 mb-12">
-            <a href="./vtuber-3dgame-tutorial.zip" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 text-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <a href="./vtuber-3dgame-tutorial.zip" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 text-base sm:text-lg w-full sm:w-auto justify-center">
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 📥 下載實作資源包 (包含程式碼與 3D 模型)
             </a>
             <p class="text-sm text-gray-500 mt-2">（vtuber-3dgame-tutorial.zip）</p>
         </div>
 
         <!-- 一、專案簡介 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">一、專案簡介與架構概觀</h2>
             <div class="prose max-w-none text-gray-700 leading-relaxed text-lg">
-                <p>本專案 (<a href="https://vtuber-3dgame.vercel.app/" target="_blank" class="text-blue-600 hover:underline font-bold">https://vtuber-3dgame.vercel.app/</a>) 是一個整合了 3D 虛擬角色渲染、語音辨識、文字轉語音，以及大型語言模型 (Google Gemini API) 的全端互動網頁。</p>
-                <p class="mt-4">簡單來說，現代的網頁應用程式通常講求「分工合作」：</p>
+                <p>本專案 (<a href="https://vtuber-3dgame.vercel.app/" target="_blank" class="text-blue-600 hover:underline font-bold break-all">https://vtuber-3dgame.vercel.app/</a>) 是一個整合了 3D 虛擬角色渲染、語音辨識、文字轉語音，以及大型語言模型 (Google Gemini API) 的全端互動網頁。</p>
+                <p class="mt-4">現代的網頁應用程式通常講求「分工合作」，我們將系統分為「前端」與「後端」兩大部分：</p>
                 <ul class="list-disc pl-6 mt-2 space-y-2">
                     <li><span class="font-bold text-blue-700">前端 (Frontend)：</span>這就是我們的 <code class="bg-gray-100 px-1 rounded">index.html</code> 檔案。它就像是<span class="font-bold">「餐廳的裝潢與服務生」</span>，在您的瀏覽器（如 Chrome、Edge）裡面執行，負責把 3D 人物畫出來，並接收您的點餐（輸入對話）。</li>
                     <li><span class="font-bold text-indigo-700">後端 (Backend)：</span>這就是我們的 <code class="bg-gray-100 px-1 rounded">chat.js</code> 檔案。它就像是<span class="font-bold">「餐廳的廚房與金庫」</span>，在遠端的雲端伺服器上執行，負責保管跟 AI 溝通的秘密金鑰，並幫忙向 Google 總部索取答案。</li>
                 </ul>
             </div>
             
+            <div class="image-container mt-8">
+                <img src="img1.jpg" alt="瀏覽器與 Vercel 伺服器通訊流程圖" class="mx-auto" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+瀏覽器與+Vercel+伺服器通訊流程圖]'">
+                <p class="figure-label">圖 1：瀏覽器與 Vercel 伺服器通訊流程圖</p>
+            </div>
+            
+            <div class="image-container mt-6">
+                <img src="img2.jpg" alt="AI VTuber 專案檔案結構與相依關係圖" class="mx-auto" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+專案檔案結構圖]'">
+                <p class="figure-label">圖 2：AI VTuber 專案檔案結構與相依關係圖 (Project File Structure)</p>
+            </div>
+
             <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 mt-6">
                 <h3 class="text-lg font-bold text-blue-900 mb-2">🚀 這套系統可以應用在哪裡？</h3>
                 <p class="text-blue-800 text-sm leading-relaxed mb-2">這不只是一個聊天機器人，而是「有身體、有表情的 AI 助教」，非常適合以下場景：</p>
@@ -123,7 +133,7 @@
         </section>
 
         <!-- 二、前端技術大解密 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">二、前端介面解析：賦予 VTuber 生命的魔法</h2>
             <p class="mb-6 text-gray-700">打開我們的前端核心 <code class="font-mono bg-gray-100 px-1 rounded">index.html</code>，您會發現這裡面其實融合了多種強大的技術。讓我們用程式碼片段來為您一一拆解：</p>
             
@@ -155,7 +165,7 @@
                 <!-- 2. Three.js 與角色動態 -->
                 <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
                     <h3 class="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                        <svg class="w-6 h-6 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
                         2. 3D 視覺與模型渲染 (Three.js & VRM)
                     </h3>
                     <p class="text-blue-800 mb-3">要在平面的網頁上顯示立體的 3D 模型，我們使用了名為 <span class="font-bold underline">Three.js</span> 的技術。它就像是在網頁裡搭了一個虛擬攝影棚，我們在程式中架設了環境光、地板、展示台、光圈，甚至加入了動態漂浮的粒子特效（Particle）。</p>
@@ -185,7 +195,7 @@ if (chest) chest.rotation.x = Math.sin(time * 1.5) * 0.015;
                 <!-- 3. 輸入與交談 -->
                 <div class="bg-green-50 p-6 rounded-xl border border-green-200">
                     <h3 class="text-lg font-bold text-green-900 mb-3 flex items-center gap-2">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <svg class="w-6 h-6 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                         3. 讓機器能聽能說：Web Speech API 與多國語言實測
                     </h3>
                     <p class="text-green-800 mb-3">網頁上的麥克風按鈕背後，連接著瀏覽器內建的 <span class="font-bold underline">Web Speech API</span>。這項技術賦予了網頁「耳朵」(SpeechRecognition) 與「嘴巴」(SpeechSynthesis)。</p>
@@ -300,7 +310,7 @@ conversationHistory.push({ role: "model", parts: [{ text: aiText }] });
                 <!-- 5. 響應式設計 (RWD) -->
                 <div class="bg-pink-50 p-6 rounded-xl border border-pink-200">
                     <h3 class="text-lg font-bold text-pink-900 mb-3 flex items-center gap-2">
-                        <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <svg class="w-6 h-6 text-pink-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         5. 手機上能看嗎？響應式設計 (RWD) 解析
                     </h3>
                     <p class="text-pink-800 mb-3">這份講義的網頁與您的 AI VTuber 專案，都是<span class="font-bold text-red-600">百分之百相容手機與平板的「響應式網頁」</span>！</p>
@@ -321,7 +331,7 @@ body { touch-action: none; }
         </section>
 
         <!-- 三、交談核心設定與 AI 優先序 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">三、賦予靈魂：動態載入設定與 AI 思考順序</h2>
             <p class="mb-4 text-gray-700">在我們的專案資料夾裡，除了寫程式碼，我們還放置了兩個非常關鍵的純文字檔（`.txt`）。我們運用了 JavaScript 的 `fetch` 功能在網頁啟動時去把這兩個檔案「抓」進來。這代表什麼？<span class="font-bold text-red-600">這代表未來您要更改助教的個性或學校資訊，完全不用改原始程式碼，只要修改這兩個文字檔就可以了！</span></p>
             
@@ -339,7 +349,7 @@ body { touch-action: none; }
             <!-- 進階：RAG vs 傳統知識庫 -->
             <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-200 mb-6">
                 <h3 class="text-lg font-bold text-indigo-900 mb-2 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    <svg class="w-6 h-6 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                     進階觀念：目前的「文字檔知識庫」與企業級的「RAG (向量資料庫)」有何不同？
                 </h3>
                 <p class="text-indigo-800 text-sm leading-relaxed mb-3">
@@ -354,7 +364,7 @@ body { touch-action: none; }
             <!-- AI 思考優先序 -->
             <div class="bg-orange-50 p-6 rounded-xl border-l-4 border-orange-500 mb-6">
                 <h3 class="text-lg font-bold text-orange-900 mb-3 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <svg class="w-6 h-6 text-orange-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                     AI 是怎麼找答案的？(回答優先順序)
                 </h3>
                 <p class="text-orange-800 text-sm leading-relaxed mb-3">為了讓 AI 的回答最精準且符合我們預期，我們在 <code class="bg-orange-200 px-1 rounded text-orange-900">index.html</code> 中傳送了一段超級嚴格的「系統指示 (System Instruction)」，規範了 AI 尋找答案的順序：</p>
@@ -385,7 +395,7 @@ body { touch-action: none; }
             <!-- 前端容錯機制 -->
             <div class="bg-gray-100 p-6 rounded-xl border border-gray-300 mt-6">
                 <h3 class="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <svg class="w-6 h-6 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     防呆！強大的前端容錯處理 (Regex 機制)
                 </h3>
                 <p class="text-gray-700 text-sm leading-relaxed">有時候 AI 會「自作聰明」，在回傳的 JSON 外面包了一層 Markdown 標籤（如 ```json ）。這會導致網頁解析失敗崩潰。為了防止這種情況，我們使用了一段名為<span class="font-bold">正則表達式 (Regex)</span> 的程式碼：</p>
@@ -397,7 +407,7 @@ const jsonMatch = aiText.match(/\{[\s\S]*\}/);
         </section>
 
         <!-- 四、後端與 Vercel -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">四、後端廚房的運作：chat.js 深度解密</h2>
             <p class="mb-4 text-gray-700">我們一直說，為了保護 API 密碼金鑰不被偷走，前端必須把使用者的對話發送給後端 <code class="font-mono bg-gray-100 px-1 rounded">chat.js</code> 處理。</p>
 
@@ -435,20 +445,15 @@ const response = await fetchWithBackoff(`/api/chat`, {
                 <h4 class="font-bold text-red-800 mt-4 border-b border-red-200 pb-1">🛡️ 我們怎麼自保？(Rate Limiting 流量控制)</h4>
                 <p class="text-red-800 text-sm leading-relaxed mt-2">因為我們用的是免費版，所以在 `chat.js` 裡我們寫了一段名為 **Rate Limit Map** 的防刷程式碼。這就像是我們自己在 Vercel 門口請了保全，只要偵測到「同一個 IP 一分鐘內狂點超過 15 次」，我們的保全就會先擋下他。我們寧可自己先阻擋惡意連點，也不要讓整支 API Key 被 Google 暫時封鎖停權！</p>
             </div>
-            
-            <div class="image-container">
-                <img src="img1.jpg" alt="瀏覽器與 Vercel 伺服器通訊流程圖" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+瀏覽器與+Vercel+伺服器通訊流程圖]'">
-                <p class="figure-label">圖 1：瀏覽器與 Vercel 伺服器通訊流程圖</p>
-            </div>
         </section>
 
-        <!-- 五、GitHub、Vercel 與相對路徑的秘密 -->
-        <section class="step-card">
+        <!-- 五、相對路徑的秘密 -->
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">五、相對路徑與私有倉庫 (Private Repo) 的陷阱</h2>
             
             <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 mb-6">
                 <h3 class="text-lg font-bold text-red-900 mb-3 flex items-center gap-2">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <svg class="w-6 h-6 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     ⚠️ 極度重要：如果您使用 Private 倉庫，不可用絕對位址，只能用「相對位址」！
                 </h3>
                 <p class="text-red-800 text-sm leading-relaxed mb-3">在程式碼中，我們需要告訴網頁去哪裡讀取 <code class="font-bold">prompt.txt</code> 或是 <code class="font-bold">AvatarSample_W.vrm</code>。請看這段程式寫法：</p>
@@ -464,40 +469,54 @@ let promptUrl = './prompt.txt';
         </section>
 
         <!-- 六、雲端部署與重新佈署的秘密 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">六、雲端部署與「手動重新佈署」的底層邏輯</h2>
             
             <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- CI/CD -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                    <h3 class="text-lg font-bold text-gray-800 mb-3">CI/CD 與 Webhook (自動按門鈴機制)</h3>
-                    <p class="text-gray-700 text-sm leading-relaxed">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的地方)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行的主機)</span>。</p>
-                    <p class="text-gray-700 text-sm leading-relaxed mt-2">當開發者修改了 <code class="font-mono bg-gray-200 px-1 rounded text-red-600">index.html</code> 或是文字設定檔，並上傳 (Push) 到 GitHub 時，GitHub 會發送一個 <span class="font-bold text-blue-700">Webhook (網頁掛鉤)</span> 給 Vercel。這就像是 GitHub 跑去 Vercel 門口<span class="font-bold underline">「自動按門鈴」</span>大喊：「老闆，有新檔案了！」</p>
-                    <p class="text-gray-700 text-sm leading-relaxed mt-2">Vercel 聽到門鈴後，就會啟動 <span class="font-bold">CI/CD (持續整合與部署)</span> 的全自動化流水線，自動幫您把最新修改的網頁打包並更新上線。您<span class="font-bold underline text-blue-700">完全不需要</span>手動點擊任何按鈕。</p>
-                </div>
-                
-                <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
-                    <h3 class="text-lg font-bold text-yellow-900 mb-3 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        為什麼更換 API Key 卻必須「手動重新佈署」？
-                    </h3>
-                    <p class="text-yellow-800 text-sm leading-relaxed">這是一個初學者最常卡關的地方！為了資訊安全，我們不會把 Google AI 的密碼 (API KEY) 寫在 GitHub 可以被看到的程式碼裡，而是把它存在 Vercel 網站後台的<span class="font-bold">「環境變數 (保險箱)」</span>裡。</p>
-                    <div class="snippet-code text-yellow-200 border-yellow-700">
-// chat.js 從 Vercel 保險箱中拿出密碼的寫法
-const apiKey = process.env.GEMINI_API_KEY;
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">1. 雲端神器：GitHub 與 Vercel</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-4">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的地方)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行的主機)</span>。</p>
+                    <div class="image-container mt-2 mb-4 p-2 bg-white">
+                        <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" class="mx-auto" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+GitHub+與+Vercel]'">
+                        <p class="figure-label text-xs mt-1">圖 3：GitHub (倉儲) 與 Vercel (主機) 的完美分工</p>
                     </div>
-                    <p class="text-yellow-800 text-sm leading-relaxed mt-2">請注意！<span class="font-bold underline text-red-600">當您在 Vercel 後台修改保險箱的密碼時，您並沒有修改 GitHub 裡面的任何檔案，所以「GitHub 根本不知道這件事，也不會去幫您按 Vercel 的門鈴」！</span></p>
-                    <p class="text-yellow-800 text-sm leading-relaxed mt-2">因為沒有人按門鈴，Vercel 伺服器就不會重新啟動去讀取新的保險箱密碼。因此，更換 API Key 後，您必須自己在 Vercel 網站手動點擊 <span class="font-bold border border-yellow-500 bg-yellow-100 px-1 rounded">Redeploy (重新佈署)</span>，強迫伺服器斷電重開機，<code class="font-mono bg-yellow-200 px-1 rounded text-yellow-900">chat.js</code> 才能拿到熱騰騰的新鑰匙！</p>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                    <h3 class="text-lg font-bold text-blue-900 mb-3">2. CI/CD 與 Webhook (自動按門鈴機制)</h3>
+                    <p class="text-blue-800 text-sm leading-relaxed">當開發者修改了 <code class="font-mono bg-blue-100 px-1 rounded text-blue-900">index.html</code>，並上傳 (Push) 到 GitHub 時，GitHub 會發送一個 <span class="font-bold">Webhook (網頁掛鉤)</span> 給 Vercel。這就像是 GitHub 跑去 Vercel 門口<span class="font-bold underline">「自動按門鈴」</span>大喊：「有新檔案了！」</p>
+                    <p class="text-blue-800 text-sm leading-relaxed mt-2">Vercel 聽到門鈴後，就會啟動 <span class="font-bold">CI/CD (持續整合與部署)</span> 的自動化流水線，自動更新網頁。您<span class="font-bold underline text-blue-900">完全不需要</span>手動點擊任何按鈕。</p>
                 </div>
             </div>
 
-            <div class="image-container">
-                <img src="img4.jpg" alt="網站自動更新流程圖" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
+            <div class="image-container mt-2 mb-8 bg-white border border-gray-100">
+                <img src="img4.jpg" alt="網站自動更新流程圖" class="mx-auto" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
                 <p class="figure-label">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
+            </div>
+
+            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 mt-6">
+                <h3 class="text-lg font-bold text-yellow-900 mb-3 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-yellow-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    3. 為什麼更換 API Key 卻必須「手動重新佈署」？
+                </h3>
+                <p class="text-yellow-800 text-sm leading-relaxed">這是一個初學者最常卡關的地方！為了資訊安全，我們把 Google AI 的密碼 (API KEY) 存在 Vercel 網站後台的<span class="font-bold">「環境變數 (保險箱)」</span>裡。</p>
+                <div class="snippet-code text-yellow-200 border-yellow-700">
+// chat.js 從 Vercel 保險箱中拿出密碼的寫法
+const apiKey = process.env.GEMINI_API_KEY;
+                </div>
+                <p class="text-yellow-800 text-sm leading-relaxed mt-2">請注意！<span class="font-bold underline text-red-600">當您在 Vercel 後台修改保險箱的密碼時，您並沒有修改 GitHub 裡面的任何檔案，所以「GitHub 根本不知道這件事，也不會去幫您按 Vercel 的門鈴」！</span></p>
+                <p class="text-yellow-800 text-sm leading-relaxed mt-2">因為沒有人按門鈴，Vercel 伺服器就不會重新啟動。因此，更換 API Key 後，您必須自己在 Vercel 網站手動點擊 <span class="font-bold border border-yellow-500 bg-yellow-100 px-1 rounded">Redeploy (重新佈署)</span>，強迫伺服器斷電重開機，<code class="font-mono bg-yellow-200 px-1 rounded text-yellow-900">chat.js</code> 才能拿到熱騰騰的新鑰匙！</p>
+                
+                <div class="image-container mt-6 bg-white">
+                    <img src="img5.jpg" alt="手動重新佈署流程圖" class="mx-auto border border-gray-100" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+手動部署流程]'">
+                    <p class="figure-label">圖 5：更換 API 金鑰後，必須「手動重新佈署」的流程圖</p>
+                </div>
             </div>
         </section>
 
         <!-- 七、CORS 安全防護 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">七、守護雲端資產：CORS 安全防護與白名單</h2>
             
             <p class="mb-4 text-gray-700">在我們後端 <code class="font-mono bg-gray-100 px-1 rounded">chat.js</code> 的開頭，有一段非常關鍵的程式碼：</p>
@@ -511,19 +530,19 @@ const allowedOrigins = ['[https://vtuber-3dgame.vercel.app](https://vtuber-3dgam
                 <h3 class="text-lg font-bold text-indigo-900 mb-4">什麼是 CORS 機制（跨來源資源共用）？</h3>
                 <ul class="space-y-4 text-indigo-800">
                     <li class="flex items-start gap-3">
-                        <span class="text-2xl">🏠</span>
+                        <span class="text-2xl shrink-0">🏠</span>
                         <p>您可以把伺服器 (<code class="font-mono bg-indigo-100 px-1 rounded">chat.js</code>) 想像成一間<span class="font-bold text-indigo-900">「私人 VIP 俱樂部」</span>。</p>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-2xl">👮</span>
+                        <span class="text-2xl shrink-0">👮</span>
                         <p>使用者的<span class="font-bold">「瀏覽器（如 Chrome）」</span>就是俱樂部門口的<span class="font-bold text-indigo-900">「保全」</span>。</p>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-2xl">📋</span>
+                        <span class="text-2xl shrink-0">📋</span>
                         <p>當任何網頁想要發送請求到 chat.js 時，保全會先問俱樂部：<span class="font-bold underline">「這個發送請求的網頁，它的網址有在你們的 allowedOrigins (VIP 邀請白名單) 上嗎？」</span></p>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-2xl">🛡️</span>
+                        <span class="text-2xl shrink-0">🛡️</span>
                         <p>如果伺服器說「沒有核發通行證」，這時候最厲害的事情發生了：駭客的瀏覽器（保全）自己就會跳出紅色的 CORS Error，直接把駭客的惡意請求擋在門外！這就是我們守護雲端資產的第一道也是最重要的一道防線。</p>
                     </li>
                 </ul>
@@ -531,7 +550,7 @@ const allowedOrigins = ['[https://vtuber-3dgame.vercel.app](https://vtuber-3dgam
         </section>
 
         <!-- 八、一步一步實作順序與步驟 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6 text-blue-800 border-b-2 border-blue-200 pb-2">八、動手做：一步一步實作順序與步驟</h2>
             
             <div class="space-y-8 mt-6">
@@ -590,11 +609,11 @@ const allowedOrigins = ['[https://vtuber-3dgame.vercel.app](https://vtuber-3dgam
                 <!-- 重點觀念區塊 -->
                 <div class="bg-indigo-50 p-6 rounded-xl mt-6 border border-indigo-200">
                     <h4 class="font-bold text-indigo-900 mb-3 flex items-center gap-2 text-lg">
-                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                        <svg class="w-6 h-6 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                         初學者最常搞混：Vercel 網址與 GitHub 倉庫網址有何不同？
                     </h4>
                     <p class="text-indigo-800 leading-relaxed mt-2"><span class="font-bold text-indigo-900 text-lg">1. GitHub 網址 ([github.com/您的帳號/專案名稱](https://github.com/您的帳號/專案名稱))：</span><br>這是開發者與工程師專用的「廚房後台」，裡面存放的全是密密麻麻的程式碼原始檔（也就是食譜）。<span class="font-bold text-red-600">把這個網址丟給一般朋友，他們只會看到一堆程式碼，看不到會動的 3D 網頁畫面！</span></p>
-                    <p class="text-indigo-800 leading-relaxed mt-4"><span class="font-bold text-indigo-900 text-lg">2. Vercel 網址 (您的專案.vercel.app)：</span><br>這是 Vercel 幫您編譯、建置好之後，開放給全世界客人參觀的「餐廳正門口」。<span class="font-bold text-blue-700 underline">請把這個 .vercel.app 結尾的網址分享給朋友</span>，他們只要點開連結，就能在手機或電腦上立刻看到美智虛擬助教，並開始用語音與它對話！</p>
+                    <p class="text-indigo-800 leading-relaxed mt-4"><span class="font-bold text-indigo-900 text-lg">2. Vercel 網址 (您的專案.vercel.app)：</span><br>這是 Vercel 幫您編譯、建置好之後，開放給全世界客人參觀的「餐廳正門口」。<span class="font-bold text-blue-700 underline break-all">請把這個 .vercel.app 結尾的網址分享給朋友</span>，他們只要點開連結，就能在手機或電腦上立刻看到美智虛擬助教，並開始用語音與它對話！</p>
                 </div>
             </div>
         </section>
@@ -614,20 +633,20 @@ const allowedOrigins = ['[https://vtuber-3dgame.vercel.app](https://vtuber-3dgam
 
         <!-- 底部下載按鈕 -->
         <div class="text-center my-12">
-            <a href="./vtuber-3dgame-tutorial.zip" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 text-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <a href="./vtuber-3dgame-tutorial.zip" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 text-base sm:text-lg w-full sm:w-auto justify-center">
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 📥 下載實作資源包 (vtuber-3dgame-tutorial.zip)
             </a>
         </div>
 
         <!-- 附錄、程式碼實作 -->
-        <section class="step-card">
+        <section class="step-card overflow-hidden">
             <h2 class="text-2xl font-bold mb-6">附錄、完整程式碼實作</h2>
             <p class="text-gray-600 mb-6">請同學利用右上角的「Copy」按鈕，將以下四個檔案的完整程式碼複製並貼上到您的 GitHub 專案檔案中。我們保證這裡的程式碼與範例運作的版本<span class="font-bold text-red-600 underline">一字不漏完全相同</span>，請安心複製！</p>
             
             <!-- 1. chat.js -->
             <h3 class="text-xl font-bold text-indigo-700 mt-8 mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
                 1. 後端處理程式 (api/chat.js)
             </h3>
             <div class="code-wrapper">
@@ -734,7 +753,7 @@ export default async function handler(req, res) {
 
             <!-- 2. index.html -->
             <h3 class="text-xl font-bold text-blue-700 mt-12 mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 2. 前端主網頁 (index.html)
             </h3>
             <div class="code-wrapper">
@@ -879,7 +898,7 @@ export default async function handler(req, res) {
                 let kbUrl = './knowledgebase.txt';
                 
                 if (window.location.protocol === 'blob:' || window.location.hostname.includes('usercontent.goog')) {
-                    promptUrl = 'https:///vtuber-3dgame.vercel.app/prompt.txt';
+                    promptUrl = '[https://vtuber-3dgame.vercel.app/prompt.txt](https://vtuber-3dgame.vercel.app/prompt.txt)';
                     kbUrl = '[https://vtuber-3dgame.vercel.app/knowledgebase.txt](https://vtuber-3dgame.vercel.app/knowledgebase.txt)';
                 }
 
@@ -1350,7 +1369,7 @@ export default async function handler(req, res) {
             document.removeEventListener('click', initialUnlock);
         };
         document.addEventListener('touchstart', initialUnlock, { once: true });
-        document.addEventListener('touchstart', initialUnlock, { once: true });
+        document.addEventListener('touchend', initialUnlock, { once: true });
         document.addEventListener('click', initialUnlock, { once: true });
 
         // --- 語音輸入功能 (Web Speech API) ---
@@ -1524,7 +1543,7 @@ export default async function handler(req, res) {
 
             <!-- 3. knowledgebase.txt -->
             <h3 class="text-xl font-bold text-teal-700 mt-12 mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                 3. 知識庫檔案 (knowledgebase.txt)
             </h3>
             <div class="code-wrapper">
@@ -1534,7 +1553,7 @@ export default async function handler(req, res) {
 
             <!-- 4. prompt.txt -->
             <h3 class="text-xl font-bold text-orange-700 mt-12 mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                 4. 角色提示詞 (prompt.txt)
             </h3>
             <div class="code-wrapper">
