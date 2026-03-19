@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打造專屬 AI VTuber：從網頁設計到雲端部署架構解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background-color: #f4f7f6; color: #2d3748; }
+        .step-card { background: white; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); padding: 2.5rem; margin-bottom: 3rem; border: 1px solid #e2e8f0; }
+        .image-container { background: #f8fafc; border: 2px solid #edf2f7; border-radius: 12px; padding: 1.5rem; text-align: center; margin: 2rem 0; }
+        .image-container img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 1rem; }
+        .figure-label { font-weight: 700; color: #4a5568; font-size: 0.95rem; }
+        
+        .code-wrapper { position: relative; margin: 1.5rem 0; }
+        pre { border-radius: 12px !important; padding: 1.5rem !important; font-size: 0.85rem !important; overflow-x: auto; max-height: 600px; }
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            font-weight: 600;
+        }
+        .copy-btn:hover { background: rgba(255, 255, 255, 0.3); border-color: rgba(255, 255, 255, 0.5); }
+        .copy-btn.copied { background: #10b981; border-color: #10b981; color: white; }
+
+        h1 { background: linear-gradient(90deg, #2c3e50 0%, #4a90e2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { border-left: 8px solid #3182ce; padding-left: 1rem; color: #2c3e50; }
+        .concept-badge { background: #ebf8ff; color: #2b6cb0; padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2d3748;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+<body class="py-12">
+
+    <div id="toast" class="toast">已成功複製到剪貼簿！</div>
+
+    <div class="max-w-5xl mx-auto px-6">
+        
+        <!-- Header -->
+        <header class="mb-16 text-center md:text-left">
+            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">打造專屬 AI VTuber：<br>從網頁設計到雲端部署架構解析</h1>
+            <div class="flex flex-wrap items-center gap-4 text-gray-600 font-medium justify-center md:justify-start">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm shadow-md">實作講義</span>
+                <span class="flex items-center gap-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    講師：郭大維老師
+                </span>
+            </div>
+        </header>
+
+        <!-- 一、專案簡介 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">一、專案簡介</h2>
+            <div class="prose max-w-none text-gray-700 leading-relaxed text-lg">
+                <p>本專案 (<a href="https://wenzao-ai-avatar.vercel.app" target="_blank" class="text-blue-600 hover:underline font-bold">https://wenzao-ai-avatar.vercel.app/</a>) 是一個整合了 3D 虛擬角色渲染、語音辨識、文字轉語音，以及大型語言模型 (Google Gemini API) 的全端互動網頁。透過本講義，同學將了解現代網站如何將「前端介面」與「後端服務」分離，並透過雲端平台將專案部署上線。</p>
+            </div>
+        </section>
+
+        <!-- 二、核心架構解析 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">二、核心架構解析：前端與後端的交響樂</h2>
+            <p class="mb-8 text-gray-600">現代網頁應用程式通常不會把所有的功能都塞在一個檔案裡，而是講求「分工合作」。</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-blue-50 p-8 rounded-2xl border border-blue-100">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">前</span>
+                        前端 (Frontend) - index.html
+                    </h3>
+                    <ul class="space-y-4 text-blue-900">
+                        <li><span class="concept-badge">角色</span> 餐廳的服務生與裝潢。</li>
+                        <li><span class="concept-badge">職責</span> 在使用者的「<span class="font-bold underline">瀏覽器</span>」中執行。負責呈現 3D 模型 (Three.js)、收集使用者的語音或文字輸入，並將這些需求打包發送給後端。它不包含任何機密金鑰。</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-50 p-8 rounded-2xl border border-indigo-100">
+                    <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">後</span>
+                        後端 (Backend) - chat.js 與環境變數
+                    </h3>
+                    <ul class="space-y-4 text-indigo-900">
+                        <li><span class="concept-badge">角色</span> 餐廳的廚房與金庫。</li>
+                        <li><span class="concept-badge">職責</span> 在雲端伺服器上執行。<span class="font-bold text-red-600">真正的 API 金鑰是保管在 Vercel 的「環境變數（保險箱）」中。</span>而 `chat.js` 負責接收前端傳來的對話，從保險箱拿出金鑰，轉身向 Google 總部請求 AI 回覆，最後把答案送回給前端。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="img1.jpg" alt="瀏覽器與 Vercel 伺服器通訊流程圖" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+瀏覽器與+Vercel+伺服器通訊流程圖]'">
+                <p class="figure-label">圖 1：瀏覽器與 Vercel 伺服器通訊流程圖</p>
+            </div>
+
+            <div class="image-container mt-12">
+                <img src="img2.jpg" alt="AI VTuber 專案檔案結構與相依關係圖" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+專案檔案結構圖]'">
+                <p class="figure-label">圖 2：AI VTuber 專案檔案結構與相依關係圖 (Project File Structure)</p>
+            </div>
+        </section>
+
+        <!-- 三、雲端部署神器 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">三、雲端部署神器：GitHub 與 Vercel</h2>
+            
+            <div class="space-y-8">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">1. GitHub：程式碼的保險箱 (版本控制系統)</h3>
+                    <p class="text-gray-700 mb-2">GitHub 就像是研發部門的食譜總部。我們將所有的 HTML、JS、3D 模型都存放在名為 <span class="bg-pink-100 text-pink-700 px-2 py-1 rounded font-mono font-bold">vtuber-3dgame</span> 的儲存庫中。</p>
+                    <p class="text-gray-500 text-sm italic">• 特色：只負責存放靜態檔案與版本控制，沒有運算能力 (Storage Only)。</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">2. Vercel：無伺服器部署平台 (雲端廚房)</h3>
+                    <p class="text-gray-700 mb-4">Vercel 是一個強大的雲端平台，專門用來執行網頁與後端程式。它負責執行程式與提供運算環境 (Execution & Server)。</p>
+                    <div class="image-container">
+                        <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+GitHub+與+Vercel+關係圖]'">
+                        <p class="figure-label">圖 3：GitHub 與 Vercel 關係與分工圖</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 四、持續整合與自動化 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">四、持續整合 (CI/CD) 與 Webhook 的魔力</h2>
+            <p class="mb-4 text-gray-700">傳統網頁更新需要手動上傳檔案，但在 GitHub + Vercel 的架構下，一切都是自動化的。</p>
+            
+            <div class="bg-green-50 p-6 rounded-xl mb-6 border-l-4 border-green-500">
+                <p class="font-bold text-green-800 text-lg mb-2">什麼是 CI/CD？</p>
+                <ul class="space-y-3 text-green-900 leading-relaxed">
+                    <li><span class="font-bold text-green-700">CI (Continuous Integration / 持續整合)：</span>當開發者將程式碼上傳到 GitHub 時，系統會自動幫忙合併與檢查，確保新加入的「食譜」不會搞壞原本正常的網站。</li>
+                    <li><span class="font-bold text-green-700">CD (Continuous Deployment / 持續部署)：</span>一旦程式碼確認沒問題，Vercel 這樣的平台就會自動將最新版本的網站「上菜」並發佈到伺服器上，讓全世界的使用者立刻看到更新。</li>
+                </ul>
+                <p class="mt-3 text-sm italic text-green-800">簡單來說，CI/CD 就是一套「全自動化的網站更新流水線」，讓工程師可以專心寫程式，剩下的繁瑣上傳工作全交給機器代勞。</p>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-xl mb-6 border-l-4 border-blue-500">
+                <p class="font-bold text-blue-800 text-lg mb-2">💡 誰是 Webhook？</p>
+                <p class="text-blue-900 leading-relaxed">
+                    Webhook 就像是裝在 Vercel 門口的「門鈴」。在我們的專案中，<span class="font-bold text-blue-700 underline">GitHub 就是按下門鈴的人</span>。<br><br>
+                    當開發者將修改後的程式碼 Push (推送) 到 GitHub 時，<span class="font-bold">GitHub 會主動發送一個 Webhook（網頁掛鉤通知）給 Vercel</span>，告訴它：「有新食譜了，快更新！」Vercel 收到通知後，就會自動拉取新程式碼並重新建置網站。
+                </p>
+            </div>
+
+            <div class="image-container">
+                <img src="img4.jpg" alt="網站自動更新流程圖" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+自動更新流程圖]'">
+                <p class="figure-label">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
+            </div>
+        </section>
+
+        <!-- 五、交談設定檔案解說 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">五、交談核心設定：相對路徑與設定檔</h2>
+            <p class="mb-6 text-gray-700">在專案中，我們放置了三個關鍵檔案來賦予 AI 靈魂。請注意，這些檔案都跟主網頁放在同一個目錄下。</p>
+            
+            <div class="space-y-4 mb-6">
+                <div class="p-4 border-l-4 border-purple-500 bg-purple-50 rounded-r-lg">
+                    <span class="font-bold text-purple-800 text-lg">1. AvatarSample_W.vrm</span><br>
+                    <span class="text-purple-900">VTuber 的 3D 身體。前端透過 Three.js 載入這個檔案來呈現角色。</span>
+                </div>
+                <div class="p-4 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                    <span class="font-bold text-teal-800 text-lg">2. knowledgebase.txt</span><br>
+                    <span class="text-teal-900">AI 的知識庫。裡面記錄了「文藻外語大學」的相關資訊，AI 遇到校園問題會優先從這裡找答案。</span>
+                </div>
+                <div class="p-4 border-l-4 border-orange-500 bg-orange-50 rounded-r-lg">
+                    <span class="font-bold text-orange-800 text-lg">3. prompt.txt</span><br>
+                    <span class="text-orange-900">AI 的個性設定（提示詞）。告訴 AI 它的名字叫「美智」，且設定了開場白與行為準則。</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 text-white p-6 rounded-xl">
+                <p class="text-gray-300 font-bold mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    程式設計觀念：相對位址 (Relative Path)
+                </p>
+                <p class="text-sm leading-relaxed text-gray-300 mb-4">
+                    在 HTML 與 JavaScript 程式碼中，我們使用 <code class="text-yellow-300 bg-gray-700 px-1 rounded">./</code> 來代表「相對路徑」。<br>
+                    例如：<code class="text-green-400">let promptUrl = './prompt.txt';</code><br>
+                    這裡的 <code class="text-yellow-300">./</code> 意思是<span class="font-bold text-white">「跟目前執行這個程式的 index.html 檔案，位在同一個資料夾（根目錄）底下」</span>。這樣瀏覽器才知道去哪裡讀取這些設定檔，而不需要寫出冗長的完整網址。
+                </p>
+            </div>
+        </section>
+
+        <!-- 六、資安與 CORS 白名單 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">六、資安重中之重：CORS 安全防護與白名單</h2>
+            
+            <p class="mb-4 text-gray-700">為什麼我們必須在 `chat.js` 寫程式碼來限制來源？因為如果駭客知道了我們 Vercel 伺服器的網址，他可以在自己的電腦上寫一個惡意網頁，偷偷發送請求來消耗我們的 API 額度。</p>
+
+            <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-200 mb-8">
+                <h3 class="text-lg font-bold text-indigo-900 mb-3">什麼是 CORS 機制（跨來源資源共用）？</h3>
+                <ul class="space-y-3 text-indigo-800">
+                    <li class="flex items-start gap-2">
+                        <span class="mt-1">🏠</span>
+                        <p>您可以把伺服器 (<code class="font-mono bg-indigo-100 px-1 rounded">chat.js</code>) 想像成一間<span class="font-bold">「私人 VIP 俱樂部」</span>。</p>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="mt-1">👮</span>
+                        <p>使用者的<span class="font-bold">「瀏覽器」</span>就是俱樂部門口的<span class="font-bold">「保全」</span>。</p>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="mt-1">📋</span>
+                        <p>當任何網頁想要發送請求到 chat.js 時，保全會先問俱樂部：<span class="font-bold text-indigo-900">「這個網頁是誰？他在你們的 VIP 邀請名單（白名單）上嗎？」</span></p>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="mt-1">🛡️</span>
+                        <p>如果伺服器沒有核發通行證，瀏覽器（保全）自己就會跳出 CORS Error，直接把惡意請求擋在門外！</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="img5.jpg" alt="手動重新部署流程圖" onerror="this.src='https://placehold.co/1000x500?text=[Image+of+手動部署流程圖]'">
+                <p class="figure-label">圖 5：手動重新部署 (如果您在 Vercel 更換了保險箱的 API KEY，必須手動 Redeploy 才能載入新設定)</p>
+            </div>
+        </section>
+
+        <!-- 附錄、程式碼實作 -->
+        <section class="step-card">
+            <h2 class="text-2xl font-bold mb-6">附錄、完整程式碼實作</h2>
+            <p class="text-gray-600 mb-6">請同學利用右上角的「Copy」按鈕，將以下完整程式碼複製並貼上到您的專案檔案中。</p>
+            
+            <h3 class="text-xl font-bold text-indigo-700 mt-8 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                1. 後端處理程式 (/api/chat.js)
+            </h3>
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-javascript">// 簡易的 IP Rate Limiting 狀態儲存 (注意: 在 Vercel Serverless 中每次啟動可能重置，但仍具備短時間防護作用)
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 分鐘
+const MAX_REQUESTS_PER_WINDOW = 15; // 每分鐘最多 15 次請求，防刷配額
+
+export default async function handler(req, res) {
+    // 1. 設定 CORS 標頭，嚴格限制來源 (白名單)
+    const allowedOrigins = ['https://wenzao-ai-avatar.vercel.app'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else if (origin && origin.includes('localhost')) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // 2. 處理瀏覽器的預檢請求 (Preflight)
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    // 只允許 POST 方法
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
+    // --- 安全性加強：簡易 Rate Limiting ---
+    const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+    const currentTime = Date.now();
+    if (rateLimitMap.has(ip)) {
+        const clientData = rateLimitMap.get(ip);
+        if (currentTime - clientData.startTime < RATE_LIMIT_WINDOW_MS) {
+            if (clientData.count >= MAX_REQUESTS_PER_WINDOW) {
+                return res.status(429).json({ error: '請求過於頻繁 (Rate Limit Exceeded)，請稍後再試。' });
+            }
+            clientData.count++;
+        } else {
+            rateLimitMap.set(ip, { count: 1, startTime: currentTime });
+        }
+    } else {
+        rateLimitMap.set(ip, { count: 1, startTime: currentTime });
+    }
+    // -------------------------------------
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        console.error("錯誤: 找不到 GEMINI_API_KEY 環境變數");
+        return res.status(500).json({ error: '伺服器端環境變數設定錯誤' });
+    }
+
+    try {
+        // --- 安全性加強：Payload 驗證與重組 ---
+        // 拒絕直接轉發 req.body，而是從中提取允許的欄位
+        const { contents, systemPrompt, knowledgeBase } = req.body;
+
+        if (!contents || !Array.isArray(contents)) {
+            return res.status(400).json({ error: '無效的對話格式' });
+        }
+
+        // 後端嚴格把控 System Instruction 的格式，確保 JSON 與核心邏輯不會被前端覆蓋
+        const defaultPrompt = "你是一個專業的 AI 虛擬助教，回答要簡短生動。";
+        const safeSystemPrompt = systemPrompt ? systemPrompt : defaultPrompt;
+        const safeKnowledgeBase = knowledgeBase ? knowledgeBase : "";
+
+        const fullSystemInstruction = `${safeSystemPrompt}\n\n【重要指示】\n為了讓系統正確解析動作，請務必「只」回傳純 JSON 格式的文字，不要加上 \`\`\`json 標籤或任何其他說明。JSON 格式必須為：\n{\n  "reply": "你的回覆內容",\n  "expression": "情緒(neutral, happy, angry, sad, relaxed, surprised)",\n  "specialAction": "動作(none, blink, blinkLeft, blinkRight, aa)",\n  "actionDuration": 3\n}\n\n【知識庫內容】\n${safeKnowledgeBase}`;
+
+        // 重新封裝要傳送給 Gemini 的資料結構
+        const geminiPayload = {
+            contents: contents,
+            systemInstruction: { parts: [{ text: fullSystemInstruction }] },
+            // 修正：Gemini API 官方規定的工具名稱必須是底線分隔的 google_search
+            tools: [{ google_search: {} }] 
+        };
+        // -------------------------------------
+
+        const googleApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+        
+        const response = await fetch(googleApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(geminiPayload) // 發送經過我們後端重組與淨化過的安全 Payload
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            return res.status(response.status).json(data);
+        }
+
+        return res.status(200).json(data);
+    } catch (error) {
+        console.error('向 Gemini API 請求時發生錯誤:', error);
+        return res.status(500).json({ error: '後端伺服器發生未預期的錯誤' });
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-700 mt-12 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                2. 前端主網頁 (index.html)
+            </h3>
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-TW"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;!-- 針對行動裝置優化：禁止縮放，防止 iOS 點擊輸入框時自動放大畫面 --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;
+    &lt;title&gt;AI 虛擬助教&lt;/title&gt;
+    &lt;!-- 引入 Tailwind CSS 作為 UI 樣式 --&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+    &lt;style&gt;
+        /* 加入 touch-action: none 防止手機滑動時觸發下拉更新或返回手勢 */
+        body { margin: 0; overflow: hidden; background-color: #1a202c; touch-action: none; }
+        #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 0; }
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        .pointer-events-auto { pointer-events: auto; }
+        
+        /* 隱藏滾動條但保留滾動功能 (針對對話框內部) */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    &lt;/style&gt;
+
+    &lt;!-- 設定 Three.js 與 Three-VRM 的 Import Map --&gt;
+    &lt;script type="importmap"&gt;
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+                "@pixiv/three-vrm": "https://unpkg.com/@pixiv/three-vrm@3.2.0/lib/three-vrm.module.js"
+            }
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- WebGL 渲染容器 --&gt;
+    &lt;div id="canvas-container"&gt;&lt;/div&gt;
+
+    &lt;!-- UI 介面層 --&gt;
+    &lt;div id="ui-layer" class="flex flex-col justify-end p-4 relative"&gt;
+        
+        &lt;!-- 底部中央對話整合容器 (極高透明度薄玻璃質感，包覆文字與輸入框) --&gt;
+        &lt;div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] sm:w-full max-w-lg pointer-events-auto flex flex-col gap-3 bg-white/10 backdrop-blur-sm p-4 rounded-2xl shadow-sm border border-white/30 z-10 transition-all duration-300"&gt;
+            
+            &lt;!-- 對話氣泡窗 (預設隱藏，被透明面板完全包住) --&gt;
+            &lt;div id="chat-bubble" class="hidden px-2 max-h-40 overflow-y-auto no-scrollbar"&gt;
+                &lt;!-- 深藍色文字且粗細改為 font-medium --&gt;
+                &lt;p id="chat-text" class="text-lg text-blue-900 font-medium leading-relaxed drop-shadow-sm"&gt;&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 底部對話輸入框 --&gt;
+            &lt;div class="flex gap-2 w-full"&gt;
+                &lt;!-- 新增：語音輸入按鈕 --&gt;
+                &lt;button id="mic-btn" class="bg-white/20 hover:bg-white/30 backdrop-blur text-blue-900 px-3 py-3 rounded-xl shadow-inner border border-blue-900/10 transition-colors shrink-0 flex items-center justify-center" title="語音輸入"&gt;
+                    &lt;svg id="mic-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;
+                        &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"&gt;&lt;/path&gt;
+                    &lt;/svg&gt;
+                &lt;/button&gt;
+
+                &lt;input type="text" id="chat-input" placeholder="與角色對話..." class="flex-1 bg-white/20 text-blue-900 placeholder-blue-800/50 px-4 py-3 rounded-xl border border-blue-900/10 focus:outline-none focus:border-blue-900/30 focus:bg-white/40 shadow-inner text-base transition-colors font-medium" /&gt;
+                &lt;button id="send-btn" class="bg-blue-800/70 hover:bg-blue-700/80 active:scale-95 active:bg-blue-900 backdrop-blur text-white px-5 py-3 rounded-xl shadow transition-all duration-150 font-bold text-base shrink-0"&gt;發送&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="flex justify-between items-end w-full"&gt;
+            
+            &lt;!-- 左下角：AI 虛擬助教面板 (目前隱藏) --&gt;
+            &lt;div class="hidden bg-gray-900/70 backdrop-blur-md text-white p-4 rounded-xl shadow-xl border border-gray-700/50 max-w-xs pointer-events-auto flex-col gap-3"&gt;
+                &lt;div class="flex items-center justify-between"&gt;
+                    &lt;h1 class="text-lg font-bold text-blue-400"&gt;AI 虛擬助教&lt;/h1&gt;
+                    &lt;div class="flex items-center gap-3"&gt;
+                        &lt;div id="status-light" class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] transition-colors" title="API狀態：準備就緒"&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;p class="text-xs text-gray-300"&gt;系統已自動載入預設角色模型。您可以直接與其展開對話。&lt;/p&gt;
+                
+                &lt;div id="loading-status" class="mt-3 text-xs text-yellow-400 flex items-center justify-center"&gt;
+                    &lt;svg class="animate-spin -ml-1 mr-2 h-3 w-3 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"&gt;
+                        &lt;circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"&gt;&lt;/circle&gt;
+                        &lt;path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"&gt;&lt;/path&gt;
+                    &lt;/svg&gt;
+                    模型載入中...
+                &lt;/div&gt;
+                &lt;div id="error-status" class="mt-3 text-xs text-red-400 hidden text-center"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 右下角：操作說明面板 (目前隱藏) --&gt;
+            &lt;div class="hidden bg-gray-900/70 backdrop-blur-md text-white p-3 rounded-xl shadow-lg border border-gray-700/50 text-xs pointer-events-auto"&gt;
+                &lt;h3 class="font-bold text-gray-200 mb-1 border-b border-gray-600 pb-1"&gt;操作說明&lt;/h3&gt;
+                &lt;ul class="space-y-1 text-gray-400"&gt;
+                    &lt;li&gt;&lt;span class="text-blue-400 font-bold"&gt;左鍵&lt;/span&gt; : 旋轉視角 / &lt;span class="text-blue-400 font-bold"&gt;右鍵&lt;/span&gt; : 平移&lt;/li&gt;
+                    &lt;li&gt;&lt;span class="text-blue-400 font-bold"&gt;滾輪&lt;/span&gt; : 縮放&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script type="module"&gt;
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
+
+        // --- 全域變數 ---
+        let scene, camera, renderer, controls;
+        let currentVrm = undefined;
+        let particles;
+        const clock = new THREE.Clock();
+
+        // 知識庫與設定變數
+        let knowledgeBaseText = "";
+        let systemPromptText = "你是一個擁有 3D 虛擬身體的 AI 虛擬助教。你的名字叫做『美智』。當使用者詢問你的名字時，請務必回答『美智』。若使用者要求你做動作（如閉眼、張口等），請在文字回覆中自然地答應，並在 JSON 中設定對應動作。絕對不要說自己無法做動作或沒有身體！回答要簡短生動。";
+        let openingPhrase = "您好！我是美智，文藻的 AI 虛擬助教，有什麼我可以幫忙的嗎？";
+
+        // 表情控制變數
+        let expressionTimer = 0;
+        let expressionBlend = 1;
+        let currentExpression = 'neutral';
+        let targetExpression = 'neutral';
+        const expressions = ['happy', 'angry', 'sad', 'relaxed', 'surprised', 'neutral'];
+
+        // 特殊動作控制變數
+        let activeSpecialAction = null;
+        let specialActionTimer = 0;
+
+        // 對話與語音變數
+        let isSpeaking = false;
+        let lipSyncTimer = 0;
+        let conversationHistory = [];
+
+        // 新增全域變數，用於追蹤是否要自動重啟麥克風
+        let autoRestartMic = false;
+
+        // --- 載入外部設定檔 (知識庫與提示詞) ---
+        async function loadConfig() {
+            try {
+                let promptUrl = './prompt.txt';
+                let kbUrl = './knowledgebase.txt';
+                
+                if (window.location.protocol === 'blob:' || window.location.hostname.includes('usercontent.goog')) {
+                    promptUrl = 'https://wenzao-ai-avatar.vercel.app/prompt.txt';
+                    kbUrl = 'https://wenzao-ai-avatar.vercel.app/knowledgebase.txt';
+                }
+
+                const [promptRes, kbRes] = await Promise.all([
+                    fetch(promptUrl).catch(() =&gt; null),
+                    fetch(kbUrl).catch(() =&gt; null)
+                ]);
+
+                if (kbRes && kbRes.ok) {
+                    knowledgeBaseText = await kbRes.text();
+                    console.log("知識庫載入成功");
+                }
+
+                if (promptRes && promptRes.ok) {
+                    const fullPromptText = await promptRes.text();
+                    // 使用正則表達式，同時支援 === 或 --- 作為分隔符號
+                    const parts = fullPromptText.split(/[=-]{3}\s*提示詞\s*[=-]{3}/);
+                    if (parts.length &gt; 1) {
+                        openingPhrase = parts[0].replace(/[=-]{3}\s*開場詞\s*[=-]{3}/, '').trim();
+                        // 修正關鍵：將名字「美智」的指令置於提示詞的最前方，確保 AI 優先讀取
+                        systemPromptText = "你的唯一名字是『美智』。請記住：『文藻AI虛擬助教』只是你的職稱職位，並非你的名字。當被問及姓名時，請回答『美智』。" + parts[1].trim() + " (備註：你擁有3D虛擬身體，被要求做動作時請配合。)";
+                    } else {
+                        systemPromptText = fullPromptText.trim();
+                    }
+                    console.log("提示詞載入成功");
+                }
+            } catch (error) {
+                console.warn("載入設定檔失敗，將使用預設設定", error);
+            }
+        }
+
+        // --- 觸發開場白 ---
+        function triggerOpeningPhrase() {
+            if (!openingPhrase) return;
+            
+            const chatBubble = document.getElementById('chat-bubble');
+            const chatText = document.getElementById('chat-text');
+            
+            chatBubble.classList.remove('hidden');
+            chatText.innerHTML = `${openingPhrase}`; // 已移除「角色：」
+            
+            speakAndLipSync(openingPhrase);
+            
+            conversationHistory.push({ role: "model", parts: [{ text: JSON.stringify({ reply: openingPhrase, expression: "happy", specialAction: "none", actionDuration: 3 }) }] });
+        }
+
+        // --- 初始化場景 ---
+        async function init() {
+            const container = document.getElementById('canvas-container');
+
+            await loadConfig();
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xdbe3ea);
+            scene.fog = new THREE.Fog(0xdbe3ea, 10, 50);
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.45, -1.6); 
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            container.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.screenSpacePanning = true;
+            controls.target.set(0, 1.3, 0); 
+            controls.update();
+
+            setupEnvironment();
+
+            window.addEventListener('resize', onWindowResize);
+
+            let modelUrl = './AvatarSample_W.vrm';
+            
+            if (window.location.protocol === 'blob:' || window.location.hostname.includes('usercontent.goog')) {
+                modelUrl = 'https://wenzao-ai-avatar.vercel.app/AvatarSample_W.vrm';
+            }
+            
+            loadVRM(modelUrl);
+
+            animate();
+        }
+
+        function setupEnvironment() {
+            const ambientLight = new THREE.HemisphereLight(0xffffff, 0x999999, 0.8);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xfff0dd, 2.0);
+            directionalLight.position.set(2, 5, 3);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            directionalLight.shadow.bias = -0.001;
+            scene.add(directionalLight);
+
+            const fillLight = new THREE.DirectionalLight(0xcceeff, 1.2);
+            fillLight.position.set(-2, 2, 2);
+            scene.add(fillLight);
+
+            const floorGeometry = new THREE.PlaneGeometry(50, 50);
+            const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x8a95a5, roughness: 0.6, metalness: 0.1 });
+            const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            floor.receiveShadow = true;
+            scene.add(floor);
+
+            const gridHelper = new THREE.GridHelper(50, 100, 0xb0bac5, 0x8a95a5);
+            gridHelper.position.y = 0.01;
+            gridHelper.material.transparent = true;
+            gridHelper.material.opacity = 0.5;
+            scene.add(gridHelper);
+
+            const pedestalGeometry = new THREE.CylinderGeometry(0.8, 1, 0.1, 32);
+            const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0xdbe3ea, roughness: 0.3, metalness: 0.2 });
+            const pedestal = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
+            pedestal.position.y = 0.05;
+            pedestal.receiveShadow = true;
+            pedestal.castShadow = true;
+            scene.add(pedestal);
+
+            const ringGeometry = new THREE.RingGeometry(0.85, 0.9, 32);
+            const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa00, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = -Math.PI / 2;
+            ring.position.y = 0.11;
+            scene.add(ring);
+
+            const particleCount = 200;
+            const particleGeometry = new THREE.BufferGeometry();
+            const particlePositions = new Float32Array(particleCount * 3);
+            const particleColors = new Float32Array(particleCount * 3);
+            const color = new THREE.Color();
+            
+            for(let i = 0; i &lt; particleCount; i++) {
+                particlePositions[i*3] = (Math.random() - 0.5) * 10;
+                particlePositions[i*3+1] = Math.random() * 5;
+                particlePositions[i*3+2] = (Math.random() - 0.5) * 10;
+                color.setHSL(Math.random(), 1.0, 0.5);
+                particleColors[i*3] = color.r;
+                particleColors[i*3+1] = color.g;
+                particleColors[i*3+2] = color.b;
+            }
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+            particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({ size: 0.08, transparent: true, opacity: 0.9, vertexColors: true });
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+        }
+
+        function loadVRM(url) {
+            const loadingUI = document.getElementById('loading-status');
+            const errorUI = document.getElementById('error-status');
+            if(loadingUI) loadingUI.classList.remove('hidden');
+            if(errorUI) errorUI.classList.add('hidden');
+
+            const loader = new GLTFLoader();
+            loader.register((parser) =&gt; new VRMLoaderPlugin(parser));
+
+            loader.load(
+                url,
+                (gltf) =&gt; {
+                    const vrm = gltf.userData.vrm;
+                    if (currentVrm) scene.remove(currentVrm.scene);
+                    VRMUtils.removeUnnecessaryVertices(gltf.scene);
+                    VRMUtils.removeUnnecessaryJoints(gltf.scene);
+
+                    vrm.scene.traverse((obj) =&gt; {
+                        obj.frustumCulled = false;
+                        if (obj.isMesh) {
+                            obj.castShadow = true;
+                            obj.receiveShadow = true;
+                        }
+                    });
+
+                    if (vrm.humanoid) {
+                        const leftUpperArm = vrm.humanoid.getNormalizedBoneNode('leftUpperArm');
+                        const rightUpperArm = vrm.humanoid.getNormalizedBoneNode('rightUpperArm');
+                        if (leftUpperArm) leftUpperArm.rotation.z = -1.1; 
+                        if (rightUpperArm) rightUpperArm.rotation.z = 1.1; 
+                    }
+
+                    vrm.scene.position.y = 0.1;
+                    vrm.scene.rotation.y = Math.PI;
+                    scene.add(vrm.scene);
+                    currentVrm = vrm;
+
+                    if(loadingUI) loadingUI.classList.add('hidden');
+                    console.log('模型自動載入成功!');
+                    triggerOpeningPhrase();
+                },
+                undefined,
+                (error) =&gt; {
+                    console.error('模型載入失敗:', error);
+                    if(loadingUI) loadingUI.classList.add('hidden');
+                    if(errorUI) {
+                        errorUI.textContent = '無法載入預設模型 AvatarSample_W.vrm，請確認檔案路徑。';
+                        errorUI.classList.remove('hidden');
+                    }
+                }
+            );
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            if (currentVrm) {
+                if (currentVrm.humanoid) {
+                    const chest = currentVrm.humanoid.getNormalizedBoneNode('chest');
+                    if (chest) chest.rotation.x = Math.sin(time * 1.5) * 0.015;
+                }
+
+                if (currentVrm.expressionManager) {
+                    // 1. 隨機表情計時器邏輯
+                    expressionTimer += delta;
+                    if (expressionTimer &gt; 4.0) {
+                        expressionTimer = 0;
+                        currentExpression = targetExpression;
+                        targetExpression = expressions[Math.floor(Math.random() * expressions.length)];
+                        expressionBlend = 0;
+                    }
+                    if (expressionBlend &lt; 1.0) {
+                        expressionBlend += delta * 2.0; 
+                        if (expressionBlend &gt; 1.0) expressionBlend = 1.0;
+                    }
+
+                    // 2. 先清除所有表情
+                    expressions.forEach(exp =&gt; currentVrm.expressionManager.setValue(exp, 0));
+
+                    // 3. 特殊動作處理
+                    if (specialActionTimer &gt; 0 && activeSpecialAction) {
+                        specialActionTimer -= delta;
+                        currentVrm.expressionManager.setValue(activeSpecialAction, 1.0);
+                    } else if (activeSpecialAction) {
+                        currentVrm.expressionManager.setValue(activeSpecialAction, 0);
+                        activeSpecialAction = null;
+                    }
+
+                    // 4. 講話時強制微笑且同步嘴型，不講話時才隨機表情
+                    if (isSpeaking) {
+                        currentVrm.expressionManager.setValue('happy', 1.0);
+                        
+                        lipSyncTimer += delta * 15;
+                        const mouthOpenness = (Math.sin(lipSyncTimer) + 1) / 2; 
+                        if (activeSpecialAction !== 'aa') {
+                            currentVrm.expressionManager.setValue('aa', mouthOpenness * (Math.random() * 0.4 + 0.6));
+                        }
+                    } else {
+                        currentVrm.expressionManager.setValue(currentExpression, 1.0 - expressionBlend);
+                        currentVrm.expressionManager.setValue(targetExpression, expressionBlend);
+                        
+                        if (activeSpecialAction !== 'aa') {
+                            currentVrm.expressionManager.setValue('aa', 0);
+                        }
+                    }
+                }
+                currentVrm.update(delta);
+            }
+
+            if (particles) particles.rotation.y += delta * 0.05;
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Gemini API 互動邏輯 (串接後端) ---
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatText = document.getElementById('chat-text');
+        
+        const statusLight = document.getElementById('status-light');
+
+        function setStatus(status) {
+            if (!statusLight) return;
+            statusLight.className = 'w-3 h-3 rounded-full transition-colors ';
+            if (status === 'connecting') {
+                statusLight.className += 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse';
+            } else if (status === 'success') {
+                statusLight.className += 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]';
+            } else if (status === 'error') {
+                statusLight.className += 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]';
+            } else {
+                statusLight.className += 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]';
+            }
+        }
+
+        async function fetchWithBackoff(url, options, maxRetries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i &lt; maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) return response;
+                    if (response.status === 400 || response.status === 403 || response.status === 404) throw new Error(`API Error ${response.status}`);
+                    if (i === maxRetries - 1) throw new Error(`Failed with ${response.status}`);
+                } catch (error) {
+                    if (error.message.includes('400') || error.message.includes('403') || error.message.includes('404')) throw error;
+                    if (i === maxRetries - 1) throw error;
+                }
+                await new Promise(r =&gt; setTimeout(r, delays[i]));
+            }
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            chatInput.value = '';
+            chatBubble.classList.remove('hidden');
+            // 修改使用者提示樣式
+            chatText.innerHTML = `&lt;span class="text-blue-800 text-sm opacity-70"&gt;你：${text}&lt;/span&gt;&lt;br&gt;&lt;span class="text-blue-900/60 text-sm animate-pulse"&gt;正在思考中...&lt;/span&gt;`;
+            setStatus('connecting');
+            conversationHistory.push({ role: "user", parts: [{ text: text }] });
+            
+            // 修正關鍵：在此處強制規定尋找答案的嚴格順序，解決 AI 隨機回答的行為
+            const fullSystemInstruction = `${systemPromptText}\n\n【回答資料來源優先順序】\n1. 優先使用下方的【知識庫內容】來回答。\n2. 若知識庫中找不到答案，請務必使用 Google Search 工具搜尋網路資訊。\n3. 若網路上也找不到，再使用你的內建知識庫。\n4. 若以上皆無明確資訊（尤其是學校科系相關問題），請誠實回答「我不知道」，絕不可自行編造。\n\n【重要指示】\n為了讓系統正確解析動作，請務必「只」回傳純 JSON 格式的文字，不要加上 \`\`\`json 標籤或任何其他說明。JSON 格式必須為：\n{\n  \"reply\": \"你的回覆內容\",\n  \"expression\": \"情緒(neutral, happy, angry, sad, relaxed, surprised)\",\n  \"specialAction\": \"動作(none, blink, blinkLeft, blinkRight, aa)\",\n  \"actionDuration\": 3\n}\n\n【知識庫內容】\n${knowledgeBaseText}`;
+
+            try {
+                const response = await fetchWithBackoff(`/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: conversationHistory,
+                        systemInstruction: { parts: [{ text: fullSystemInstruction }] },
+                        tools: [{ googleSearch: {} }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) throw new Error(data.error);
+
+                const aiText = data.candidates[0].content.parts[0].text;
+                let replyText = aiText;
+                
+                // 強大的 Regex 提取 JSON，並優先顯示 reply 欄位
+                const jsonMatch = aiText.match(/\{[\s\S]*\}/);
+                
+                if (jsonMatch) {
+                    try {
+                        const aiResponse = JSON.parse(jsonMatch[0]);
+                        replyText = aiResponse.reply || "（沒有回覆文字）";
+                        
+                        if (expressions.includes(aiResponse.expression)) {
+                            targetExpression = aiResponse.expression;
+                            expressionBlend = 0;
+                            expressionTimer = -10.0; 
+                        }
+                        if (aiResponse.specialAction && aiResponse.specialAction !== 'none') {
+                            activeSpecialAction = aiResponse.specialAction;
+                            specialActionTimer = aiResponse.actionDuration || 3;
+                        }
+                    } catch (e) {
+                        console.warn("JSON 解析失敗，嘗試清除符號顯示純文字:", e);
+                        replyText = aiText.replace(/\{"reply":/g, "").replace(/"expression":.*/g, "").replace(/[{}"]/g, "").trim();
+                    }
+                }
+
+                setStatus('success');
+                // 更新顯示文字 (已移除 角色： 前綴)
+                chatText.innerHTML = `${replyText}`;
+                speakAndLipSync(replyText);
+                
+                conversationHistory.push({ role: "model", parts: [{ text: jsonMatch ? jsonMatch[0] : aiText }] });
+
+            } catch (error) {
+                console.error("發送訊息失敗:", error);
+                setStatus('error');
+                chatText.innerHTML = `&lt;span class="text-red-600 font-bold"&gt;連線失敗，請稍後再試。&lt;/span&gt;`;
+                conversationHistory.pop();
+            }
+        }
+
+        // --- 強化 iOS Safari 的發聲與嘴型同步防護 ---
+        window.keepAliveUtterances = [];
+        let speechCheckInterval = null;
+
+        function speakAndLipSync(text) {
+            window.speechSynthesis.cancel();
+            isSpeaking = false;
+            if (speechCheckInterval) clearInterval(speechCheckInterval);
+            
+            if (window.speechSynthesis.resume) window.speechSynthesis.resume();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.keepAliveUtterances.push(utterance);
+            
+            utterance.lang = 'zh-TW';
+            isSpeaking = true; 
+            
+            utterance.onstart = () =&gt; { isSpeaking = true; };
+            utterance.onend = () =&gt; { 
+                isSpeaking = false; 
+                if (window.keepAliveUtterances.length &gt; 20) window.keepAliveUtterances.length = 0;
+                // 如果需要自動重啟麥克風，則在此時啟動
+                if (autoRestartMic && recognition && !isRecording) {
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                        console.warn("自動重啟麥克風失敗:", e);
+                    }
+                }
+            };
+            utterance.onerror = (e) =&gt; {
+                console.warn('語音播放被中斷或發生錯誤:', e);
+                isSpeaking = false;
+                // 發生錯誤也嘗試重啟麥克風
+                if (autoRestartMic && recognition && !isRecording) {
+                    try {
+                        recognition.start();
+                    } catch (err) {
+                        console.warn("自動重啟麥克風失敗:", err);
+                    }
+                }
+            };
+            
+            setTimeout(() =&gt; {
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+
+            let confirmStopCount = 0;
+            speechCheckInterval = setInterval(() =&gt; {
+                if (!window.speechSynthesis.speaking) {
+                    confirmStopCount++;
+                    if (confirmStopCount &gt; 3) {
+                        isSpeaking = false;
+                        clearInterval(speechCheckInterval);
+                        // 雙重檢查：確保因為某種原因 onend 沒觸發時，也能重啟麥克風
+                        if (autoRestartMic && recognition && !isRecording) {
+                            try {
+                                recognition.start();
+                            } catch (e) {
+                                console.warn("自動重啟麥克風失敗:", e);
+                            }
+                        }
+                    }
+                } else {
+                    confirmStopCount = 0;
+                    isSpeaking = true;
+                }
+            }, 200);
+        }
+
+        function unlockAudioForIOS() {
+            if (window.speechSynthesis.resume) window.speechSynthesis.resume();
+            const silentUtterance = new SpeechSynthesisUtterance(' ');
+            silentUtterance.volume = 0;
+            silentUtterance.rate = 2;
+            window.speechSynthesis.speak(silentUtterance);
+        }
+        
+        const initialUnlock = () =&gt; {
+            unlockAudioForIOS();
+            document.removeEventListener('touchstart', initialUnlock);
+            document.removeEventListener('touchend', initialUnlock);
+            document.removeEventListener('click', initialUnlock);
+        };
+        document.addEventListener('touchstart', initialUnlock, { once: true });
+        document.addEventListener('touchend', initialUnlock, { once: true });
+        document.addEventListener('click', initialUnlock, { once: true });
+
+        // --- 語音輸入功能 (Web Speech API) ---
+        const micBtn = document.getElementById('mic-btn');
+        let recognition = null;
+        let isRecording = false;
+        let silenceTimeout = null;
+
+        // 偵測是否為手機或平板裝置 (包含 iPad 與 Android 行動裝置)
+        const isMobileOrTablet = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints &gt; 2 && /MacIntel/.test(navigator.platform));
+
+        if (('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) && !isMobileOrTablet) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-TW';
+            recognition.interimResults = true; // 開啟以偵測說話進度
+            recognition.continuous = true;     // 持續聆聽，直到手動停止或超時
+            recognition.maxAlternatives = 1;
+
+            recognition.onstart = function() {
+                isRecording = true;
+                // 改變麥克風按鈕外觀 (紅色呼吸燈)
+                micBtn.classList.remove('bg-white/20', 'text-blue-900');
+                micBtn.classList.add('bg-red-500/80', 'text-white', 'animate-pulse');
+                chatInput.placeholder = "聆聽中... (請說話)";
+                resetSilenceTimeout();
+            };
+
+            recognition.onresult = function(event) {
+                let finalTranscript = '';
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i &lt; event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                
+                if (finalTranscript !== '') {
+                    // 如果有最終結果，附加到輸入框中 (這裡簡化為直接替換，避免重複)
+                    chatInput.value = finalTranscript;
+                } else if (interimTranscript !== '') {
+                    // 顯示暫時的結果
+                    chatInput.value = interimTranscript;
+                }
+
+                // 只要有結果進來，就重置靜音計時器
+                resetSilenceTimeout();
+            };
+
+            recognition.onerror = function(event) {
+                console.error("語音辨識錯誤:", event.error);
+                // 發生錯誤不一定要清空 autoRestartMic，但通常 no-speech 等錯誤會導致停止
+                if (event.error === 'not-allowed') {
+                    alert('請允許麥克風權限才能使用語音輸入喔！');
+                    autoRestartMic = false;
+                }
+                // 避免在錯誤狀態下無限重啟
+                if (event.error === 'no-speech' || event.error === 'audio-capture') {
+                     // 可選擇是否要處理無語音的情況
+                }
+            };
+
+            recognition.onend = function() {
+                isRecording = false;
+                clearTimeout(silenceTimeout);
+                resetMicUI();
+                
+                // 語音輸入結束後，若有文字則自動觸發發送
+                if (chatInput.value.trim() !== '') {
+                    window.speechSynthesis.cancel();
+                    isSpeaking = false;
+                    unlockAudioForIOS();
+                    sendMessage();
+                    chatInput.value = ''; // 發送後清空
+                } else if (autoRestartMic && !isSpeaking) {
+                    // 如果被意外中斷 (例如沒說話超時)，且設定為自動重啟，則再次啟動
+                     try {
+                        recognition.start();
+                    } catch (e) {
+                        console.warn("重啟麥克風失敗:", e);
+                    }
+                }
+            };
+        } else {
+            // 不支援語音輸入的瀏覽器，或是手機/平板裝置 (隱藏麥克風按鈕)
+            if(micBtn) micBtn.style.display = 'none';
+            console.warn("此瀏覽器不支援 Web Speech API 語音輸入，或是正在使用行動裝置(手機/平板)已自動隱藏");
+        }
+
+        function resetMicUI() {
+            if(!micBtn) return;
+            micBtn.classList.remove('bg-red-500/80', 'text-white', 'animate-pulse');
+            micBtn.classList.add('bg-white/20', 'text-blue-900');
+            chatInput.placeholder = "與角色對話...";
+        }
+
+        // 靜音計時器：2秒不說話自動送出
+        function resetSilenceTimeout() {
+            clearTimeout(silenceTimeout);
+            if (isRecording) {
+                silenceTimeout = setTimeout(() =&gt; {
+                    if (recognition && isRecording) {
+                        recognition.stop(); // 停止錄音會觸發 onend，進而發送訊息
+                    }
+                }, 2000); // 2秒鐘
+            }
+        }
+
+        if (micBtn) {
+            micBtn.addEventListener('click', () =&gt; {
+                if (!recognition) return;
+                
+                if (isRecording) {
+                    // 使用者手動關閉麥克風
+                    autoRestartMic = false; // 取消自動重啟
+                    recognition.stop();
+                } else {
+                    // 使用者手動開啟麥克風
+                    autoRestartMic = true;  // 設定為自動重啟模式
+                    // 解鎖音訊並中斷目前AI說話
+                    window.speechSynthesis.cancel();
+                    isSpeaking = false;
+                    unlockAudioForIOS();
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                         console.warn("麥克風啟動失敗:", e);
+                    }
+                }
+            });
+        }
+
+        // 隨時點擊發送都能打斷講話
+        sendBtn.addEventListener('click', () =&gt; {
+            window.speechSynthesis.cancel();
+            isSpeaking = false;
+            // 手動發送文字時，取消麥克風自動重啟
+            autoRestartMic = false;
+            if(isRecording && recognition) recognition.stop();
+            unlockAudioForIOS();
+            sendMessage();
+        });
+        
+        chatInput.addEventListener('keypress', (e) =&gt; { 
+            if (e.key === 'Enter') {
+                window.speechSynthesis.cancel();
+                isSpeaking = false;
+                // 手動發送文字時，取消麥克風自動重啟
+                autoRestartMic = false;
+                if(isRecording && recognition) recognition.stop();
+                unlockAudioForIOS();
+                sendMessage(); 
+            }
+        });
+
+        // 監聽輸入框的改變，如果有手動輸入文字，則取消自動重啟麥克風
+        chatInput.addEventListener('input', () =&gt; {
+             if (chatInput.value.trim() !== '') {
+                 autoRestartMic = false;
+             }
+        });
+
+        init();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </section>
+
+        <footer class="mt-20 border-t border-gray-200 pt-10 text-center pb-12">
+            <p class="text-gray-400 text-sm italic">&copy; 2024 郭大維老師 - 文藻外語大學 AI VTuber 實作課程</p>
+        </footer>
+    </div>
+
+    <script>
+        hljs.highlightAll();
+
+        function copyCode(btn) {
+            const pre = btn.nextElementSibling;
+            // 使用 textContent 確保複製的文字格式與換行完整保留
+            const code = pre.textContent;
+            
+            const el = document.createElement('textarea');
+            el.value = code;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            btn.innerText = 'Copied!';
+            btn.classList.add('copied');
+            
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                btn.innerText = 'Copy';
+                btn.classList.remove('copied');
+                toast.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
