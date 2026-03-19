@@ -146,7 +146,7 @@
         <!-- 二、前端技術大解密 -->
         <section class="step-card overflow-hidden">
             <h2 class="text-xl sm:text-2xl font-bold mb-6">二、前端介面解析：賦予 VTuber 生命的魔法</h2>
-            <p class="mb-6 text-gray-700 text-base sm:text-lg">打開我們的前端核心 <code class="font-mono bg-gray-100 px-1 rounded">index.html</code>，您會發現這裡面其實融合了多種強大的技術。讓我們用程式碼片段來為您一一拆解：</p>
+            <p class="mb-6 text-gray-700">打開我們的前端核心 <code class="font-mono bg-gray-100 px-1 rounded">index.html</code>，您會發現這裡面其實融合了多種強大的技術。讓我們用程式碼片段來為您一一拆解：</p>
             
             <div class="space-y-8">
                 <!-- 1. 基礎三劍客 & 毛玻璃效果 -->
@@ -268,7 +268,7 @@ utterance.lang = 'zh-TW';
                                 印尼語 (Indonesian)
                             </button>
                             <!-- 廣東話 -->
-                            <button onclick="playVoiceDemo('zh-HK', '你好！歡迎嚟到文藻外語大學！多謝！')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl shadow inline-flex items-center justify-center gap-1 transition-transform active:scale-95 text-xs sm:text-sm md:col-span-3 lg:col-span-1">
+                            <button onclick="playVoiceDemo('zh-HK', '你好！歡迎嚟到文藻外語大學！多謝！')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl shadow inline-flex items-center justify-center gap-1 transition-transform active:scale-95 text-xs sm:text-sm">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                                 廣東話 (Cantonese)
                             </button>
@@ -359,7 +359,7 @@ body { touch-action: none; }
 
             <!-- 進階：RAG vs 傳統知識庫 -->
             <div class="bg-indigo-50 p-5 sm:p-6 rounded-xl border border-indigo-200 mb-6">
-                <h3 class="text-base sm:text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                <h3 class="text-base sm:text-lg font-bold text-indigo-900 mb-2 flex items-center gap-2">
                     <svg class="w-6 h-6 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                     進階觀念：目前的「文字檔知識庫」與企業級的「RAG (向量資料庫)」有何不同？
                 </h3>
@@ -483,24 +483,26 @@ let promptUrl = './prompt.txt';
         <section class="step-card overflow-hidden">
             <h2 class="text-xl sm:text-2xl font-bold mb-6">六、雲端部署與「手動重新佈署」的底層邏輯</h2>
             
-            <div class="grid lg:grid-cols-2 gap-6 mb-8 items-stretch">
+            <div class="grid lg:grid-cols-2 gap-6 lg:gap-8 mb-8 items-center">
                 <!-- 左側：圖3 放大顯示 -->
-                <div class="image-container bg-white m-0 p-4 sm:p-6 flex flex-col justify-center border border-gray-200 rounded-xl shadow-sm h-full">
-                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left">
-                        <strong>請參閱圖3</strong>，這張放大圖完整展示了 GitHub 與 Vercel 之間的完美分工架構，您可以清楚看到原始碼是如何從倉庫安全地轉移到主機上執行：
-                    </p>
-                    <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" class="mx-auto w-full object-contain" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+GitHub+與+Vercel]'">
-                    <p class="figure-label text-xs sm:text-sm mt-3">圖 3：GitHub (倉儲) 與 Vercel (主機) 的完美分工</p>
+                <div class="w-full">
+                    <div class="image-container bg-white m-0 p-4 sm:p-6 flex flex-col justify-center border border-gray-200 rounded-xl shadow-sm">
+                        <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left">
+                            <strong>請參閱圖3</strong>，這張圖完整展示了 GitHub 與 Vercel 之間的完美分工架構，您可以清楚看到原始碼是如何從倉庫安全地轉移到主機上執行：
+                        </p>
+                        <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" class="mx-auto w-full object-contain" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+GitHub+與+Vercel]'">
+                        <p class="figure-label text-xs sm:text-sm mt-3">圖 3：GitHub (倉儲) 與 Vercel (主機) 的完美分工</p>
+                    </div>
                 </div>
 
                 <!-- 右側：文字解說 (1. 與 2.) -->
-                <div class="flex flex-col gap-6">
-                    <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border border-gray-200 flex-1">
+                <div class="flex flex-col gap-6 w-full">
+                    <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border border-gray-200">
                         <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3">1. 雲端神器：GitHub 與 Vercel</h3>
-                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的倉庫)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行網站的主機)</span>。</p>
+                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-1">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的倉庫)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行網站的主機)</span>。</p>
                     </div>
 
-                    <div class="bg-blue-50 p-5 sm:p-6 rounded-xl border border-blue-200 flex-1">
+                    <div class="bg-blue-50 p-5 sm:p-6 rounded-xl border border-blue-200">
                         <h3 class="text-base sm:text-lg font-bold text-blue-900 mb-3">2. CI/CD 與 Webhook (自動按門鈴機制)</h3>
                         <p class="text-blue-800 text-sm sm:text-base leading-relaxed">當開發者修改了 <code class="font-mono bg-blue-100 px-1 rounded text-blue-900 break-all">index.html</code>，並上傳 (Push) 到 GitHub 時，GitHub 會發送一個 <span class="font-bold text-blue-900">Webhook (網頁掛鉤)</span> 給 Vercel。這就像是 GitHub 跑去 Vercel 門口<span class="font-bold underline text-blue-900">「自動按門鈴」</span>大喊：「有新檔案了！」</p>
                         <p class="text-blue-800 text-sm sm:text-base leading-relaxed mt-2">Vercel 聽到門鈴後，就會啟動 <span class="font-bold">CI/CD (持續整合與部署)</span> 的自動化流水線，自動更新網頁。您<span class="font-bold underline text-blue-900">完全不需要</span>手動點擊任何按鈕。</p>
@@ -513,8 +515,9 @@ let promptUrl = './prompt.txt';
                 <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left px-2 sm:px-4">
                     <strong>詳細的自動化流程，請參閱圖4</strong>的網站自動更新流程圖（CI/CD Pipeline），它完美詮釋了上述「按門鈴」後的連鎖反應。
                 </p>
-                <img src="img4.jpg" alt="網站自動更新流程圖" class="mx-auto max-w-md sm:max-w-xl w-full" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
-                <p class="figure-label mt-2 text-xs sm:text-sm">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
+                <!-- 控制圖4的大小：使用 w-4/5 sm:w-2/3 max-w-lg -->
+                <img src="img4.jpg" alt="網站自動更新流程圖" class="mx-auto w-[90%] sm:w-2/3 md:w-[60%] lg:w-1/2" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
+                <p class="figure-label mt-3 text-xs sm:text-sm">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
             </div>
 
             <!-- 手動重新佈署說明與圖5 -->
@@ -535,7 +538,7 @@ const apiKey = process.env.GEMINI_API_KEY;
                     <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left">
                         <strong>如果您對此觀念還是有點模糊，請參閱圖5的手動重新佈署流程圖。</strong>這張圖非常直觀地比較了「修改一般檔案」與「修改保險箱金鑰」時，系統行為的巨大差異，清楚展示了更換金鑰後必須手動觸發的關鍵步驟：
                     </p>
-                    <img src="img5.jpg" alt="手動重新佈署流程圖" class="mx-auto border border-gray-100" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+手動部署流程]'">
+                    <img src="img5.jpg" alt="手動重新佈署流程圖" class="mx-auto border border-gray-100 w-[95%] sm:w-4/5 md:w-[70%]" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+手動部署流程]'">
                     <p class="figure-label mt-3 text-xs sm:text-sm">圖 5：更換 API 金鑰後，必須「手動重新佈署」的流程圖</p>
                 </div>
             </div>
