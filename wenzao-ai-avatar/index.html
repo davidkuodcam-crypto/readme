@@ -125,7 +125,7 @@
 
             <!-- 圖1 與 圖2 的解說與圖片 -->
             <div class="mt-8 border-t border-gray-200 pt-6">
-                <p class="text-gray-700 leading-relaxed text-base mb-4">
+                <p class="text-gray-700 leading-relaxed text-base sm:text-lg mb-4">
                     為了讓您對整個系統的運作方式有更具體的想像，<strong>請參閱圖1</strong>。您可以清楚看到使用者的瀏覽器（前端）是如何透過網路，將對話訊息打包發送給 Vercel 伺服器（後端），再由後端扮演保鑣與翻譯官，代替我們與 Google AI 總部進行安全的通訊。
                 </p>
                 <div class="image-container bg-white">
@@ -133,7 +133,7 @@
                     <p class="figure-label">圖 1：瀏覽器與 Vercel 伺服器通訊流程圖</p>
                 </div>
                 
-                <p class="text-gray-700 leading-relaxed text-base mt-8 mb-4">
+                <p class="text-gray-700 leading-relaxed text-base sm:text-lg mt-8 mb-4">
                     接著，<strong>請參閱圖2</strong>，我們為您精準整理了 AI VTuber 專案的「檔案結構與相依關係圖」。這張圖將幫助您在接下來的開發實作中，清楚知道每一支檔案（從 html 到 txt 再到 js）所扮演的關鍵角色與放置位置。
                 </p>
                 <div class="image-container bg-white">
@@ -146,13 +146,13 @@
         <!-- 二、前端技術大解密 -->
         <section class="step-card overflow-hidden">
             <h2 class="text-xl sm:text-2xl font-bold mb-6">二、前端介面解析：賦予 VTuber 生命的魔法</h2>
-            <p class="mb-6 text-gray-700">打開我們的前端核心 <code class="font-mono bg-gray-100 px-1 rounded">index.html</code>，您會發現這裡面其實融合了多種強大的技術。讓我們用程式碼片段來為您一一拆解：</p>
+            <p class="mb-6 text-gray-700 text-base sm:text-lg">打開我們的前端核心 <code class="font-mono bg-gray-100 px-1 rounded">index.html</code>，您會發現這裡面其實融合了多種強大的技術。讓我們用程式碼片段來為您一一拆解：</p>
             
             <div class="space-y-8">
                 <!-- 1. 基礎三劍客 & 毛玻璃效果 -->
                 <div class="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 shadow-sm">
                     <h3 class="text-lg font-bold text-gray-800 mb-3 border-b pb-2">1. 網頁基礎三劍客：HTML, CSS, JavaScript</h3>
-                    <p class="text-gray-700 leading-relaxed">任何網頁都脫離不了這三個核心語言：</p>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">任何網頁都脫離不了這三個核心語言：</p>
                     <ul class="space-y-3 text-gray-700 mt-2 mb-4 text-sm sm:text-base">
                         <li><span class="font-bold text-orange-600">HTML (超文本標記語言)：</span>網頁的「骨架」。它負責宣告畫面上有哪些東西，例如「這裡有一個按鈕」、「那裡有一個輸入框」。</li>
                         <li><span class="font-bold text-blue-500">CSS (樣式表)：</span>網頁的「衣服與化妝」。</li>
@@ -161,12 +161,12 @@
                     
                     <div class="bg-gray-50 p-4 rounded-lg mt-3 border border-gray-200">
                         <h4 class="font-bold text-gray-800 mb-2">✨ UI 美學：半透明「毛玻璃」高級質感怎麼做的？</h4>
-                        <p class="text-sm text-gray-700 leading-relaxed mb-2">在網頁底部的對話框，我們使用了一套叫做 Tailwind CSS 的現成工具（透過 CDN 直接引入不須安裝），寫下了一段帶有蘋果 (Apple) 風格的 CSS 程式碼：</p>
+                        <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-2">在網頁底部的對話框，我們使用了一套叫做 Tailwind CSS 的現成工具（透過 CDN 直接引入不須安裝），寫下了一段帶有蘋果 (Apple) 風格的 CSS 程式碼：</p>
                         <div class="snippet-code">
 <!-- 關鍵樣式： bg-white/10 與 backdrop-blur-sm -->
 &lt;div class="... bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/30 ..."&gt;
                         </div>
-                        <ul class="list-disc pl-5 space-y-2 mt-3 text-sm text-gray-700">
+                        <ul class="list-disc pl-5 space-y-2 mt-3 text-sm sm:text-base text-gray-700">
                             <li><span class="font-bold text-blue-600">bg-white/10：</span>控制「透明度」。10 代表只有 10% 的白色不透明度（所以非常透）。<span class="text-red-600 font-bold">如果您想讓背景不那麼透</span>，可以改成 <code class="bg-gray-200 px-1 rounded">bg-white/30</code> 或 <code class="bg-gray-200 px-1 rounded">bg-white/50</code>，數值越大越白。</li>
                             <li><span class="font-bold text-blue-600">backdrop-blur-sm：</span>控制「背景模糊程度（毛玻璃核心）」。<code class="bg-gray-200 px-1 rounded">sm</code> 是小模糊，您可以改成 <code class="bg-gray-200 px-1 rounded">md</code> (中)、<code class="bg-gray-200 px-1 rounded">lg</code> (大) 或 <code class="bg-gray-200 px-1 rounded">xl</code> (超大)，數值越大，背後的 3D 模型就會被糊得越朦朧！</li>
                         </ul>
@@ -175,7 +175,7 @@
 
                 <!-- 2. Three.js 與角色動態 -->
                 <div class="bg-blue-50 p-5 sm:p-6 rounded-xl border border-blue-200">
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
+                    <h3 class="text-lg sm:text-xl font-bold text-blue-900 mb-3 flex items-center gap-2">
                         <svg class="w-6 h-6 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
                         2. 3D 視覺與模型渲染 (Three.js & VRM)
                     </h3>
@@ -190,22 +190,22 @@ if (chest) chest.rotation.x = Math.sin(time * 1.5) * 0.015;
                     </div>
                     <p class="text-blue-800 mt-2 mb-4 text-sm sm:text-base">我們運用了國中學過的數學函數——<span class="font-bold text-blue-900">正弦波 Math.sin()</span>。隨著時間 (`time`) 的流逝，這個函數會產生平滑的高低起伏數值。我們把這個數值綁定到胸口骨骼的旋轉角度 (`rotation.x`) 上，就創造出了無比自然的呼吸起伏感！</p>
 
-                    <div class="bg-blue-100/70 p-4 rounded-lg mt-4 border border-blue-300 shadow-sm">
-                        <h4 class="font-bold text-blue-900 mb-2">✨ 模型奧秘：VRM 檔案可以有多少表情？支援 VRoid 嗎？</h4>
-                        <p class="text-sm text-blue-800 leading-relaxed mb-2">VRM 是一種專為 3D 虛擬角色設計的標準格式。只要是標準的 VRM，都內建了統一的「表情控制器 (BlendShape)」，可以精準控制五官的各個部位：</p>
-                        <ul class="list-disc pl-5 space-y-1 text-sm text-blue-800 mb-2 font-medium">
+                    <div class="bg-blue-100/70 p-4 sm:p-5 rounded-lg mt-4 border border-blue-300 shadow-sm">
+                        <h4 class="font-bold text-blue-900 mb-2 text-base sm:text-lg">✨ 模型奧秘：VRM 檔案可以有多少表情？支援 VRoid 嗎？</h4>
+                        <p class="text-sm sm:text-base text-blue-800 leading-relaxed mb-2">VRM 是一種專為 3D 虛擬角色設計的標準格式。只要是標準的 VRM，都內建了統一的「表情控制器 (BlendShape)」，可以精準控制五官的各個部位：</p>
+                        <ul class="list-disc pl-5 space-y-1 text-sm sm:text-base text-blue-800 mb-2 font-medium">
                             <li><span class="font-bold">情緒表情 (6種基礎)：</span><code class="bg-blue-200 px-1 rounded">neutral</code>(平靜)、<code class="bg-blue-200 px-1 rounded">happy</code>(開心)、<code class="bg-blue-200 px-1 rounded">angry</code>(生氣)、<code class="bg-blue-200 px-1 rounded">sad</code>(悲傷)、<code class="bg-blue-200 px-1 rounded">relaxed</code>(放鬆)、<code class="bg-blue-200 px-1 rounded">surprised</code>(驚訝)。</li>
                             <li><span class="font-bold">眼睛部位：</span><code class="bg-blue-200 px-1 rounded">blink</code>(雙眼眨)、<code class="bg-blue-200 px-1 rounded">blinkLeft</code>(左眼眨)、<code class="bg-blue-200 px-1 rounded">blinkRight</code>(右眼眨)。</li>
                             <li><span class="font-bold">嘴巴部位 (母音同步)：</span><code class="bg-blue-200 px-1 rounded">aa</code>(啊)、<code class="bg-blue-200 px-1 rounded">ih</code>(伊)、<code class="bg-blue-200 px-1 rounded">ou</code>(嗚)、<code class="bg-blue-200 px-1 rounded">ee</code>(ㄟ)、<code class="bg-blue-200 px-1 rounded">oh</code>(喔)。</li>
                         </ul>
-                        <p class="text-sm text-blue-800 leading-relaxed font-bold border-t border-blue-200 pt-2 mt-3">Q：如果我用免費軟體 VRoid Studio 自己捏角色，匯出的 VRM 1.0 模型也能做到這些表情嗎？</p>
-                        <p class="text-sm text-blue-800 leading-relaxed mt-1">A：<span class="text-red-600 font-bold text-base">完全可以！無縫接軌！</span> VRoid Studio 匯出的模型（不論是舊版 0.0 或是最新的 VRM 1.0）天生就完美對應了上述所有的標準參數。這意味著您只要從 VRoid 匯出自己的模型，上傳到 GitHub 並替換掉我們專案裡的 `AvatarSample_W.vrm`，您的原創角色立刻就能在網頁上開心微笑、眨眼、跟著講話動嘴巴，一行程式碼都不用改！</p>
+                        <p class="text-sm sm:text-base text-blue-800 leading-relaxed font-bold border-t border-blue-200 pt-3 mt-4">Q：如果我用免費軟體 VRoid Studio 自己捏角色，匯出的 VRM 1.0 模型也能做到這些表情嗎？</p>
+                        <p class="text-sm sm:text-base text-blue-800 leading-relaxed mt-1">A：<span class="text-red-600 font-bold">完全可以！無縫接軌！</span> VRoid Studio 匯出的模型（不論是舊版 0.0 或是最新的 VRM 1.0）天生就完美對應了上述所有的標準參數。這意味著您只要從 VRoid 匯出自己的模型，上傳到 GitHub 並替換掉我們專案裡的 `AvatarSample_W.vrm`，您的原創角色立刻就能在網頁上開心微笑、眨眼、跟著講話動嘴巴，一行程式碼都不用改！</p>
                     </div>
                 </div>
 
                 <!-- 3. 輸入與交談 -->
                 <div class="bg-green-50 p-5 sm:p-6 rounded-xl border border-green-200">
-                    <h3 class="text-lg font-bold text-green-900 mb-3 flex items-center gap-2">
+                    <h3 class="text-lg sm:text-xl font-bold text-green-900 mb-3 flex items-center gap-2">
                         <svg class="w-6 h-6 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                         3. 讓機器能聽能說：Web Speech API 與多國語言實測
                     </h3>
@@ -219,11 +219,11 @@ utterance.lang = 'zh-TW';
                     
                     <div class="bg-white p-4 sm:p-5 rounded-xl border-l-4 border-green-500 shadow-sm mt-4">
                         <h4 class="font-bold text-green-900 mb-2 text-base sm:text-lg">大揭密：語音引擎能支援多國語言嗎？</h4>
-                        <p class="text-green-800 text-sm leading-relaxed mb-2">Web Speech API 的發音引擎，其實是呼叫您<span class="font-bold text-red-600">「手機或電腦作業系統 (Windows/Mac/iOS/Android) 內建的語音包」</span>。</p>
-                        <p class="text-green-800 text-sm leading-relaxed mb-3">因為我們程式預設寫死為中文 (<code class="bg-gray-100 px-1 rounded text-gray-800">zh-TW</code>)，如果這時候餵給它其他國家的文字，中文語音引擎看不懂，就會發出怪音或直接略過。</p>
+                        <p class="text-green-800 text-sm sm:text-base leading-relaxed mb-2">Web Speech API 的發音引擎，其實是呼叫您<span class="font-bold text-red-600">「手機或電腦作業系統 (Windows/Mac/iOS/Android) 內建的語音包」</span>。</p>
+                        <p class="text-green-800 text-sm sm:text-base leading-relaxed mb-3">因為我們程式預設寫死為中文 (<code class="bg-gray-100 px-1 rounded text-gray-800">zh-TW</code>)，如果這時候餵給它其他國家的文字，中文語音引擎看不懂，就會發出怪音或直接略過。</p>
                         
-                        <p class="text-green-800 text-sm leading-relaxed mb-3 font-bold border-t border-green-100 pt-3">🚀 那麼，網頁真的能講多國語言嗎？</p>
-                        <p class="text-green-800 text-sm leading-relaxed mb-4">絕對可以！只要您的作業系統有預先安裝好對應國家的語音包（現代 Windows 和 Mac 通常已經內建了非常多國的語音庫）。我們只要透過 JavaScript 將語言代碼改成對應的國家（例如 <code class="bg-gray-100 px-1 rounded text-green-700">es-ES</code> 代表西班牙語），就能發出完美的當地發音！請點擊下方按鈕親耳聽聽看：</p>
+                        <p class="text-green-800 text-sm sm:text-base leading-relaxed mb-3 font-bold border-t border-green-100 pt-3">🚀 那麼，網頁真的能講多國語言嗎？</p>
+                        <p class="text-green-800 text-sm sm:text-base leading-relaxed mb-4">絕對可以！只要您的作業系統有預先安裝好對應國家的語音包（現代 Windows 和 Mac 通常已經內建了非常多國的語音庫）。我們只要透過 JavaScript 將語言代碼改成對應的國家（例如 <code class="bg-gray-100 px-1 rounded text-green-700">es-ES</code> 代表西班牙語），就能發出完美的當地發音！請點擊下方按鈕親耳聽聽看：</p>
                         
                         <!-- 語音發音測試按鈕區 -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
@@ -268,12 +268,12 @@ utterance.lang = 'zh-TW';
                                 印尼語 (Indonesian)
                             </button>
                             <!-- 廣東話 -->
-                            <button onclick="playVoiceDemo('zh-HK', '你好！歡迎嚟到文藻外語大學！多謝！')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl shadow inline-flex items-center justify-center gap-1 transition-transform active:scale-95 text-xs sm:text-sm">
+                            <button onclick="playVoiceDemo('zh-HK', '你好！歡迎嚟到文藻外語大學！多謝！')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl shadow inline-flex items-center justify-center gap-1 transition-transform active:scale-95 text-xs sm:text-sm md:col-span-3 lg:col-span-1">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
                                 廣東話 (Cantonese)
                             </button>
                         </div>
-                        <p class="text-xs text-gray-500 mt-3 text-center">（※ 提示：如果點擊某個語言後完全沒聲音或發出中文字的怪音，這就完美印證了「您的電腦/手機作業系統恰好沒有安裝該國家的語言包」，您可以自行到系統設定中下載安裝！）</p>
+                        <p class="text-xs sm:text-sm text-gray-500 mt-4 text-center">（※ 提示：如果點擊某個語言後完全沒聲音或發出中文字的怪音，這就完美印證了「您的電腦/手機作業系統恰好沒有安裝該國家的語言包」，您可以自行到系統設定中下載安裝！）</p>
                         
                         <script>
                             // 預先載入語音清單 (解決瀏覽器需要時間抓取語音列表的特性)
@@ -293,8 +293,8 @@ utterance.lang = 'zh-TW';
                         </script>
                     </div>
 
-                    <h4 class="font-bold text-green-900 border-t border-green-300 pt-3 mt-6">語音體驗的最佳化防呆設計：</h4>
-                    <ul class="list-disc pl-5 space-y-2 mt-2 text-green-800 text-sm">
+                    <h4 class="font-bold text-green-900 border-t border-green-300 pt-3 mt-6 text-base sm:text-lg">語音體驗的最佳化防呆設計：</h4>
+                    <ul class="list-disc pl-5 space-y-2 mt-2 text-green-800 text-sm sm:text-base">
                         <li><span class="font-bold">靜音自動送出：</span>我們實作了 2 秒鐘不說話自動偵測。當您講完話停頓 2 秒，程式中的 <code class="bg-green-100 px-1 rounded">setTimeout</code> 計時器就會自動幫您把語音文字送出去，非常直覺！</li>
                         <li><span class="font-bold">行動裝置防呆：</span>由於部分手機瀏覽器對麥克風 API 支援度不佳，程式會自動偵測，如果是手機或平板，會自動將麥克風按鈕隱藏，避免點擊無效。</li>
                         <li><span class="font-bold">iOS Safari 音訊解鎖：</span>蘋果手機的瀏覽器預設「禁止網頁自動發出聲音」。所以我們寫了一段隱藏代碼，只要使用者第一次點擊螢幕，就會偷偷播放一段長度為 0 的無聲音訊，把發聲權限「解鎖」，確保之後 AI 講話時能正常發聲。</li>
@@ -303,7 +303,7 @@ utterance.lang = 'zh-TW';
 
                 <!-- 4. 記憶力與對話歷史 -->
                 <div class="bg-yellow-50 p-5 sm:p-6 rounded-xl border border-yellow-200">
-                    <h3 class="text-lg font-bold text-yellow-900 mb-3">4. 記憶力：為什麼 AI 知道我們剛聊過什麼？</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-yellow-900 mb-3">4. 記憶力：為什麼 AI 知道我們剛聊過什麼？</h3>
                     <p class="text-yellow-800 mb-3 text-sm sm:text-base">AI 其實預設是沒有記憶的（每次對話它都當作全新的一天）。為了解決這個問題，我們在 JavaScript 裡宣告了一個名為 <code class="bg-yellow-200 px-1 rounded">conversationHistory</code> (對話歷史) 的「陣列」(Array，可以想像成一個有順序的清單)。</p>
                     <div class="snippet-code">
 // 建立一個空的記憶清單
@@ -320,7 +320,7 @@ conversationHistory.push({ role: "model", parts: [{ text: aiText }] });
                 
                 <!-- 5. 響應式設計 (RWD) -->
                 <div class="bg-pink-50 p-5 sm:p-6 rounded-xl border border-pink-200">
-                    <h3 class="text-lg font-bold text-pink-900 mb-3 flex items-center gap-2">
+                    <h3 class="text-lg sm:text-xl font-bold text-pink-900 mb-3 flex items-center gap-2">
                         <svg class="w-6 h-6 text-pink-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         5. 手機上能看嗎？響應式設計 (RWD) 解析
                     </h3>
@@ -336,7 +336,7 @@ body { touch-action: none; }
 <!-- 3. Tailwind CSS 響應式寬度：手機版佔滿寬度 (w-full)，電腦大螢幕版限制最大寬度 (max-w-lg) -->
 &lt;div class="w-[calc(100%-2rem)] sm:w-full max-w-lg ..."&gt;
                     </div>
-                    <p class="text-pink-800 mt-2 text-sm leading-relaxed">此外，我們的 3D 引擎 (Three.js) 也寫入了 <code class="bg-pink-200 px-1 rounded">window.addEventListener('resize')</code> 功能。當您旋轉手機螢幕方向時，3D 畫面與相機會自動重新計算比例，確保美智永遠完美地站在畫面的正中央！</p>
+                    <p class="text-pink-800 mt-2 text-sm sm:text-base leading-relaxed">此外，我們的 3D 引擎 (Three.js) 也寫入了 <code class="bg-pink-200 px-1 rounded">window.addEventListener('resize')</code> 功能。當您旋轉手機螢幕方向時，3D 畫面與相機會自動重新計算比例，確保美智永遠完美地站在畫面的正中央！</p>
                 </div>
             </div>
         </section>
@@ -344,42 +344,42 @@ body { touch-action: none; }
         <!-- 三、交談核心設定與 AI 優先序 -->
         <section class="step-card overflow-hidden">
             <h2 class="text-xl sm:text-2xl font-bold mb-6">三、賦予靈魂：動態載入設定與 AI 思考順序</h2>
-            <p class="mb-4 text-gray-700">在我們的專案資料夾裡，除了寫程式碼，我們還放置了兩個非常關鍵的純文字檔（`.txt`）。我們運用了 JavaScript 的 `fetch` 功能在網頁啟動時去把這兩個檔案「抓」進來。這代表什麼？<span class="font-bold text-red-600">這代表未來您要更改助教的個性或學校資訊，完全不用改原始程式碼，只要修改這兩個文字檔就可以了！</span></p>
+            <p class="mb-4 text-gray-700 text-base sm:text-lg">在我們的專案資料夾裡，除了寫程式碼，我們還放置了兩個非常關鍵的純文字檔（`.txt`）。我們運用了 JavaScript 的 `fetch` 功能在網頁啟動時去把這兩個檔案「抓」進來。這代表什麼？<span class="font-bold text-red-600">這代表未來您要更改助教的個性或學校資訊，完全不用改原始程式碼，只要修改這兩個文字檔就可以了！</span></p>
             
             <div class="grid md:grid-cols-2 gap-4 mb-6">
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-gray-800 mb-2 border-b pb-2">prompt.txt (角色提示詞)</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed">這是 AI 的<span class="font-bold text-blue-600">人設劇本</span>。在這裡我們告訴 AI：「你叫美智，是一個活潑的虛擬助教」。如果不寫這個檔案，AI 只會覺得自己是一個冷冰冰的 Google 語言模型助手，不會展現出學園助教的個性。</p>
+                    <h4 class="font-bold text-gray-800 mb-2 border-b pb-2 text-lg">prompt.txt (角色提示詞)</h4>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">這是 AI 的<span class="font-bold text-blue-600">人設劇本</span>。在這裡我們告訴 AI：「你叫美智，是一個活潑的虛擬助教」。如果不寫這個檔案，AI 只會覺得自己是一個冷冰冰的 Google 語言模型助手，不會展現出學園助教的個性。</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-gray-800 mb-2 border-b pb-2">knowledgebase.txt (文字檔知識庫)</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed">這是 AI 的<span class="font-bold text-blue-600">專屬小抄</span>。大型 AI 雖然懂很多天文地理，但它可能不知道你們學校「最私密的規定」或「剛成立的新科系」。我們把這些專屬資料寫在這裡，讓 AI 照著念，防止它亂編內容（這在 AI 領域稱為防止「幻覺 Hallucination」）。</p>
+                    <h4 class="font-bold text-gray-800 mb-2 border-b pb-2 text-lg">knowledgebase.txt (文字檔知識庫)</h4>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">這是 AI 的<span class="font-bold text-blue-600">專屬小抄</span>。大型 AI 雖然懂很多天文地理，但它可能不知道你們學校「最私密的規定」或「剛成立的新科系」。我們把這些專屬資料寫在這裡，讓 AI 照著念，防止它亂編內容（這在 AI 領域稱為防止「幻覺 Hallucination」）。</p>
                 </div>
             </div>
 
             <!-- 進階：RAG vs 傳統知識庫 -->
             <div class="bg-indigo-50 p-5 sm:p-6 rounded-xl border border-indigo-200 mb-6">
-                <h3 class="text-base sm:text-lg font-bold text-indigo-900 mb-2 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                <h3 class="text-base sm:text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                     進階觀念：目前的「文字檔知識庫」與企業級的「RAG (向量資料庫)」有何不同？
                 </h3>
-                <p class="text-indigo-800 text-sm leading-relaxed mb-3">
-                    在本專案中，我們將學校資訊全寫在 <code class="bg-indigo-100 px-1 rounded">knowledgebase.txt</code> 中。每次對話時，程式都會把「整份文字檔內容」連同使用者的問題一起暴力塞給 AI 看。這種作法稱為<strong>「上下文注入 (Context Stuffing)」</strong>。
+                <p class="text-indigo-800 text-sm sm:text-base leading-relaxed mb-3">
+                    在本專案中，我們將學校資訊全寫在 <code class="bg-indigo-100 px-1 rounded break-all">knowledgebase.txt</code> 中。每次對話時，程式都會把「整份文字檔內容」連同使用者的問題一起暴力塞給 AI 看。這種作法稱為<strong>「上下文注入 (Context Stuffing)」</strong>。
                 </p>
-                <ul class="list-disc pl-5 space-y-3 text-indigo-800 text-sm font-medium">
-                    <li><span class="font-bold text-indigo-900 text-base block mb-1">目前作法 (文字檔) 的優缺點：</span>非常適合初學者，實作極簡單且完全免費。但缺點是「字數有限制」，如果您把一整本 500 頁的校史丟進去，AI 會一次看不完（超過 Token 上限），而且每次對話都要把整本書重傳一次給 Google，花費會非常龐大且緩慢！</li>
-                    <li><span class="font-bold text-indigo-900 text-base block mb-1">企業級 RAG (檢索增強生成)：</span>大型企業會導入<strong>「向量資料庫 (Vector Database)」</strong>。當使用者發問時，系統會先去巨大的資料庫裡「精準檢索 (Retrieve)」出最相關的 2~3 段資料，然後「只把這幾段精華」餵給 AI 產生回答 (Generate)。這能讓 AI 讀取海量企業文件（如數萬筆商品型錄），而且省錢又極度快速！</li>
+                <ul class="list-disc pl-5 space-y-3 text-indigo-800 text-sm sm:text-base font-medium">
+                    <li><span class="font-bold text-indigo-900 text-base sm:text-lg block mb-1">目前作法 (文字檔) 的優缺點：</span>非常適合初學者，實作極簡單且完全免費。但缺點是「字數有限制」，如果您把一整本 500 頁的校史丟進去，AI 會一次看不完（超過 Token 上限），而且每次對話都要把整本書重傳一次給 Google，花費會非常龐大且緩慢！</li>
+                    <li><span class="font-bold text-indigo-900 text-base sm:text-lg block mb-1">企業級 RAG (檢索增強生成)：</span>大型企業會導入<strong>「向量資料庫 (Vector Database)」</strong>。當使用者發問時，系統會先去巨大的資料庫裡「精準檢索 (Retrieve)」出最相關的 2~3 段資料，然後「只把這幾段精華」餵給 AI 產生回答 (Generate)。這能讓 AI 讀取海量企業文件（如數萬筆商品型錄），而且省錢又極度快速！</li>
                 </ul>
             </div>
 
             <!-- AI 思考優先序 -->
             <div class="bg-orange-50 p-5 sm:p-6 rounded-xl border-l-4 border-orange-500 mb-6">
                 <h3 class="text-base sm:text-lg font-bold text-orange-900 mb-3 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-orange-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <svg class="w-6 h-6 text-orange-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                     AI 是怎麼找答案的？(回答優先順序)
                 </h3>
-                <p class="text-orange-800 text-sm leading-relaxed mb-3">為了讓 AI 的回答最精準且符合我們預期，我們在 <code class="bg-orange-200 px-1 rounded text-orange-900 break-all">index.html</code> 中傳送了一段超級嚴格的「系統指示 (System Instruction)」，規範了 AI 尋找答案的順序：</p>
-                <ol class="list-decimal pl-5 space-y-2 text-orange-900 text-sm font-bold">
+                <p class="text-orange-800 text-sm sm:text-base leading-relaxed mb-3">為了讓 AI 的回答最精準且符合我們預期，我們在 <code class="bg-orange-200 px-1 rounded text-orange-900 break-all">index.html</code> 中傳送了一段超級嚴格的「系統指示 (System Instruction)」，規範了 AI 尋找答案的順序：</p>
+                <ol class="list-decimal pl-5 space-y-2 text-orange-900 text-sm sm:text-base font-bold">
                     <li>優先使用【文字檔知識庫 (knowledgebase.txt)】：<span class="font-normal">AI 會先翻看我們給的小抄，這是最準確的內部資料。</span></li>
                     <li>使用【Google 網路搜尋工具】：<span class="font-normal">如果小抄上沒寫，AI 接著會自動聯網，利用 Google 搜尋最新的即時資訊（例如今天的天氣或最新新聞）。我們在後端啟用了 <code class="bg-orange-200 px-1 rounded break-all">tools: [{ google_search: {} }]</code> 讓 AI 具備上網能力。</span></li>
                     <li>使用【LLM 內建知識】：<span class="font-normal">如果連不上網或搜尋不到，AI 才會動用它出廠時在 Google 總部學習到的龐大基礎腦內知識。</span></li>
@@ -389,8 +389,8 @@ body { touch-action: none; }
 
             <!-- JSON 與表情動作 -->
             <div class="bg-purple-50 p-5 sm:p-6 rounded-xl border border-purple-200">
-                <h3 class="text-base sm:text-lg font-bold text-purple-900 mb-2">💡 特別說明：AI 怎麼控制表情與嘴型？認識 JSON！</h3>
-                <p class="text-purple-800 text-sm leading-relaxed">當我們把對話送給 AI，AI 除了要給我們「回覆的文字」，還要同時告訴網頁「它現在是什麼表情」以及「有沒有特殊動作（如眨眼）」。為了讓網頁程式看得懂，我們在提示詞中強制要求 AI 回傳一種名為 <span class="font-bold underline text-purple-900">JSON</span> 的格式。</p>
+                <h3 class="text-base sm:text-lg font-bold text-purple-900 mb-3">💡 特別說明：AI 怎麼控制表情與嘴型？認識 JSON！</h3>
+                <p class="text-purple-800 text-sm sm:text-base leading-relaxed">當我們把對話送給 AI，AI 除了要給我們「回覆的文字」，還要同時告訴網頁「它現在是什麼表情」以及「有沒有特殊動作（如眨眼）」。為了讓網頁程式看得懂，我們在提示詞中強制要求 AI 回傳一種名為 <span class="font-bold underline text-purple-900">JSON</span> 的格式。</p>
                 <div class="snippet-code">
 // AI 必須吐出這種格式的文字給我們：
 {
@@ -399,21 +399,21 @@ body { touch-action: none; }
   "specialAction": "blink"
 }
                 </div>
-                <p class="text-purple-800 text-sm leading-relaxed mt-2">JSON 就像是把資料打包成「有貼標籤的包裹」。網頁收到包裹後，會用 <code class="bg-purple-100 px-1 rounded">JSON.parse()</code> 把包裹拆開，把 `reply` 標籤裡的字唸出來顯示在畫面上，並抓取 `expression` 標籤的字（如 happy 快樂, sad 悲傷 等）去改變 3D 模型的表情！</p>
-                <p class="text-purple-800 text-sm leading-relaxed mt-2"><span class="font-bold text-purple-900">嘴型同步 (Lip-Sync)：</span>程式中還有一個很聰明的設計，當 AI 開始講話時，系統會強制模型保持微笑 (`happy`)，並運用另一個 `Math.sin()` 數學函數快速震盪改變 `aa` 這個負責張口的動作參數，就能模擬出嘴巴開合講話的逼真效果！</p>
+                <p class="text-purple-800 text-sm sm:text-base leading-relaxed mt-2">JSON 就像是把資料打包成「有貼標籤的包裹」。網頁收到包裹後，會用 <code class="bg-purple-100 px-1 rounded">JSON.parse()</code> 把包裹拆開，把 `reply` 標籤裡的字唸出來顯示在畫面上，並抓取 `expression` 標籤的字（如 happy 快樂, sad 悲傷 等）去改變 3D 模型的表情！</p>
+                <p class="text-purple-800 text-sm sm:text-base leading-relaxed mt-2"><span class="font-bold text-purple-900">嘴型同步 (Lip-Sync)：</span>程式中還有一個很聰明的設計，當 AI 開始講話時，系統會強制模型保持微笑 (`happy`)，並運用另一個 `Math.sin()` 數學函數快速震盪改變 `aa` 這個負責張口的動作參數，就能模擬出嘴巴開合講話的逼真效果！</p>
             </div>
 
             <!-- 前端容錯機制 -->
             <div class="bg-gray-100 p-5 sm:p-6 rounded-xl border border-gray-300 mt-6">
                 <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <svg class="w-6 h-6 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     防呆！強大的前端容錯處理 (Regex 機制)
                 </h3>
-                <p class="text-gray-700 text-sm leading-relaxed">有時候 AI 會「自作聰明」，在回傳的 JSON 外面包了一層 Markdown 標籤（如 ```json ）。這會導致網頁解析失敗崩潰。為了防止這種情況，我們使用了一段名為<span class="font-bold">正則表達式 (Regex)</span> 的程式碼：</p>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed">有時候 AI 會「自作聰明」，在回傳的 JSON 外面包了一層 Markdown 標籤（如 ```json ）。這會導致網頁解析失敗崩潰。為了防止這種情況，我們使用了一段名為<span class="font-bold">正則表達式 (Regex)</span> 的程式碼：</p>
                 <div class="snippet-code">
 const jsonMatch = aiText.match(/\{[\s\S]*\}/);
                 </div>
-                <p class="text-gray-700 text-sm leading-relaxed">這段神奇的代碼就像是一個「精準夾子」，它會無視外面的任何雜訊，強行從文字中把 `{` 到 `}` 之間的正確 JSON 包裹夾出來，確保系統穩定運作不中斷！</p>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed">這段神奇的代碼就像是一個「精準夾子」，它會無視外面的任何雜訊，強行從文字中把 `{` 到 `}` 之間的正確 JSON 包裹夾出來，確保系統穩定運作不中斷！</p>
             </div>
         </section>
 
@@ -423,16 +423,16 @@ const jsonMatch = aiText.match(/\{[\s\S]*\}/);
             <p class="mb-4 text-gray-700 text-base sm:text-lg">我們一直說，為了保護 API 密碼金鑰不被偷走，前端必須把使用者的對話發送給後端 <code class="font-mono bg-gray-100 px-1 rounded">chat.js</code> 處理。</p>
 
             <div class="bg-indigo-50 p-5 sm:p-6 rounded-xl border border-indigo-200 mb-6">
-                <h3 class="text-lg font-bold text-indigo-900 mb-3">深入解密：為什麼是 api/chat.js？前端怎麼呼叫它？</h3>
+                <h3 class="text-lg sm:text-xl font-bold text-indigo-900 mb-3">深入解密：為什麼是 api/chat.js？前端怎麼呼叫它？</h3>
                 
-                <h4 class="font-bold text-indigo-800 mt-4 border-b border-indigo-200 pb-1">1. 一定要放到 `api` 資料夾嗎？</h4>
-                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base"><span class="font-bold text-red-600">是的，這是 Vercel 的專屬魔法！</span> Vercel 規定，只要您把 JavaScript 檔案放在名為 <code class="bg-indigo-100 px-1 rounded">api</code> 的資料夾裡面，Vercel 佈署時就會自動啟用 <span class="font-bold">Serverless Functions (無伺服器函式)</span> 功能，並在背後為我們準備好 Node.js 執行環境。如果沒有放在這裡，Vercel 只會把它當成普通的純文字檔，AI 就沒辦法回話了！</p>
+                <h4 class="font-bold text-indigo-800 mt-4 border-b border-indigo-200 pb-1 text-base sm:text-lg">1. 一定要放到 `api` 資料夾嗎？</h4>
+                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base"><span class="font-bold text-red-600">是的，這是 Vercel 的專屬魔法！</span> Vercel 規定，只要您把 JavaScript 檔案放在名為 <code class="bg-indigo-100 px-1 rounded text-indigo-900">api</code> 的資料夾裡面，Vercel 佈署時就會自動啟用 <span class="font-bold">Serverless Functions (無伺服器函式)</span> 功能，並在背後為我們準備好 Node.js 執行環境。如果沒有放在這裡，Vercel 只會把它當成普通的純文字檔，AI 就沒辦法回話了！</p>
                 
-                <h4 class="font-bold text-indigo-800 mt-5 border-b border-indigo-200 pb-1">2. 檔案一定要取名 `chat.js` 嗎？</h4>
-                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base"><span class="font-bold text-green-700">不一定！檔名其實就是「網址的門牌號碼（路由）」。</span><br>因為我們取名為 <code class="bg-indigo-100 px-1 rounded">chat.js</code>，所以 Vercel 會自動幫我們生成一組 API 網址：<code class="bg-indigo-100 px-1 rounded">/api/chat</code>。如果您把檔案改名叫 <code class="bg-indigo-100 px-1 rounded">bot.js</code>，那網址就會變成 <code class="bg-indigo-100 px-1 rounded">/api/bot</code>。</p>
+                <h4 class="font-bold text-indigo-800 mt-5 border-b border-indigo-200 pb-1 text-base sm:text-lg">2. 檔案一定要取名 `chat.js` 嗎？</h4>
+                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base"><span class="font-bold text-green-700">不一定！檔名其實就是「網址的門牌號碼（路由）」。</span><br>因為我們取名為 <code class="bg-indigo-100 px-1 rounded text-indigo-900">chat.js</code>，所以 Vercel 會自動幫我們生成一組 API 網址：<code class="bg-indigo-100 px-1 rounded text-indigo-900 break-all">/api/chat</code>。如果您把檔案改名叫 <code class="bg-indigo-100 px-1 rounded text-indigo-900">bot.js</code>，那網址就會變成 <code class="bg-indigo-100 px-1 rounded text-indigo-900 break-all">/api/bot</code>。</p>
                 
-                <h4 class="font-bold text-indigo-800 mt-5 border-b border-indigo-200 pb-1">3. index.html 是在哪裡呼叫這個後端的？</h4>
-                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base">如果您打開 <code class="font-mono bg-indigo-100 px-1 rounded break-all">index.html</code>，尋找 <code class="font-mono bg-indigo-100 px-1 rounded break-all">sendMessage()</code> 這個函數，您會看到我們用 JavaScript 的 `fetch` 語法，準確地敲響了這個後端廚房的門牌號碼：</p>
+                <h4 class="font-bold text-indigo-800 mt-5 border-b border-indigo-200 pb-1 text-base sm:text-lg">3. index.html 是在哪裡呼叫這個後端的？</h4>
+                <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base">如果您打開 <code class="font-mono bg-indigo-100 px-1 rounded text-indigo-900 break-all">index.html</code>，尋找 <code class="font-mono bg-indigo-100 px-1 rounded text-indigo-900 break-all">sendMessage()</code> 這個函數，您會看到我們用 JavaScript 的 `fetch` 語法，準確地敲響了這個後端廚房的門牌號碼：</p>
                 <div class="snippet-code text-indigo-200 border-indigo-700 bg-indigo-900">
 // 前端透過這段程式碼，把資料打包送到 Vercel 的後端
 const response = await fetchWithBackoff(`/api/chat`, {
@@ -447,14 +447,14 @@ const response = await fetchWithBackoff(`/api/chat`, {
 
             <!-- 後端安全與 API 額度解說 -->
             <div class="bg-red-50 p-5 sm:p-6 rounded-xl border border-red-200 mb-6">
-                <h3 class="text-lg font-bold text-red-900 mb-3">後端的保鑣職責：認識 Gemini 免費版與防刷機制</h3>
+                <h3 class="text-lg sm:text-xl font-bold text-red-900 mb-3">後端的保鑣職責：認識 Gemini 免費版與防刷機制</h3>
                 
-                <h4 class="font-bold text-red-800 mt-2 border-b border-red-200 pb-1">💡 觀念釐清：Google API 流量限制 (免費 vs 付費)</h4>
-                <p class="text-red-800 text-sm leading-relaxed mt-2">現在您用的是 Google 佛心提供的 **Gemini API 免費版 (Free Tier)**。這就像是拿著「免費試吃券」去 Google 大廚房點餐。免費版有嚴格的限制：<span class="font-bold underline text-red-900">每分鐘最多只能點 15 次餐 (15 RPM)，每天最多 1,500 次。</span></p>
-                <p class="text-red-800 text-sm leading-relaxed mt-1">想像一下，如果您的 VTuber 網頁爆紅，突然有 20 個同學同時瘋狂跟她講話，一分鐘超過 15 次，Google 警衛就會立刻封鎖您的連線，噴出 `429 Too Many Requests` 的錯誤！而大型企業使用的 **付費版 (Pay-as-you-go)**，就像是接通了專屬的大水管，依照用量計費，每分鐘可以承受成千上萬次的請求不塞車。</p>
+                <h4 class="font-bold text-red-800 mt-2 border-b border-red-200 pb-1 text-base sm:text-lg">💡 觀念釐清：Google API 流量限制 (免費 vs 付費)</h4>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-2">現在您用的是 Google 佛心提供的 <strong>Gemini API 免費版 (Free Tier)</strong>。這就像是拿著「免費試吃券」去 Google 大廚房點餐。免費版有嚴格的限制：<span class="font-bold underline text-red-900">每分鐘最多只能點 15 次餐 (15 RPM)，每天最多 1,500 次。</span></p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-2">想像一下，如果您的 VTuber 網頁爆紅，突然有 20 個同學同時瘋狂跟她講話，一分鐘超過 15 次，Google 警衛就會立刻封鎖您的連線，噴出 <code>429 Too Many Requests</code> 的錯誤！而大型企業使用的 <strong>付費版 (Pay-as-you-go)</strong>，就像是接通了專屬的大水管，依照用量計費，每分鐘可以承受成千上萬次的請求不塞車。</p>
                 
-                <h4 class="font-bold text-red-800 mt-4 border-b border-red-200 pb-1">🛡️ 我們怎麼自保？(Rate Limiting 流量控制)</h4>
-                <p class="text-red-800 text-sm leading-relaxed mt-2">因為我們用的是免費版，所以在 `chat.js` 裡我們寫了一段名為 **Rate Limit Map** 的防刷程式碼。這就像是我們自己在 Vercel 門口請了保全，只要偵測到「同一個 IP 一分鐘內狂點超過 15 次」，我們的保全就會先擋下他。我們寧可自己先阻擋惡意連點，也不要讓整支 API Key 被 Google 暫時封鎖停權！</p>
+                <h4 class="font-bold text-red-800 mt-5 border-b border-red-200 pb-1 text-base sm:text-lg">🛡️ 我們怎麼自保？(Rate Limiting 流量控制)</h4>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-2">因為我們用的是免費版，所以在 <code class="bg-red-100 px-1 rounded text-red-900">chat.js</code> 裡我們寫了一段名為 <strong>Rate Limit Map</strong> 的防刷程式碼。這就像是我們自己在 Vercel 門口請了保全，只要偵測到「同一個 IP 一分鐘內狂點超過 15 次」，我們的保全就會先擋下他。我們寧可自己先阻擋惡意連點，也不要讓整支 API Key 被 Google 暫時封鎖停權！</p>
             </div>
         </section>
 
@@ -467,15 +467,15 @@ const response = await fetchWithBackoff(`/api/chat`, {
                     <svg class="w-6 h-6 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     ⚠️ 極度重要：如果您使用 Private 倉庫，不可用絕對位址，只能用「相對位址」！
                 </h3>
-                <p class="text-red-800 text-sm leading-relaxed mb-3">在程式碼中，我們需要告訴網頁去哪裡讀取 <code class="font-bold">prompt.txt</code> 或是 <code class="font-bold">AvatarSample_W.vrm</code>。請看這段程式寫法：</p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mb-3">在程式碼中，我們需要告訴網頁去哪裡讀取 <code class="font-bold text-red-900">prompt.txt</code> 或是 <code class="font-bold text-red-900">AvatarSample_W.vrm</code>。請看這段程式寫法：</p>
                 <div class="snippet-code">
 // 這叫做「相對位址 (Relative Path)」
 let promptUrl = './prompt.txt';
                 </div>
-                <p class="text-red-800 text-sm leading-relaxed mt-3">這裡的 <code class="font-mono bg-red-100 px-1 rounded">./</code> 意思是<span class="font-bold">「跟目前執行這個程式的 index.html 檔案，位在同一個資料夾底下」</span>。</p>
-                <p class="text-red-800 text-sm leading-relaxed mt-3 font-bold border-t border-red-200 pt-3">為什麼我們絕對不能在這裡貼上一整串絕對位址（如 `https://github.com/...`）呢？</p>
-                <p class="text-red-800 text-sm leading-relaxed mt-2">因為，如果您在建立 GitHub 倉庫時，選擇了保護隱私的 <span class="font-bold underline text-red-900">Private (私有倉庫)</span>，這代表您把檔案鎖起來了。如果您在程式碼寫死外部絕對網址去抓檔案，瀏覽器去抓檔案時，就會被 GitHub 的大門保全擋住（因為瀏覽器沒有權限登入您的 GitHub），最後導致 3D 模型載不出來，網頁一片空白（發生 404 錯誤）！</p>
-                <p class="text-red-800 text-sm leading-relaxed mt-2">相反地，使用 <code class="font-mono bg-red-100 px-1 rounded">./</code> 相對位址，這意味著 Vercel 在佈署時，會把您的 HTML 跟旁邊的文字檔、模型「整包」一起打包到它自己的雲端主機內部。網頁啟動時，直接向內部的鄰居索取檔案，就完全不會有被 GitHub 擋住的權限問題了！</p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-3">這裡的 <code class="font-mono bg-red-100 px-1 rounded text-red-900">./</code> 意思是<span class="font-bold">「跟目前執行這個程式的 index.html 檔案，位在同一個資料夾底下」</span>。</p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-3 font-bold border-t border-red-200 pt-3">為什麼我們絕對不能在這裡貼上一整串絕對位址（如 `https://github.com/...`）呢？</p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-2">因為，如果您在建立 GitHub 倉庫時，選擇了保護隱私的 <span class="font-bold underline text-red-900">Private (私有倉庫)</span>，這代表您把檔案鎖起來了。如果您在程式碼寫死外部絕對網址去抓檔案，瀏覽器去抓檔案時，就會被 GitHub 的大門保全擋住（因為瀏覽器沒有權限登入您的 GitHub），最後導致 3D 模型載不出來，網頁一片空白（發生 404 錯誤）！</p>
+                <p class="text-red-800 text-sm sm:text-base leading-relaxed mt-2">相反地，使用 <code class="font-mono bg-red-100 px-1 rounded text-red-900">./</code> 相對位址，這意味著 Vercel 在佈署時，會把您的 HTML 跟旁邊的文字檔、模型「整包」一起打包到它自己的雲端主機內部。網頁啟動時，直接向內部的鄰居索取檔案，就完全不會有被 GitHub 擋住的權限問題了！</p>
             </div>
         </section>
 
@@ -483,52 +483,60 @@ let promptUrl = './prompt.txt';
         <section class="step-card overflow-hidden">
             <h2 class="text-xl sm:text-2xl font-bold mb-6">六、雲端部署與「手動重新佈署」的底層邏輯</h2>
             
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-                <!-- CI/CD -->
-                <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border border-gray-200">
-                    <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3">1. 雲端神器：GitHub 與 Vercel</h3>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-4">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的倉庫)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行網站的主機)</span>。</p>
-                    <div class="image-container mt-2 mb-4 p-2 bg-white">
-                        <p class="text-gray-700 leading-relaxed text-sm mb-3"><strong>請參閱圖3</strong>，這張放大圖完整展示了 GitHub 與 Vercel 之間的完美分工架構，您可以清楚看到原始碼是如何從倉庫安全地轉移到主機上執行：</p>
-                        <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" class="mx-auto" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+GitHub+與+Vercel]'">
-                        <p class="figure-label text-xs mt-1">圖 3：GitHub (倉儲) 與 Vercel (主機) 的完美分工</p>
+            <div class="grid lg:grid-cols-2 gap-6 mb-8 items-stretch">
+                <!-- 左側：圖3 放大顯示 -->
+                <div class="image-container bg-white m-0 p-4 sm:p-6 flex flex-col justify-center border border-gray-200 rounded-xl shadow-sm h-full">
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left">
+                        <strong>請參閱圖3</strong>，這張放大圖完整展示了 GitHub 與 Vercel 之間的完美分工架構，您可以清楚看到原始碼是如何從倉庫安全地轉移到主機上執行：
+                    </p>
+                    <img src="img3.jpg" alt="GitHub 與 Vercel 關係與分工圖" class="mx-auto w-full object-contain" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+GitHub+與+Vercel]'">
+                    <p class="figure-label text-xs sm:text-sm mt-3">圖 3：GitHub (倉儲) 與 Vercel (主機) 的完美分工</p>
+                </div>
+
+                <!-- 右側：文字解說 (1. 與 2.) -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border border-gray-200 flex-1">
+                        <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-3">1. 雲端神器：GitHub 與 Vercel</h3>
+                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">業界最標準的上線作法，是結合 <span class="font-bold text-blue-600">GitHub (存放程式碼的倉庫)</span> 與 <span class="font-bold text-blue-600">Vercel (負責執行網站的主機)</span>。</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-5 sm:p-6 rounded-xl border border-blue-200 flex-1">
+                        <h3 class="text-base sm:text-lg font-bold text-blue-900 mb-3">2. CI/CD 與 Webhook (自動按門鈴機制)</h3>
+                        <p class="text-blue-800 text-sm sm:text-base leading-relaxed">當開發者修改了 <code class="font-mono bg-blue-100 px-1 rounded text-blue-900 break-all">index.html</code>，並上傳 (Push) 到 GitHub 時，GitHub 會發送一個 <span class="font-bold text-blue-900">Webhook (網頁掛鉤)</span> 給 Vercel。這就像是 GitHub 跑去 Vercel 門口<span class="font-bold underline text-blue-900">「自動按門鈴」</span>大喊：「有新檔案了！」</p>
+                        <p class="text-blue-800 text-sm sm:text-base leading-relaxed mt-2">Vercel 聽到門鈴後，就會啟動 <span class="font-bold">CI/CD (持續整合與部署)</span> 的自動化流水線，自動更新網頁。您<span class="font-bold underline text-blue-900">完全不需要</span>手動點擊任何按鈕。</p>
                     </div>
                 </div>
-
-                <div class="bg-blue-50 p-5 sm:p-6 rounded-xl border border-blue-200">
-                    <h3 class="text-base sm:text-lg font-bold text-blue-900 mb-3">2. CI/CD 與 Webhook (自動按門鈴機制)</h3>
-                    <p class="text-blue-800 text-sm leading-relaxed">當開發者修改了 <code class="font-mono bg-blue-100 px-1 rounded text-blue-900 break-all">index.html</code>，並上傳 (Push) 到 GitHub 時，GitHub 會發送一個 <span class="font-bold text-blue-900">Webhook (網頁掛鉤)</span> 給 Vercel。這就像是 GitHub 跑去 Vercel 門口<span class="font-bold underline text-blue-900">「自動按門鈴」</span>大喊：「有新檔案了！」</p>
-                    <p class="text-blue-800 text-sm leading-relaxed mt-2">Vercel 聽到門鈴後，就會啟動 <span class="font-bold">CI/CD (持續整合與部署)</span> 的自動化流水線，自動更新網頁。您<span class="font-bold underline text-blue-900">完全不需要</span>手動點擊任何按鈕。</p>
-                </div>
             </div>
 
-            <div class="image-container mt-2 mb-8 bg-white border border-gray-100">
-                <p class="text-gray-700 leading-relaxed text-base mb-4 text-left px-2 sm:px-4">
+            <!-- 圖4 -->
+            <div class="image-container mt-4 mb-8 bg-white border border-gray-100">
+                <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left px-2 sm:px-4">
                     <strong>詳細的自動化流程，請參閱圖4</strong>的網站自動更新流程圖（CI/CD Pipeline），它完美詮釋了上述「按門鈴」後的連鎖反應。
                 </p>
-                <img src="img4.jpg" alt="網站自動更新流程圖" class="mx-auto" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
-                <p class="figure-label">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
+                <img src="img4.jpg" alt="網站自動更新流程圖" class="mx-auto max-w-md sm:max-w-xl w-full" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+自動更新流程圖]'">
+                <p class="figure-label mt-2 text-xs sm:text-sm">圖 4：網站自動更新流程圖 (CI/CD Pipeline)</p>
             </div>
 
+            <!-- 手動重新佈署說明與圖5 -->
             <div class="bg-yellow-50 p-5 sm:p-6 rounded-xl border border-yellow-200 mt-6">
                 <h3 class="text-base sm:text-lg font-bold text-yellow-900 mb-3 flex items-center gap-2">
                     <svg class="w-6 h-6 text-yellow-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     3. 為什麼更換 API Key 卻必須「手動重新佈署」？
                 </h3>
-                <p class="text-yellow-800 text-sm leading-relaxed">這是一個初學者最常卡關的地方！為了資訊安全，我們把 Google AI 的密碼 (API KEY) 存在 Vercel 網站後台的<span class="font-bold">「環境變數 (保險箱)」</span>裡。</p>
+                <p class="text-yellow-800 text-sm sm:text-base leading-relaxed">這是一個初學者最常卡關的地方！為了資訊安全，我們把 Google AI 的密碼 (API KEY) 存在 Vercel 網站後台的<span class="font-bold">「環境變數 (保險箱)」</span>裡。</p>
                 <div class="snippet-code text-yellow-200 border-yellow-700">
 // chat.js 從 Vercel 保險箱中拿出密碼的寫法
 const apiKey = process.env.GEMINI_API_KEY;
                 </div>
-                <p class="text-yellow-800 text-sm leading-relaxed mt-2">請注意！<span class="font-bold underline text-red-600">當您在 Vercel 後台修改保險箱的密碼時，您並沒有修改 GitHub 裡面的任何檔案，所以「GitHub 根本不知道這件事，也不會去幫您按 Vercel 的門鈴」！</span></p>
-                <p class="text-yellow-800 text-sm leading-relaxed mt-2">因為沒有人按門鈴，Vercel 伺服器就不會重新啟動。因此，更換 API Key 後，您必須自己在 Vercel 網站手動點擊 <span class="font-bold border border-yellow-500 bg-yellow-100 px-1 rounded text-yellow-900">Redeploy (重新佈署)</span>，強迫伺服器斷電重開機，<code class="font-mono bg-yellow-200 px-1 rounded text-yellow-900">chat.js</code> 才能拿到熱騰騰的新鑰匙！</p>
+                <p class="text-yellow-800 text-sm sm:text-base leading-relaxed mt-2">請注意！<span class="font-bold underline text-red-600">當您在 Vercel 後台修改保險箱的密碼時，您並沒有修改 GitHub 裡面的任何檔案，所以「GitHub 根本不知道這件事，也不會去幫您按 Vercel 的門鈴」！</span></p>
+                <p class="text-yellow-800 text-sm sm:text-base leading-relaxed mt-2">因為沒有人按門鈴，Vercel 伺服器就不會重新啟動。因此，更換 API Key 後，您必須自己在 Vercel 網站手動點擊 <span class="font-bold border border-yellow-500 bg-yellow-100 px-1 rounded text-yellow-900">Redeploy (重新佈署)</span>，強迫伺服器斷電重開機，<code class="font-mono bg-yellow-200 px-1 rounded text-yellow-900">chat.js</code> 才能拿到熱騰騰的新鑰匙！</p>
                 
-                <div class="image-container mt-6 bg-white">
-                    <p class="text-gray-700 leading-relaxed text-sm mb-4 text-left px-2 sm:px-4">
+                <div class="image-container mt-6 bg-white p-4">
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4 text-left">
                         <strong>如果您對此觀念還是有點模糊，請參閱圖5的手動重新佈署流程圖。</strong>這張圖非常直觀地比較了「修改一般檔案」與「修改保險箱金鑰」時，系統行為的巨大差異，清楚展示了更換金鑰後必須手動觸發的關鍵步驟：
                     </p>
                     <img src="img5.jpg" alt="手動重新佈署流程圖" class="mx-auto border border-gray-100" onerror="this.src='[https://placehold.co/1000x500?text=](https://placehold.co/1000x500?text=)[Image+of+手動部署流程]'">
-                    <p class="figure-label mt-2">圖 5：更換 API 金鑰後，必須「手動重新佈署」的流程圖</p>
+                    <p class="figure-label mt-3 text-xs sm:text-sm">圖 5：更換 API 金鑰後，必須「手動重新佈署」的流程圖</p>
                 </div>
             </div>
         </section>
@@ -631,7 +639,7 @@ const allowedOrigins = ['[https://vtuber-3dgame.vercel.app](https://vtuber-3dgam
                         初學者最常搞混：Vercel 網址與 GitHub 倉庫網址有何不同？
                     </h4>
                     <p class="text-indigo-800 leading-relaxed mt-2 text-sm sm:text-base"><span class="font-bold text-indigo-900 text-base sm:text-lg">1. GitHub 網址 ([github.com/帳號/專案](https://github.com/帳號/專案))：</span><br>這是開發者與工程師專用的「廚房後台」，裡面存放的全是密密麻麻的程式碼原始檔（也就是食譜）。<span class="font-bold text-red-600">把這個網址丟給一般朋友，他們只會看到一堆程式碼，看不到會動的 3D 網頁畫面！</span></p>
-                    <p class="text-indigo-800 leading-relaxed mt-4 text-sm sm:text-base"><span class="font-bold text-indigo-900 text-base sm:text-lg">2. Vercel 網址 (您的專案.vercel.app)：</span><br>這是 Vercel 幫您編譯、建置好之後，開放給全世界客人參觀的「餐廳正門口」。<span class="font-bold text-blue-700 underline">請把這個 .vercel.app 結尾的網址分享給朋友</span>，他們只要點開連結，就能在手機或電腦上立刻看到美智虛擬助教，並開始用語音與它對話！</p>
+                    <p class="text-indigo-800 leading-relaxed mt-4 text-sm sm:text-base"><span class="font-bold text-indigo-900 text-base sm:text-lg">2. Vercel 網址 (您的專案.vercel.app)：</span><br>這是 Vercel 幫您編譯、建置好之後，開放給全世界客人參觀的「餐廳正門口」。<span class="font-bold text-blue-700 underline break-all">請把這個 .vercel.app 結尾的網址分享給朋友</span>，他們只要點開連結，就能在手機或電腦上立刻看到美智虛擬助教，並開始用語音與它對話！</p>
                 </div>
             </div>
         </section>
