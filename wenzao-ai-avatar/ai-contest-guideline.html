@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI VTuber 競賽奪獎指南 | AI X 文藻</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .hero-gradient { background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); }
+        .step-number { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tab-btn { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white py-16 px-6 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-bold tracking-wider mb-4">
+                🔥 2026 生成式 AI 創意應用競賽專屬
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight drop-shadow-lg">
+                從課堂到舞台：<br>用 AI VTuber 打造奪獎學習歷程
+            </h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                結合 3D 虛擬形象、Gemini AI 與語音互動，將你的網頁專案轉化為最具社群影響力的神級參賽作品！
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+
+        <!-- 為什麼這個專案能贏？ -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-900 border-b-2 border-indigo-100 pb-4">🏆 為什麼 AI VTuber 是最強的參賽武器？</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-4 text-2xl">💡</div>
+                    <h3 class="text-lg font-bold mb-2">創意創新 (佔 30%)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        多數參賽者可能只放 ChatGPT 截圖。你擁有一個<b>會說話、有表情的 3D 虛擬角色</b>，技術含金量與跨域整合力瞬間脫穎而出！
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4 text-2xl">🎯</div>
+                    <h3 class="text-lg font-bold mb-2">主題內容 (佔 30%)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        透過修改 <code>knowledgebase.txt</code>，你可以讓 VTuber 化身為「文藻導覽員」或你的「專屬學習助理」，完美扣合校園與學習情境。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 mb-4 text-2xl">🚀</div>
+                    <h3 class="text-lg font-bold mb-2">社群影響力 (佔 40%)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        3D 角色互動影片在 IG Reels、Threads 或 TikTok 上具備極高的<b>病毒傳播潛力</b>，能輕鬆吸引大量按讚與分享，拿下社群高分。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 實戰改造四部曲 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-900 border-b-2 border-indigo-100 pb-4">🛠️ 奪獎實戰改造四部曲</h2>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start border-l-4 border-orange-500">
+                    <div class="text-6xl font-black step-number leading-none">01</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800">打造專屬你的 3D 分身 (替換 .vrm 模型)</h3>
+                        <p class="text-slate-600 mb-4">預設的美智很棒，但如果有你自己設計的角色會更具「原創性」！</p>
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-2 bg-slate-50 p-4 rounded-lg">
+                            <li>使用免費軟體 <a href="https://vroid.com/studio" target="_blank" class="text-blue-600 hover:underline font-bold">VRoid Studio</a> 捏出代表你的虛擬形象。</li>
+                            <li>匯出為 <code>.vrm</code> 檔案。</li>
+                            <li>將檔案重新命名為 <code>AvatarSample_W.vrm</code> (或修改 index.html 中的檔名)，並上傳到 GitHub 覆蓋原本的模型。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start border-l-4 border-orange-500">
+                    <div class="text-6xl font-black step-number leading-none">02</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800">注入獨特靈魂與大腦 (修改 Prompt & 知識庫)</h3>
+                        <p class="text-slate-600 mb-4">這是展現「學習歷程」的關鍵！讓 AI 知道它要介紹什麼內容。</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-100">
+                                <p class="font-bold text-purple-800 mb-2 text-sm">📝 修改 prompt.txt</p>
+                                <p class="text-xs text-purple-900 leading-relaxed">重新設定 AI 的人設。例如：「你是我的外語學習夥伴，負責陪我用英文聊天，並糾正我的文法...」</p>
+                            </div>
+                            <div class="bg-teal-50 p-4 rounded-lg border border-teal-100">
+                                <p class="font-bold text-teal-800 mb-2 text-sm">🧠 修改 knowledgebase.txt</p>
+                                <p class="text-xs text-teal-900 leading-relaxed">放入你這學期的課堂筆記、專題大綱，或是你對於生成式 AI 的學習心得，讓 VTuber 能夠倒背如流你的成果。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start border-l-4 border-orange-500">
+                    <div class="text-6xl font-black step-number leading-none">03</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-800">錄製超吸睛互動影片 (Screen Recording)</h3>
+                        <p class="text-slate-600 mb-4">競賽允許影音形式。不要只丟網址，<b>拍一段你跟 AI 對話的影片</b>才是王道！</p>
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-2 bg-slate-50 p-4 rounded-lg">
+                            <li>使用 OBS 或電腦內建錄影工具。</li>
+                            <li><span class="font-bold text-red-500">強烈建議使用「語音輸入」</span>：用麥克風跟 VTuber 說話，讓評審看到語音辨識 + 即時表情回應的震撼效果。</li>
+                            <li>影片長度建議剪輯在 30 秒到 60 秒內 (適合 IG Reels / Threads)。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start border-l-4 border-orange-500">
+                    <div class="text-6xl font-black step-number leading-none">04</div>
+                    <div class="w-full">
+                        <h3 class="text-xl font-bold mb-3 text-slate-800">社群發布與 Hashtag 規範 (爭取 40% 影響力分數)</h3>
+                        <p class="text-slate-600 mb-4">影片剪好後，發布到 Instagram / Facebook / Threads。請務必複製以下官方規定的 Hashtag：</p>
+                        
+                        <div class="relative bg-slate-800 rounded-xl p-4 mb-4 group">
+                            <button onclick="copyHashtags()" class="absolute top-3 right-3 bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded text-xs backdrop-blur transition-colors">
+                                複製標籤
+                            </button>
+                            <p id="hashtag-text" class="text-blue-300 font-mono text-sm">#AIinside #AI #文藻外語大學 #wenzao</p>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-800">
+                            <b>💡 衝讚小秘訣：</b> 在貼文中附上你的 Vercel 網址，邀請同學親自點進去跟你的 VTuber 聊天，並在底下留言他們的體驗，互動率絕對爆表！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主題推薦分頁 (30個作品題目) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-900 border-b-2 border-indigo-100 pb-4">💡 30 個超吸睛 AI VTuber 參賽主題推薦</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">沒有靈感嗎？試試看修改 <code>prompt.txt</code> 和 <code>knowledgebase.txt</code>，將你的 VTuber 變身為以下這 30 種實用又酷炫的角色吧！點擊下方分類標籤切換：</p>
+
+            <!-- 分頁按鈕 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="switchTab('tab-lang', this)" class="tab-btn active bg-indigo-600 text-white font-bold py-2 px-4 rounded-full shadow-md text-sm">外語學習與檢定</button>
+                <button onclick="switchTab('tab-campus', this)" class="tab-btn bg-white text-slate-600 border border-slate-200 font-bold py-2 px-4 rounded-full shadow-sm hover:bg-slate-50 text-sm">校園生活與課業</button>
+                <button onclick="switchTab('tab-career', this)" class="tab-btn bg-white text-slate-600 border border-slate-200 font-bold py-2 px-4 rounded-full shadow-sm hover:bg-slate-50 text-sm">職場與專業發展</button>
+                <button onclick="switchTab('tab-creative', this)" class="tab-btn bg-white text-slate-600 border border-slate-200 font-bold py-2 px-4 rounded-full shadow-sm hover:bg-slate-50 text-sm">創意企劃與伴讀</button>
+            </div>
+
+            <!-- 分頁內容區塊 -->
+            <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 border border-slate-100">
+                
+                <!-- 1. 外語學習與檢定 -->
+                <div id="tab-lang" class="tab-content grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">1. 雅思/托福面試魔鬼教練 🇬🇧</div>
+                        <p class="text-sm text-slate-600">隨機抽出考古題與你全英文對話，並在對話後給予文法與單字建議。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">2. 日文敬語情境模擬器 🇯🇵</div>
+                        <p class="text-sm text-slate-600">模擬打工或職場情境，測試你的「尊敬語、謙讓語」是否用對。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">3. 多語系點餐生存遊戲 🍽️</div>
+                        <p class="text-sm text-slate-600">設定在法國/德國餐廳，你必須用當地語言成功點餐才能過關。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">4. 新聞外語播報訓練師 📰</div>
+                        <p class="text-sm text-slate-600">貼上當日國際新聞，VTuber 會先示範朗讀，再聽你唸並糾正發音。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">5. 英語 Debating 陪練員 ⚖️</div>
+                        <p class="text-sm text-slate-600">給定一個社會議題，VTuber 將站在反方立場與你進行邏輯辯論。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">6. 西班牙文旅遊嚮導 🇪🇸</div>
+                        <p class="text-sm text-slate-600">模擬馬德里街頭，與你進行問路、買票、殺價等超實用旅遊對話。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">7. 寫作文法除錯小老師 ✍️</div>
+                        <p class="text-sm text-slate-600">把你寫的外語作文唸給它聽，它會溫柔地挑出錯誤並解釋原因。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors">
+                        <div class="font-bold text-indigo-800 mb-1">8. 翻譯系逐步口譯陪練 🗣️</div>
+                        <p class="text-sm text-slate-600">VTuber 用中文講述一段演講，暫停讓你翻成英文，並提供參考譯文。</p>
+                    </div>
+                </div>
+
+                <!-- 2. 校園生活與課業 -->
+                <div id="tab-campus" class="tab-content hidden grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">9. 文藻校園迷航指南 🗺️</div>
+                        <p class="text-sm text-slate-600">專為新生設計，輸入大樓名稱，它會用語音清楚告訴你怎麼走。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">10. 課間健康操帶動教練 🤸</div>
+                        <p class="text-sm text-slate-600">結合 VRMA 動作檔案，讓 VTuber 在下課時間用語音和肢體帶你做伸展操。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">11. 學餐美食盲測推薦 🍱</div>
+                        <p class="text-sm text-slate-600">不知道吃什麼？說出你的預算和口味，讓 VTuber 幫你決定。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">12. 期末考解憂傾聽者 🧸</div>
+                        <p class="text-sm text-slate-600">壓力大時的虛擬樹洞，只會給你鼓勵、不會評價你的溫暖伴讀。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">13. 國際交換生情報站 ✈️</div>
+                        <p class="text-sm text-slate-600">整理各國交換心得，用語音回答你關於申請資格、生活費的問題。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">14. 圖書館找書精靈 📚</div>
+                        <p class="text-sm text-slate-600">告訴它你想研究的主題，它會為你推薦相關的館藏書籍與索書號類別。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">15. 課堂筆記快問快答 📝</div>
+                        <p class="text-sm text-slate-600">匯入你的上課重點到知識庫，VTuber 會隨機抽考你，幫助複習。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-green-50 transition-colors">
+                        <div class="font-bold text-green-800 mb-1">16. 學習歷程檔案健檢師 🏥</div>
+                        <p class="text-sm text-slate-600">唸出你準備放進檔案的自傳，VTuber 會從評審角度給予優化建議。</p>
+                    </div>
+                </div>
+
+                <!-- 3. 職場與專業發展 -->
+                <div id="tab-career" class="tab-content hidden grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">17. 國際商務談判模擬對手 🤝</div>
+                        <p class="text-sm text-slate-600">模擬跨國採購會議，你必須用語音說服它給你最好的折扣與合約。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">18. 外商 HR 面試實戰官 👔</div>
+                        <p class="text-sm text-slate-600">模擬嚴厲的人資主管，提出各種刁鑽的行為面試題 (Behavioral Questions)。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">19. 展場多語接待客服 🎪</div>
+                        <p class="text-sm text-slate-600">設定為世貿展覽館的接待員，能用語音切換多國語言回答展場資訊。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">20. 數位內容腳本發想器 🎬</div>
+                        <p class="text-sm text-slate-600">缺乏拍片靈感？告訴它你的頻道定位，VTuber 會與你進行頭腦風暴。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">21. 商業書信語氣修飾師 ✉️</div>
+                        <p class="text-sm text-slate-600">唸出你想發送的 Email 內容，VTuber 會幫你改寫成更專業的商務語氣。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors">
+                        <div class="font-bold text-blue-800 mb-1">22. 簡報台風與講稿教練 📊</div>
+                        <p class="text-sm text-slate-600">你練習演講，它負責計時並針對你的論點邏輯、語速停頓給予回饋。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors md:col-span-2">
+                        <div class="font-bold text-blue-800 mb-1">23. 跨文化溝通地雷警報器 🌍</div>
+                        <p class="text-sm text-slate-600">輸入你想去的國家，它會用生動的故事告訴你當地的商務與社交禁忌。</p>
+                    </div>
+                </div>
+
+                <!-- 4. 創意企劃與伴讀 -->
+                <div id="tab-creative" class="tab-content hidden grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">24. MBTI 專屬戀愛軍師 💕</div>
+                        <p class="text-sm text-slate-600">告訴它你喜歡對象的 MBTI，它會用語音傳授你搭訕與聊天技巧。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">25. 番茄鐘伴讀監督員 ⏱️</div>
+                        <p class="text-sm text-slate-600">設定 25 分鐘，它會閉上眼睛陪你安靜讀書，時間到再用語音叫醒你。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">26. SDG 永續發展推廣大使 🌱</div>
+                        <p class="text-sm text-slate-600">專門回答聯合國 17 項永續目標的知識，適合用來做通識課發表專題。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">27. 虛擬偶像舞蹈 Cover 展演 💃</div>
+                        <p class="text-sm text-slate-600">載入熱門歌曲的 VRMA 動作檔，讓 VTuber 實際跳出副歌動作並與觀眾互動。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">28. 歷史名人穿越訪談 🕰️</div>
+                        <p class="text-sm text-slate-600">透過修改 Prompt，讓 VTuber 變成莎士比亞或愛因斯坦與你對話。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors">
+                        <div class="font-bold text-orange-800 mb-1">29. 即興故事接龍夥伴 📖</div>
+                        <p class="text-sm text-slate-600">你講一句、它講一句，共同創作出一個荒謬有趣的睡前故事。</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 hover:bg-orange-50 transition-colors md:col-span-2">
+                        <div class="font-bold text-orange-800 mb-1">30. 社團活動企劃顧問 🎉</div>
+                        <p class="text-sm text-slate-600">告訴它你的預算、人數與場地限制，VTuber 會幫你想出超有創意的迎新破冰遊戲。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 重要時程提醒 -->
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-900 border-b-2 border-indigo-100 pb-4">⏰ 競賽黃金時程表</h2>
+            <div class="bg-white rounded-2xl card-shadow overflow-hidden border border-slate-100">
+                <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                    <div class="p-6 text-center hover:bg-slate-50 transition-colors">
+                        <div class="text-indigo-600 font-bold mb-2">第一階段：線上投稿</div>
+                        <div class="text-2xl font-black text-slate-800 mb-2">3月20日 (五)</div>
+                        <div class="text-sm text-slate-500">中午 12:00 前</div>
+                        <p class="text-sm text-slate-600 mt-3 bg-slate-100 p-2 rounded">繳交參賽申請書<br>發布社群貼文並設為公開</p>
+                    </div>
+                    <div class="p-6 text-center hover:bg-slate-50 transition-colors bg-red-50/30">
+                        <div class="text-red-600 font-bold mb-2">第三階段：成效截圖回報</div>
+                        <div class="text-2xl font-black text-slate-800 mb-2">6月1日 (一)</div>
+                        <div class="text-sm text-slate-500">中午 12:00 基準</div>
+                        <p class="text-sm text-slate-600 mt-3 bg-red-50 p-2 rounded text-red-800">以此時間點的按讚數為準截圖<br>6/7 前寄出成果表</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 官方資源 -->
+        <div class="text-center mt-12">
+            <a href="https://a001.wzu.edu.tw/article/526731" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
+                查看文藻競賽官方詳細公告
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <p>&copy; 2026 郭大維老師 - AI VTuber 技術應用與競賽實戰指南</p>
+        <p class="mt-2">祝各位文藻學子奪得佳績！</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50 flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span>已成功複製 Hashtag！</span>
+    </div>
+
+    <script>
+        // 切換主題分頁邏輯
+        function switchTab(tabId, btnElement) {
+            // 隱藏所有內容
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // 重置所有按鈕樣式
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'active');
+                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+            
+            // 顯示選中內容
+            document.getElementById(tabId).classList.remove('hidden');
+            // 更新選中按鈕樣式
+            btnElement.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            btnElement.classList.add('bg-indigo-600', 'text-white', 'active');
+        }
+
+        function copyHashtags() {
+            const textToCopy = document.getElementById('hashtag-text').innerText;
+            
+            // 使用新版 Clipboard API (若支援)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(showToast);
+            } else {
+                // 備用方案
+                const textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (error) {
+                    console.error('複製失敗', error);
+                } finally {
+                    textArea.remove();
+                }
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
