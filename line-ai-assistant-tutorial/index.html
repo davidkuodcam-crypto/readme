@@ -95,6 +95,16 @@
                 <h1 class="text-center text-blue-700 mb-2">🎓 企業級 LINE AI 助教建置終極實戰講義</h1>
                 <p class="lead text-center text-gray-500 mt-0">Vercel、GitHub 與 Dify 整合 (文藻 郭大維老師)</p>
                 
+                <!-- 新增：頂部下載連結 -->
+                <div class="text-center my-8">
+                    <a href="line-dify-webhook-aicourse.zip" download class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out no-underline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        下載教學資源檔案 (line-dify-webhook-aicourse.zip)
+                    </a>
+                </div>
+
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100 mb-6">
                     <h3 class="text-blue-800 mt-0 mb-3">🎯 核心學習目標與開發遠景</h3>
                     <p class="text-gray-700 leading-relaxed mb-3">
@@ -131,6 +141,23 @@
                     <li><strong>配置與管理 (LINE Developer Console)：</strong> 開發者設定金鑰 (Channel Secret / Access Token) 與 Webhook 網址的後台。</li>
                     <li><strong>AI 平台 (Dify LLM AI Platform)：</strong> 接收請求，利用 RAG 知識庫 (PDF/Word 等) 檢索，調用 LLM 生成回答，最後傳回 Vercel。</li>
                 </ol>
+
+                <!-- 新增：完整對話資料流詳解 -->
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 my-6 rounded-lg shadow-sm">
+                    <h3 class="text-indigo-800 mt-0 mb-4 flex items-center">
+                        <span class="mr-2">🔄</span> 完整對話資料流 (Data Flow) 詳解
+                    </h3>
+                    <p class="text-gray-700 m-0 mb-4">當使用者在 LINE 上傳送一則訊息時，背後會瞬間觸發以下完美的「資料傳遞閉環」接力賽：</p>
+                    <ol class="list-decimal pl-5 text-gray-700 space-y-3 mb-0">
+                        <li><strong>使用者官方 LINE 送出提問：</strong> 使用者在手機或電腦上輸入文字。</li>
+                        <li><strong>官方 LINE 伺服器 ➔ Vercel：</strong> LINE 伺服器收到訊息後，會觸發 Webhook，將打包好的 JSON 資料（包含使用者訊息、唯一的 <code>replyToken</code> 以及 <code>userId</code>）發送到您部署在 Vercel 上的 <code>/webhook</code> 接收端點。</li>
+                        <li><strong>Vercel ➔ Dify：</strong> 您的程式碼（FastAPI）在確認來源安全無誤後，會提取使用者的問題，並帶上您的 <code>DIFY_API_KEY</code>，發送 POST 請求給 Dify 的大腦進行運算。</li>
+                        <li><strong>Dify ➔ Vercel：</strong> Dify 處理完畢後，會將生成的文字回應（透過串流 streaming 的方式）傳回給您的 Vercel 伺服器。</li>
+                        <li><strong>Vercel ➔ 官方 LINE 伺服器：</strong> Vercel 接收並組合好 Dify 的完整回覆後，會檢查是否需要將網址轉換為 Flex Message 按鈕，接著利用步驟 2 拿到的 <code>replyToken</code> 呼叫 LINE 的 Reply API，把最終訊息送回 LINE 伺服器。</li>
+                        <li><strong>官方 LINE 伺服器 ➔ 使用者：</strong> 最後由 LINE 負責將這則訊息即時推送到使用者的聊天室畫面上。</li>
+                    </ol>
+                    <p class="text-indigo-700 mt-4 mb-0 font-semibold">💡 這個資料傳遞的接力賽通常在短短幾秒內就會完成，讓使用者感覺就像在跟真人（或專屬的 AI 助教）即時對話一樣！</p>
+                </div>
 
                 <h3>2. 實戰情境解析：系統是如何應對不同狀況的？</h3>
                 
@@ -931,6 +958,16 @@ requests</code></pre>
                     <p class="mt-4 mb-0 text-green-900 font-bold text-lg text-center">恭喜您！當看到機器人能夠完美回答「你是誰？」並處理您的提問時，代表您的企業級 LINE AI 助理已經正式上線運作了！</p>
                 </div>
                 
+                <!-- 新增：底部下載連結 -->
+                <div class="text-center mt-12 mb-4">
+                    <a href="line-dify-webhook-aicourse.zip" download class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out no-underline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        下載教學資源檔案 (line-dify-webhook-aicourse.zip)
+                    </a>
+                </div>
+
             </article>
         </main>
     </div>
