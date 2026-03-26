@@ -268,7 +268,8 @@
             <h2>📝 課前準備</h2>
             <ul>
                 <li><strong>軟體：</strong><a href="https://unity.com/releases/editor/archive" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Unity Editor</a> (建議使用 2021.3 或 2022.3 LTS 版本)。</li>
-                <li><strong>套件：</strong>最新版 <a href="https://github.com/vrm-c/UniVRM/releases" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;"><span class="highlight">UniVRM 1.0</span></a> (請下載 <code>VRM-0.xxx.x.unitypackage</code>，注意不要與 VRM 0.x 版本混淆)。</li>
+                <li><strong>核心套件：</strong>請至 <a href="https://github.com/vrm-c/UniVRM/releases" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">UniVRM 官方 GitHub</a> 下載主程式 <span class="highlight">VRM-0.xxx.x.unitypackage</span>。</li>
+                <li><strong>匯出工具：</strong>請至 <a href="https://github.com/malaybaku/AnimationClipToVrmaSample/releases" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AnimationClipToVrma</a> 下載專用轉換工具 <span class="highlight">AnimationClipToVrma_0.2.x.unitypackage</span>。</li>
                 <li><strong>素材：</strong>一個 <code>.vrm</code> 虛擬角色檔案，以及一個 <code>.fbx</code> 動作檔案 (例如從 <a href="https://www.mixamo.com/" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Mixamo</a> 下載)。我們也會在任務四使用 <a href="https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Unity-Chan! Model</a> 做為對照範例。</li>
             </ul>
         </div>
@@ -279,10 +280,10 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">1</span>匯入 UniVRM 套件與角色
+                    <span class="step-num">1</span>匯入套件與角色
                 </label>
                 <div class="step-content">
-                    <p>將下載好的 <code>VRM-0.xxx.x.unitypackage</code> 拖曳進 Unity 下方的 Project 面板中安裝。接著，將準備好的 <code>.vrm</code> 檔案直接拖曳進 Project 面板，Unity 會自動解析並生成角色的 Prefab 檔案。將該 Prefab 拖曳到左側 Hierarchy 中放入場景。</p>
+                    <p>將下載好的 <strong>核心套件 (VRM-0.xxx)</strong> 與 <strong>匯出工具 (AnimationClipToVrma)</strong> 依序拖曳進 Unity 下方的 Project 面板中安裝。接著，將準備好的 <code>.vrm</code> 檔案直接拖曳進 Project 面板，Unity 會自動生成角色的 Prefab，並將該 Prefab 拖曳到左側 Hierarchy 中。</p>
                 </div>
             </div>
 
@@ -322,45 +323,42 @@
 
         <div class="card">
             <h2>💾 任務二：將 FBX 動作匯出成 VRMA 檔案</h2>
-            <p>VRMA (VRM Animation) 是專為 VRM 設計的動作格式。透過 UniVRM 1.0，我們可以將轉換好的動作獨立匯出，方便在其他網頁或應用程式中重複使用。</p>
+            <p>傳統 FBX 動作需要透過外掛轉換才能變成標準的 VRMA 動作格式，方便在其他網頁或應用程式中重複使用。</p>
             
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">5</span>選取動作檔案
+                    <span class="step-num">5</span>開啟動作匯出器
                 </label>
                 <div class="step-content">
-                    <p>在 Project 面板中，選取剛剛展開的 FBX 檔案內的 <strong>Animation Clip</strong>。</p>
+                    <p>確保您已經安裝了 <code>AnimationClipToVrma</code> 工具包。在 Unity 頂部選單點擊 <span class="highlight">VRM</span> -> <span class="highlight">VRM Animation Exporter</span> 開啟匯出專用視窗。</p>
+                    <div class="note">
+                        <strong>💡 其他方式：</strong>您也可以直接在 Project 面板中對著 Animation Clip 點擊「右鍵」，選擇 <code>VRM</code> -> <code>Export VRM Animation</code> 快速呼叫。
+                    </div>
                 </div>
             </div>
 
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">6</span>執行 VRMA 匯出
+                    <span class="step-num">6</span>設定 Animation Clip 與參考模型
                 </label>
                 <div class="step-content">
-                    <p>在選取狀態下，點擊 Unity 頂部選單的 <span class="highlight">VRM1</span> -> <span class="highlight">VRM Animation Export</span> (依 UniVRM 版本不同，也可能顯示為 <code>Export VRMA</code>)。此時會開啟動作匯出的設定視窗。</p>
+                    <p>在開啟的 Exporter 視窗中，填入以下兩個關鍵欄位：</p>
+                    <ul>
+                        <li><strong>Animation Clip：</strong>拖入您展開 FBX 檔案後找到的三角形動作檔案。</li>
+                        <li><strong>Reference Model (參考模型)：</strong>拖入您在任務一匯入的 <code>.vrm</code> 角色 Prefab。<strong>這一步非常重要</strong>，轉換器需要參考標準的 VRM 模型來讀取正確的骨架比例。</li>
+                    </ul>
                 </div>
             </div>
 
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">7</span>指定參考的 VRM 模型 (關鍵步驟)
+                    <span class="step-num">7</span>確認與匯出存檔
                 </label>
                 <div class="step-content">
-                    <p>在彈出的匯出視窗中，找到 <strong>VRM</strong> 欄位。將您在任務一匯入的 <code>.vrm</code> 角色 Prefab 拖曳到這個欄位中。<strong>這個步驟非常重要</strong>，因為轉換器需要參考一個標準的 VRM 模型來讀取正確的骨架比例。</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">8</span>確認與匯出存檔
-                </label>
-                <div class="step-content">
-                    <p>確認視窗中沒有紅色的錯誤警告後，點擊右下角的 <strong>Export</strong>，設定檔名與存檔路徑，即可獲得標準的 <code>.vrma</code> 動作檔案。</p>
+                    <p>確認視窗設定無誤後，點擊下方的 <strong>Export</strong>，設定檔名與存檔路徑，即可獲得標準的 <code>.vrma</code> 動作檔案。</p>
                 </div>
             </div>
         </div>
@@ -372,7 +370,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">9</span>認識所有 VRM 預設表情 (Preset Expressions)
+                    <span class="step-num">8</span>認識所有 VRM 預設表情 (Preset Expressions)
                 </label>
                 <div class="step-content">
                     <p>在 VRM 1.0 中，表情主要透過 <code>ExpressionKey</code> 來呼叫，並分為三大控制部位：</p>
@@ -416,7 +414,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">10</span>等級一：基礎控制 (一鍵觸發情緒)
+                    <span class="step-num">9</span>等級一：基礎控制 (一鍵觸發情緒)
                 </label>
                 <div class="step-content">
                     <p>建立一個 C# 腳本命名為 <code>VRMBasicExpression</code>，綁定到場景中的空物件上，並將 VRM 角色拖入 <code>vrmInstance</code> 欄位。這示範了如何透過權重 (0.0f 到 1.0f) 來開關表情。</p>
@@ -455,7 +453,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">11</span>等級二：進階控制 (平滑過渡與母音對嘴)
+                    <span class="step-num">10</span>等級二：進階控制 (平滑過渡與母音對嘴)
                 </label>
                 <div class="step-content">
                     <p>有時候表情或說話不能只是 0 與 1 的切換，而是需要漸變。建立 <code>VRMLipSyncExample</code> 腳本，我們利用數學函式 <code>Mathf.PingPong</code> 讓角色連續發出「Aa(ㄚ)」的平滑嘴型，就像在呼吸或說話一樣。</p>
@@ -489,7 +487,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">12</span>等級三：高階控制 (呼叫自訂表情)
+                    <span class="step-num">11</span>等級三：高階控制 (呼叫自訂表情)
                 </label>
                 <div class="step-content">
                     <p>除了預設表情，許多模型師會在 VRM 中加入「星星眼 (StarEye)」、「貓耳下垂」等自訂表情。我們無法使用 <code>ExpressionKey.Happy</code> 這種預設語法，必須使用 <code>CreateCustom</code> 來動態呼叫。</p>
@@ -524,7 +522,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">13</span>⚠️ 表情系統實作注意事項
+                    <span class="step-num">12</span>⚠️ 表情系統實作注意事項
                 </label>
                 <div class="step-content">
                     <p>在開發 VRM 專案時，請務必遵守以下規範，避免產生 Bug：</p>
@@ -547,7 +545,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">14</span>傳統 FBX 控制表情的痛點 (名稱不統一)
+                    <span class="step-num">13</span>傳統 FBX 控制表情的痛點 (名稱不統一)
                 </label>
                 <div class="step-content">
                     <p>如果你從 Asset Store 下載 <a href="https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;"><strong>Unity-Chan! Model</strong></a> 並放入場景，你會發現她沒有 <code>Vrm10Instance</code>。要改變她的表情，你必須在她的臉部子物件 (例如 <code>MTH_DEF</code> 網格) 上找到 <strong>Skinned Mesh Renderer</strong> 元件。</p>
@@ -558,7 +556,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">15</span>實作：FBX 專用的表情程式碼
+                    <span class="step-num">14</span>實作：FBX 專用的表情程式碼
                 </label>
                 <div class="step-content">
                     <p>我們來看看控制傳統 FBX 模型 (如 Unity-Chan) 臉部表情的寫法。請注意這與 VRM 寫法的兩大差異：</p>
@@ -573,7 +571,7 @@
 
 <span class="code-keyword">public class</span> <span class="code-class">FBXExpressionExample</span> : MonoBehaviour
 {
-    <span class="code-comment">// 需要手動拖曳擁有 BlendShape 的「臉部網格」物件</span>
+    <span class="code-comment">// 需要手手動拖曳擁有 BlendShape 的「臉部網格」物件</span>
     <span class="code-keyword">public</span> SkinnedMeshRenderer faceMeshRenderer;
 
     <span class="code-comment">// FBX 的表情索引值 (可能要自己慢慢測試第幾個是笑臉)</span>
@@ -605,7 +603,7 @@
             <div class="step">
                 <label class="step-title">
                     <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">16</span>結論：為什麼 VRM 更好？
+                    <span class="step-num">15</span>結論：為什麼 VRM 更好？
                 </label>
                 <div class="step-content">
                     <p>透過比較，我們可以總結出 VRM (相對於 FBX) 在角色控制上的強大優勢：</p>
