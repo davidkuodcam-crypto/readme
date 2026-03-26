@@ -166,7 +166,7 @@
                 <li>選擇預設的 <strong>「Create a new site」</strong>，然後點選 <strong>「Continue」</strong>。</li>
                 <li>在 <strong>「What's your site's name?」</strong> 輸入網站名稱。
                     <div class="bg-red-50 border-l-4 border-red-500 p-3 mt-2 rounded text-red-800 text-base font-bold ml-6 shadow-sm">
-                        <i class="fas fa-times-circle mr-1 text-red-600"></i>切記：網域與資料夾名稱的限制，絕對不要輸入中文！請使用「純英文或數字」（例如：WZU-Shop）。
+                        <i class="fas fa-times-circle mr-1 text-red-600"></i>切記：網域與資料夾名稱的限制，絕對不要輸入中文！請使用「純英文或數字」（例如：MyShop2024）。
                     </div>
                 </li>
                 <li>環境選擇畫面 (Choose your environment) 請保持預設的 <strong>「Preferred」</strong>，點選 <strong>「Continue」</strong>。
@@ -389,7 +389,7 @@
                     Astra 開發團隊近期推出了自家的電商系統「SureCart」來挑戰老大哥「WooCommerce」。為了推廣，他們在 Starter Templates 裡放入了大量**「硬性綁定 SureCart」**的購物車版型。
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed">
-                    如果你選到這些版型，即使安裝過程中你勾選了 WooCommerce，系統還是會強制安裝 SureCart，導致後續選單與設定引導全亂，且 SureCart 進階功能皆需付費。
+                    如果你選到這些版型，即使安裝過程中你勾選了 WooCommerce，系統還是會強制安裝 SureCart，導致後續介面全亂，且 SureCart 進階功能皆需付費。
                 </p>
             </div>
 
@@ -415,18 +415,16 @@
         <section class="step-card unit-2-border bg-purple-50/30">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-2-step bg-purple-200 text-purple-800">4</span>
-                <h3 class="text-2xl font-bold text-gray-800">上線前的安檢：清理被塞入的推廣外掛</h3>
+                <h3 class="text-2xl font-bold text-gray-800">上線前的安檢：確認環境純淨度</h3>
             </div>
-            <p class="text-lg text-gray-700 mb-4">即便我們選了企業版型，Astra 還是會經常偷塞一些推廣工具。為了避免干擾後續 WooCommerce 的實作，我們要做最後的大掃除。</p>
+            <p class="text-lg text-gray-700 mb-4">即便我們選了企業版型，有時廠商還是會偷塞東西。為了單元三順利進行，我們要做最後檢查。</p>
             <ol class="list-decimal list-inside space-y-3 text-gray-700 ml-4 text-lg">
                 <li>回到 WordPress 左側黑色選單，點擊 <strong>「外掛 (Plugins)」</strong> -> <strong>「已安裝外掛 (Installed Plugins)」</strong>。</li>
-                <li>檢查清單中是否有出現名為 <strong>「SureCart」</strong>、<strong>「SureForms」</strong> 或 <strong>「SureRank」</strong> 等不必要的外掛。
-                    <span class="block text-sm text-gray-500 mt-1 ml-6">（註：若有看到「Spectra」，它是 Gutenberg 的排版增強外掛，可保留以免首頁跑版。）</span>
-                </li>
-                <li><strong class="text-red-600">【如果有看到這些 Sure 系列外掛】：</strong> 
-                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1 text-base text-gray-700">
-                        <li>先點擊該外掛下方的 <strong>「停用 (Deactivate)」</strong>。</li>
-                        <li>重新整理頁面後，點擊紅色的 <strong>「刪除 (Delete)」</strong>，將它徹底移除！</li>
+                <li>檢查清單中是否有出現名為 <strong>「SureCart」</strong> 的外掛。</li>
+                <li><strong class="text-red-600">【如果有看到 SureCart】：</strong> 
+                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1 text-base">
+                        <li>先點擊它下方的 <strong>「停用 (Deactivate)」</strong>。</li>
+                        <li>重新整理頁面後，點擊紅色的 <strong>「刪除 (Delete)」</strong>。將它徹底移除！</li>
                     </ul>
                 </li>
                 <li>太棒了！你的網站現在是一個擁有絕美外觀、且乾淨無比的優質基礎，準備好在下個單元安裝真正的營業執照了。</li>
@@ -524,12 +522,6 @@
                 <span class="step-number unit-3-step">3</span>
                 <h3 class="text-2xl font-bold text-gray-800">新增你的第一項商品 (圖解版)</h3>
             </div>
-
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded text-yellow-800 text-base shadow-sm">
-                <h4 class="font-bold flex items-center mb-1"><i class="fas fa-question-circle mr-2 text-yellow-600"></i>新手疑惑破解：為什麼畫面上有兩個「新增商品」？</h4>
-                <p>剛裝好 WooCommerce 進入首頁時，正中央的大藍色按鈕是<strong>「新手引導捷徑」</strong>；而左側黑色選單的「商品 > 新增」是<strong>「常態功能入口」</strong>。兩者點進去的功能完全相同！建議熟悉後統一習慣點擊左側黑名單的操作。</p>
-            </div>
-
             <p class="mb-4 text-gray-700 text-lg">上架商品就像發佈一篇 Facebook 貼文一樣直覺，但有幾個欄位新手最容易搞錯，請務必看清楚位置！</p>
             
             <ol class="list-decimal list-inside space-y-5 text-gray-700 ml-4 mb-6 text-lg">
@@ -621,7 +613,7 @@
             <span class="inline-block py-1.5 px-4 rounded-full bg-teal-500/20 text-teal-100 text-sm font-black mb-4 tracking-widest uppercase border border-teal-400/30">BONUS 1</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">課後加碼：展示你的專屬網站</h2>
             <p class="text-lg md:text-xl text-teal-100 max-w-2xl mx-auto font-light">
-                既然網站是在「自己的電腦」裡，其他人要怎麼連進來看呢？LocalWP 內建了超棒的「Live Link」功能，一秒產生對外公開的臨時隧道網址！
+                既然網站是在「自己的電腦」裡，老師跟同學要怎麼連進來看呢？LocalWP 內建了超棒的「Live Link」功能，一秒產生對外公開的臨時隧道網址！
             </p>
         </div>
 
@@ -637,27 +629,22 @@
                 <li>回到 <strong>LocalWP</strong> 軟體的主畫面。</li>
                 <li>看向視窗的<strong>最下方邊緣</strong>，你會找到一行標示著 <strong>「Live Link」</strong> 的文字。</li>
                 <li>點擊旁邊的 <strong>「Enable (啟用)」</strong> 按鈕。</li>
-                <li>等待系統配置後，原本的地方會出現一組隨機網址（例如 <code>https://xxxx.loca.lt</code>），點擊旁邊的圖示複製它貼給朋友即可。</li>
+                <li>等待系統配置後，原本的地方會出現一組隨機網址（例如 <code>https://xxxx.loca.lt</code>），點擊旁邊的圖示複製它。</li>
+                <li>把這段網址貼給同學，他們就能用手機逛你的網站囉！</li>
             </ol>
 
-            <div class="grid md:grid-cols-1 gap-5 mb-4">
-                <div class="bg-indigo-50 p-5 rounded-xl border border-indigo-200">
-                    <h4 class="font-bold text-indigo-900 mb-2 flex items-center"><i class="fas fa-shield-alt text-indigo-600 mr-2 text-xl"></i>朋友點開網址，卻跳出「要求授權」對話框？</h4>
-                    <p class="text-base text-indigo-800 leading-relaxed mb-0">這是 LocalWP 的第一道<strong>「技術門鎖」</strong>，防護外人隨意連入你的電腦。對話框的帳密並非你的 WP 登入帳密！<br>
-                    👉 <strong>解法：</strong> 帳號與密碼就在軟體底部 Live Link 區塊旁邊，<strong>Username 通常為系統亂碼（如 unwritten）</strong>，請點擊旁邊的 <strong>Password [Copy] 按鈕</strong> 複製，連同網址一起給朋友輸入才能進站。</p>
-                </div>
-
-                <div class="bg-red-50 p-5 rounded-xl border border-red-200">
-                    <h4 class="font-bold text-red-900 mb-2 flex items-center"><i class="fas fa-eye-slash text-red-600 mr-2 text-xl"></i>朋友輸入密碼進去了，但只看到「即將推出 (Coming Soon)」？</h4>
-                    <p class="text-base text-red-800 leading-relaxed mb-0">
-                        這是第二道<strong>「內容門鎖」</strong>。WooCommerce 預設會開啟保護模式，非管理員的訪客看不到任何商品。<br>
-                        👉 <strong>解法：</strong> 進 WordPress 後台 ➔ 點擊左側 <strong>WooCommerce ➔ 設定</strong> ➔ 找到頂部的 <strong>Site visibility (網站能見度)</strong>，將其改為 <strong>「上線 (Live)」</strong> 並儲存即可。
-                    </p>
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-lock text-gray-500 mr-2"></i>按鈕反灰不能按？</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-3">官方為防止濫用，現在要求登入才能開隧道。請點擊 LocalWP 軟體左上角的「人像圖示」，註冊/登入一個免費帳號後，底下的按鈕就會解鎖了！</p>
                 </div>
                 
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                    <h4 class="font-bold text-gray-900 mb-1 flex items-center text-sm"><i class="fas fa-lock text-gray-500 mr-2"></i>Live Link 按鈕反灰不能按？</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-0">官方為防止濫用，請點擊 LocalWP 軟體左上角的「人像圖示」，註冊/登入一個免費帳號後，底下的按鈕就會解鎖了！</p>
+                <div class="bg-red-50 p-5 rounded-xl border border-red-200">
+                    <h4 class="font-bold text-red-900 mb-2 flex items-center"><i class="fas fa-eye-slash text-red-600 mr-2"></i>別人點網址只看到登入頁？</h4>
+                    <p class="text-sm text-red-800 leading-relaxed mb-3">
+                        這是因為 WooCommerce 預設開啟了<strong>「即將推出 (Coming Soon)」保護模式</strong>。未登入的訪客會被擋在門外。<br>
+                        👉 <strong>解法：</strong> 進 WP 後台 ➔ WooCommerce ➔ 設定 ➔ 頂部的 <strong>Site visibility (網站能見度)</strong>，將其改為 <strong>「上線 (Live)」</strong> 並儲存即可。
+                    </p>
                 </div>
             </div>
 
@@ -741,6 +728,50 @@
             <div class="bg-amber-50 border-l-4 border-amber-500 p-5 mt-8 rounded-lg text-amber-900 text-base shadow-sm">
                 <i class="fas fa-lock mr-2 text-xl"></i><strong>電商必備的資安檢查 (SSL 憑證)：</strong><br>
                 搬家上線後，務必在主機後台一鍵開啟 <b>SSL 憑證 (Let's Encrypt)</b>。讓網址列顯示 <code>https://</code> 與「安全鎖頭」，顧客才敢在您的網站刷卡購物！
+            </div>
+        </section>
+
+        <div id="bonus4" class="unit-divider bg-gradient-to-r from-sky-700 to-blue-900 mt-12 scroll-mt-24">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-sky-500/20 text-sky-100 text-sm font-black mb-4 tracking-widest uppercase border border-sky-400/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]">BONUS 4</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">進階探索：Local 軟體的隱藏三大神器</h2>
+            <p class="text-lg md:text-xl text-sky-100 max-w-2xl mx-auto font-light">
+                除了基本的架站功能，Local 軟體左側的工具列還藏著三個能大幅提升開發效率的強大功能。讓我們一次解碼這些進階畫面！
+            </p>
+        </div>
+
+        <section class="step-card border-l-[6px] border-sky-500">
+            <div class="flex items-center mb-8">
+                <i class="fas fa-toolbox text-4xl text-sky-500 mr-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900">左側選單的進階功能解析</h3>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row gap-6 items-start">
+                    <div class="bg-green-100 text-green-700 w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"><i class="fas fa-cloud"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xl mb-2">1. 雲端連線備份 (Connect)</h4>
+                        <p class="text-gray-700 text-base leading-relaxed mb-2">對應選單中的 <strong>「Cloud storage」</strong> 畫面。這個功能允許您將 Local 軟體綁定到您的 <strong>Google Drive</strong> 或 <strong>Dropbox</strong> 帳號。</p>
+                        <p class="text-sm text-gray-500 bg-gray-50 p-3 rounded border border-gray-100"><strong>💡 實務用途：</strong> 雖然網站檔案存在本機，但萬一電腦硬碟壞了怎麼辦？開啟此功能可以一鍵將您的本機網站安全備份到雲端空間，讓您高枕無憂。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row gap-6 items-start">
+                    <div class="bg-blue-100 text-blue-700 w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"><i class="fas fa-drafting-compass"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xl mb-2">2. 藍圖範本 (Blueprints)</h4>
+                        <p class="text-gray-700 text-base leading-relaxed mb-2">對應選單中的 <strong>「My Blueprints」</strong> 畫面。它能將您目前做好的網站（包含已安裝的外掛、佈景主題與設定）儲存成一個「完美母片」。</p>
+                        <p class="text-sm text-gray-500 bg-gray-50 p-3 rounded border border-gray-100"><strong>💡 實務用途：</strong> 接案設計師的超級法寶！下次要幫新客戶做電商網站時，直接選擇「從藍圖建立」，就不用再重新經歷安裝 WooCommerce、設定中文等繁瑣步驟了，1秒回到您最熟悉的開發起點。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row gap-6 items-start">
+                    <div class="bg-purple-100 text-purple-700 w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"><i class="fas fa-puzzle-piece"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-xl mb-2">3. 擴充元件庫 (Add-ons)</h4>
+                        <p class="text-gray-700 text-base leading-relaxed mb-2">這不是 WordPress 的外掛，而是 <strong>「Local 軟體本身」的外掛庫</strong>。提供了許多給進階開發者使用的輔助工具。</p>
+                        <p class="text-sm text-gray-500 bg-gray-50 p-3 rounded border border-gray-100"><strong>💡 實務用途：</strong> 例如安裝 <code>Image Optimizer</code> 可以自動幫網站壓縮圖片；安裝 <code>TablePlus</code> 可以提供更專業的資料庫管理介面；<code>Notes</code> 則能讓您在軟體裡幫每個網站寫下專屬備忘錄。</p>
+                    </div>
+                </div>
             </div>
         </section>
 
