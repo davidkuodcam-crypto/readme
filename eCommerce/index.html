@@ -94,7 +94,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- 頁首導覽列 -->
     <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -110,12 +109,8 @@
         </div>
     </header>
 
-    <!-- 主內容區 -->
     <main class="max-w-4xl mx-auto px-4 py-8">
         
-        <!-- ========================================== -->
-        <!-- 課程總標題 (Hero Section)                  -->
-        <!-- ========================================== -->
         <div class="text-center py-10 mb-12 border-b-2 border-gray-100 pb-16">
             <span class="inline-block py-1.5 px-4 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-black mb-5 tracking-[0.2em] shadow-sm">COURSE TUTORIAL</span>
             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
@@ -126,9 +121,6 @@
             </p>
         </div>
 
-        <!-- ========================================== -->
-        <!-- 第一單元：本地端環境建置                   -->
-        <!-- ========================================== -->
         <div id="unit-1" class="mb-10 text-center pt-4 scroll-mt-24">
             <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-sm font-bold mb-3 tracking-widest">UNIT 1</span>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-4">在自己的電腦裡，蓋一座真實的網站</h2>
@@ -147,7 +139,6 @@
             </ul>
         </div>
 
-        <!-- U1 步驟 1 -->
         <section class="step-card unit-1-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-1-step">1</span>
@@ -165,7 +156,6 @@
             </div>
         </section>
 
-        <!-- U1 步驟 2 -->
         <section class="step-card unit-1-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-1-step">2</span>
@@ -176,7 +166,7 @@
                 <li>選擇預設的 <strong>「Create a new site」</strong>，然後點選 <strong>「Continue」</strong>。</li>
                 <li>在 <strong>「What's your site's name?」</strong> 輸入網站名稱。
                     <div class="bg-red-50 border-l-4 border-red-500 p-3 mt-2 rounded text-red-800 text-base font-bold ml-6 shadow-sm">
-                        <i class="fas fa-times-circle mr-1 text-red-600"></i>切記：網域與資料夾名稱的限制，絕對不要輸入中文！請使用「純英文或數字」（例如：MyShop2024）。
+                        <i class="fas fa-times-circle mr-1 text-red-600"></i>切記：網域與資料夾名稱的限制，絕對不要輸入中文！請使用「純英文或數字」（例如：WZU-Shop）。
                     </div>
                 </li>
                 <li>環境選擇畫面 (Choose your environment) 請保持預設的 <strong>「Preferred」</strong>，點選 <strong>「Continue」</strong>。
@@ -185,7 +175,6 @@
             </ol>
         </section>
 
-        <!-- U1 步驟 3 -->
         <section class="step-card border-l-[6px] border-red-500 relative overflow-hidden">
             <div class="absolute top-0 right-0 bg-red-100 text-red-700 text-sm font-black px-4 py-1.5 rounded-bl-xl shadow-sm tracking-wider">極度重要</div>
             <div class="flex items-center mb-5">
@@ -217,7 +206,6 @@
             <p class="text-gray-500 text-sm"><i class="fas fa-spinner fa-spin mr-1"></i> 接下來軟體會花 1~2 分鐘為您建置資料庫並下載最新的 WordPress 系統，請耐心等待進度條跑完。</p>
         </section>
 
-        <!-- U1 步驟 4 -->
         <section class="step-card unit-1-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-1-step">4</span>
@@ -228,7 +216,12 @@
             <ol class="list-decimal list-inside space-y-5 text-gray-700 ml-4 mb-4 text-lg">
                 <li><strong>設定語言與時區：</strong>登入後，在左側黑色的選單欄中點擊 <strong>「Settings」</strong> (設定)。
                     <ul class="list-disc list-inside ml-8 mt-2 space-y-2 text-base text-gray-600">
-                        <li>找到 <strong>「Site Language」</strong> 下拉式選單，往下滑找到並點選 <strong>「繁體中文」</strong>。</li>
+                        <li>找到 <strong>「Site Language」</strong> 下拉式選單，往下滑找到並點選 <strong>「繁體中文」</strong>。
+                            <div class="bg-blue-50 p-3 mt-3 mb-2 rounded border border-blue-100 text-base text-blue-900 shadow-sm">
+                                <strong>💡 實務觀念：為什麼電商網站一定要設定繁體中文？</strong><br>
+                                不只是為了看懂後台！正確的語系宣告 (<code>zh-Hant</code>) 能避免瀏覽器誤判跳出「自動翻譯」干擾使用者、確保結帳表單（如發票載具）符合台灣格式，並大幅提升中文關鍵字的 SEO 搜尋排名。
+                            </div>
+                        </li>
                         <li>找到 <strong>「Timezone」</strong>，選擇 <strong>「UTC+8」</strong> 或城市列表中的 <strong>「Taipei」</strong>。</li>
                         <li>滑到最底端，點擊藍色按鈕 <strong>「Save Changes」</strong>。此時介面應該會瞬間變成中文。</li>
                     </ul>
@@ -252,9 +245,6 @@
         </section>
 
 
-        <!-- ========================================== -->
-        <!-- 單元分隔線 1 -> 2                          -->
-        <!-- ========================================== -->
         <div id="unit-2" class="unit-divider scroll-mt-24">
             <span class="inline-block py-1.5 px-4 rounded-full bg-white/20 text-white text-sm font-bold mb-4 tracking-widest uppercase backdrop-blur-sm">UNIT 2</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4">魔法時刻：一鍵匯入精美版型</h2>
@@ -264,15 +254,11 @@
         </div>
 
 
-        <!-- ========================================== -->
-        <!-- 第二單元：佈景主題與匯入                   -->
-        <!-- ========================================== -->
         <div class="bg-white border-l-[6px] border-purple-500 shadow-md rounded-xl p-6 md:p-8 mb-10">
             <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-map-signs text-purple-600 text-3xl mr-3"></i>實作前必看：這四個核心工具在做什麼？</h3>
             <p class="text-gray-600 mb-6 text-lg">在開始瘋狂點擊滑鼠之前，我們先建立「網站架構」的宏觀思維。請把接下來的操作想像成**「裝潢一間商業實體店面」**：</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <!-- 工具 1 -->
                 <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 flex items-start hover:shadow-md transition-shadow">
                     <div class="bg-purple-100 text-purple-700 rounded-full w-12 h-12 flex items-center justify-center font-black text-xl shrink-0 mr-4 shadow-inner">1</div>
                     <div>
@@ -280,7 +266,6 @@
                         <p class="text-gray-600 text-sm leading-relaxed mt-2"><strong>👨‍🎨 建築設計師：</strong>決定網站的基礎骨架（天花板高度、選單位置、預設字體）。<br><span class="text-purple-600 font-medium">※ 規則：一個網站同一時間只能「啟用一套」佈景主題。</span></p>
                     </div>
                 </div>
-                <!-- 工具 2 -->
                 <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 flex items-start hover:shadow-md transition-shadow">
                     <div class="bg-purple-100 text-purple-700 rounded-full w-12 h-12 flex items-center justify-center font-black text-xl shrink-0 mr-4 shadow-inner">2</div>
                     <div>
@@ -288,7 +273,6 @@
                         <p class="text-gray-600 text-sm leading-relaxed mt-2"><strong>🚚 樣品屋搬家公司：</strong>這是一個龐大的範本圖書館外掛。它能將設計師做好的「全套裝潢、假圖片、排版」一鍵匯入到 Astra 的骨架中，讓你不用面對空白畫面發呆。</p>
                     </div>
                 </div>
-                <!-- 工具 3 -->
                 <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 flex items-start hover:shadow-md transition-shadow">
                     <div class="bg-blue-100 text-blue-700 rounded-full w-12 h-12 flex items-center justify-center font-black text-xl shrink-0 mr-4 shadow-inner">3</div>
                     <div>
@@ -296,7 +280,6 @@
                         <p class="text-gray-600 text-sm leading-relaxed mt-2"><strong>🛠️ 萬能裝修工具箱：</strong>匯入版型後，我們要修改裡面的文字和圖片。Elementor 讓我們能像「做 PPT」一樣，在網頁前端用滑鼠拖曳、直覺地編輯內容。</p>
                     </div>
                 </div>
-                <!-- 工具 4 -->
                 <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 flex items-start hover:shadow-md transition-shadow">
                     <div class="bg-orange-100 text-orange-700 rounded-full w-12 h-12 flex items-center justify-center font-black text-xl shrink-0 mr-4 shadow-inner">4</div>
                     <div>
@@ -312,7 +295,6 @@
             </div>
         </div>
 
-        <!-- U2 步驟 1 -->
         <section class="step-card unit-2-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-2-step">1</span>
@@ -334,7 +316,6 @@
             </ol>
         </section>
 
-        <!-- U2 步驟 2 -->
         <section class="step-card unit-2-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-2-step">2</span>
@@ -356,7 +337,6 @@
             </ol>
         </section>
 
-        <!-- U2 步驟 3 (全面重寫：破解 SureCart 陷阱) -->
         <section class="step-card unit-2-border relative overflow-visible">
              <div class="absolute -top-4 right-4 bg-red-600 text-white text-sm font-black px-4 py-2 rounded-lg shadow-lg shadow-red-500/30 transform rotate-2 animate-pulse">
                  <i class="fas fa-skull-crossbones mr-1"></i> 必看！避雷指南
@@ -374,7 +354,7 @@
                     Astra 開發團隊近期推出了自家的電商系統「SureCart」來挑戰老大哥「WooCommerce」。為了推廣，他們在 Starter Templates 裡放入了大量**「硬性綁定 SureCart」**的購物車版型。
                 </p>
                 <p class="text-gray-700 text-base leading-relaxed">
-                    如果你選到這些版型，即使安裝過程中你勾選了 WooCommerce，系統還是會強制安裝 SureCart，導致後續介面全亂，且 SureCart 進階功能皆需付費。
+                    如果你選到這些版型，即使安裝過程中你勾選了 WooCommerce，系統還是會強制安裝 SureCart，導致後續選單與設定引導全亂，且 SureCart 進階功能皆需付費。
                 </p>
             </div>
 
@@ -397,20 +377,21 @@
             </div>
         </section>
 
-        <!-- U2 步驟 4 (新增：事後檢查機制) -->
         <section class="step-card unit-2-border bg-purple-50/30">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-2-step bg-purple-200 text-purple-800">4</span>
-                <h3 class="text-2xl font-bold text-gray-800">上線前的安檢：確認環境純淨度</h3>
+                <h3 class="text-2xl font-bold text-gray-800">上線前的安檢：清理被塞入的推廣外掛</h3>
             </div>
-            <p class="text-lg text-gray-700 mb-4">即便我們選了企業版型，有時廠商還是會偷塞東西。為了單元三順利進行，我們要做最後檢查。</p>
+            <p class="text-lg text-gray-700 mb-4">即便我們選了企業版型，Astra 還是會經常偷塞一些推廣工具。為了避免干擾後續 WooCommerce 的實作，我們要做最後的大掃除。</p>
             <ol class="list-decimal list-inside space-y-3 text-gray-700 ml-4 text-lg">
                 <li>回到 WordPress 左側黑色選單，點擊 <strong>「外掛 (Plugins)」</strong> -> <strong>「已安裝外掛 (Installed Plugins)」</strong>。</li>
-                <li>檢查清單中是否有出現名為 <strong>「SureCart」</strong> 的外掛。</li>
-                <li><strong class="text-red-600">【如果有看到 SureCart】：</strong> 
-                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1 text-base">
-                        <li>先點擊它下方的 <strong>「停用 (Deactivate)」</strong>。</li>
-                        <li>重新整理頁面後，點擊紅色的 <strong>「刪除 (Delete)」</strong>。將它徹底移除！</li>
+                <li>檢查清單中是否有出現名為 <strong>「SureCart」</strong>、<strong>「SureForms」</strong> 或 <strong>「SureRank」</strong> 等不必要的外掛。
+                    <span class="block text-sm text-gray-500 mt-1 ml-6">（註：若有看到「Spectra」，它是 Gutenberg 的排版增強外掛，可保留以免首頁跑版。）</span>
+                </li>
+                <li><strong class="text-red-600">【如果有看到這些 Sure 系列外掛】：</strong> 
+                    <ul class="list-disc list-inside ml-8 mt-2 space-y-1 text-base text-gray-700">
+                        <li>先點擊該外掛下方的 <strong>「停用 (Deactivate)」</strong>。</li>
+                        <li>重新整理頁面後，點擊紅色的 <strong>「刪除 (Delete)」</strong>，將它徹底移除！</li>
                     </ul>
                 </li>
                 <li>太棒了！你的網站現在是一個擁有絕美外觀、且乾淨無比的優質基礎，準備好在下個單元安裝真正的營業執照了。</li>
@@ -418,9 +399,6 @@
         </section>
 
 
-        <!-- ========================================== -->
-        <!-- 單元分隔線 2 -> 3                          -->
-        <!-- ========================================== -->
         <div id="unit-3" class="unit-divider bg-gradient-to-r from-gray-900 via-gray-800 to-black scroll-mt-24">
             <span class="inline-block py-1.5 px-4 rounded-full bg-orange-500/20 text-orange-400 text-sm font-black mb-4 tracking-widest uppercase border border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)]">UNIT 3</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">電商樞紐：WooCommerce 震撼上線</h2>
@@ -430,9 +408,6 @@
         </div>
 
 
-        <!-- ========================================== -->
-        <!-- 第三單元：電商與商品上架                   -->
-        <!-- ========================================== -->
         <div class="concept-box shadow-sm border-orange-200 bg-orange-50">
             <h3 class="text-xl font-bold text-orange-900 mb-3"><i class="fas fa-store text-orange-500 mr-2 text-2xl"></i>觀念擴充：為什麼業界都愛用 WooCommerce？</h3>
             <p class="text-gray-700 text-lg leading-relaxed">
@@ -441,7 +416,6 @@
             </p>
         </div>
 
-        <!-- U3 步驟 1 -->
         <section class="step-card unit-3-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-3-step">1</span>
@@ -480,12 +454,17 @@
             </div>
         </section>
 
-        <!-- U3 步驟 2 -->
         <section class="step-card unit-3-border">
             <div class="flex items-center mb-5">
                 <span class="step-number unit-3-step">2</span>
                 <h3 class="text-2xl font-bold text-gray-800">新增你的第一項商品 (圖解版)</h3>
             </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded text-yellow-800 text-base shadow-sm">
+                <h4 class="font-bold flex items-center mb-1"><i class="fas fa-question-circle mr-2 text-yellow-600"></i>新手疑惑破解：為什麼畫面上有兩個「新增商品」？</h4>
+                <p>剛裝好 WooCommerce 進入首頁時，正中央的大藍色按鈕是<strong>「新手引導捷徑」</strong>；而左側黑色選單的「商品 > 新增」是<strong>「常態功能入口」</strong>。兩者點進去的功能完全相同！建議熟悉後統一習慣點擊左側黑名單的操作。</p>
+            </div>
+
             <p class="mb-4 text-gray-700 text-lg">上架商品就像發佈一篇 Facebook 貼文一樣直覺，但有幾個欄位新手最容易搞錯，請務必看清楚位置！</p>
             
             <ol class="list-decimal list-inside space-y-5 text-gray-700 ml-4 mb-6 text-lg">
@@ -521,7 +500,6 @@
                 </li>
             </ol>
 
-            <!-- 🎁 上課練習用素材包區塊 (保持原樣，因為這是一個非常實用的設計) -->
             <div class="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 rounded-xl p-6 my-8 shadow-sm">
                 <h4 class="font-bold text-gray-900 mb-3 flex items-center text-xl">
                     <i class="fas fa-gift text-pink-500 mr-2 text-2xl"></i> 🎁 實作素材包 (終極防呆版)
@@ -548,7 +526,6 @@
             </ol>
         </section>
 
-        <!-- U3 步驟 3 -->
         <section class="step-card unit-3-border bg-gray-50 border border-gray-100 shadow-inner">
             <div class="flex items-center mb-6">
                 <i class="fas fa-clipboard-check text-4xl text-orange-500 mr-4 drop-shadow-sm"></i>
@@ -575,14 +552,11 @@
             </ul>
         </section>
 
-        <!-- ========================================== -->
-        <!-- 課後加碼 1：分享你的網站 (Live Link)       -->
-        <!-- ========================================== -->
         <div id="bonus" class="unit-divider bg-gradient-to-r from-teal-700 to-teal-900 mt-16 scroll-mt-24">
             <span class="inline-block py-1.5 px-4 rounded-full bg-teal-500/20 text-teal-100 text-sm font-black mb-4 tracking-widest uppercase border border-teal-400/30">BONUS 1</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">課後加碼：展示你的專屬網站</h2>
             <p class="text-lg md:text-xl text-teal-100 max-w-2xl mx-auto font-light">
-                既然網站是在「自己的電腦」裡，老師跟同學要怎麼連進來看呢？LocalWP 內建了超棒的「Live Link」功能，一秒產生對外公開的臨時隧道網址！
+                既然網站是在「自己的電腦」裡，其他人要怎麼連進來看呢？LocalWP 內建了超棒的「Live Link」功能，一秒產生對外公開的臨時隧道網址！
             </p>
         </div>
 
@@ -598,24 +572,27 @@
                 <li>回到 <strong>LocalWP</strong> 軟體的主畫面。</li>
                 <li>看向視窗的<strong>最下方邊緣</strong>，你會找到一行標示著 <strong>「Live Link」</strong> 的文字。</li>
                 <li>點擊旁邊的 <strong>「Enable (啟用)」</strong> 按鈕。</li>
-                <li>等待系統配置後，原本的地方會出現一組隨機網址（例如 <code>https://xxxx.loca.lt</code>），點擊旁邊的圖示複製它。</li>
-                <li>把這段網址貼給同學，他們就能用手機逛你的網站囉！</li>
+                <li>等待系統配置後，原本的地方會出現一組隨機網址（例如 <code>https://xxxx.loca.lt</code>），點擊旁邊的圖示複製它貼給朋友即可。</li>
             </ol>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-4">
-                <!-- 解鎖門檻 -->
-                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-lock text-gray-500 mr-2"></i>按鈕反灰不能按？</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-3">官方為防止濫用，現在要求登入才能開隧道。請點擊 LocalWP 軟體左上角的「人像圖示」，註冊/登入一個免費帳號後，底下的按鈕就會解鎖了！</p>
+            <div class="grid md:grid-cols-1 gap-5 mb-4">
+                <div class="bg-indigo-50 p-5 rounded-xl border border-indigo-200">
+                    <h4 class="font-bold text-indigo-900 mb-2 flex items-center"><i class="fas fa-shield-alt text-indigo-600 mr-2 text-xl"></i>朋友點開網址，卻跳出「要求授權」對話框？</h4>
+                    <p class="text-base text-indigo-800 leading-relaxed mb-0">這是 LocalWP 的第一道<strong>「技術門鎖」</strong>，防護外人隨意連入你的電腦。對話框的帳密並非你的 WP 登入帳密！<br>
+                    👉 <strong>解法：</strong> 帳號與密碼就在軟體底部 Live Link 區塊旁邊，<strong>Username 通常為系統亂碼（如 unwritten）</strong>，請點擊旁邊的 <strong>Password [Copy] 按鈕</strong> 複製，連同網址一起給朋友輸入才能進站。</p>
+                </div>
+
+                <div class="bg-red-50 p-5 rounded-xl border border-red-200">
+                    <h4 class="font-bold text-red-900 mb-2 flex items-center"><i class="fas fa-eye-slash text-red-600 mr-2 text-xl"></i>朋友輸入密碼進去了，但只看到「即將推出 (Coming Soon)」？</h4>
+                    <p class="text-base text-red-800 leading-relaxed mb-0">
+                        這是第二道<strong>「內容門鎖」</strong>。WooCommerce 預設會開啟保護模式，非管理員的訪客看不到任何商品。<br>
+                        👉 <strong>解法：</strong> 進 WordPress 後台 ➔ 點擊左側 <strong>WooCommerce ➔ 設定</strong> ➔ 找到頂部的 <strong>Site visibility (網站能見度)</strong>，將其改為 <strong>「上線 (Live)」</strong> 並儲存即可。
+                    </p>
                 </div>
                 
-                <!-- WooCommerce 盲點破解 -->
-                <div class="bg-red-50 p-5 rounded-xl border border-red-200">
-                    <h4 class="font-bold text-red-900 mb-2 flex items-center"><i class="fas fa-eye-slash text-red-600 mr-2"></i>別人點網址只看到登入頁？</h4>
-                    <p class="text-sm text-red-800 leading-relaxed mb-3">
-                        這是因為 WooCommerce 預設開啟了<strong>「即將推出 (Coming Soon)」保護模式</strong>。未登入的訪客會被擋在門外。<br>
-                        👉 <strong>解法：</strong> 進 WP 後台 ➔ WooCommerce ➔ 設定 ➔ 頂部的 <strong>Site visibility (網站能見度)</strong>，將其改為 <strong>「上線 (Live)」</strong> 並儲存即可。
-                    </p>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <h4 class="font-bold text-gray-900 mb-1 flex items-center text-sm"><i class="fas fa-lock text-gray-500 mr-2"></i>Live Link 按鈕反灰不能按？</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-0">官方為防止濫用，請點擊 LocalWP 軟體左上角的「人像圖示」，註冊/登入一個免費帳號後，底下的按鈕就會解鎖了！</p>
                 </div>
             </div>
 
@@ -628,9 +605,6 @@
             </div>
         </section>
 
-        <!-- ========================================== -->
-        <!-- 課後加碼 2：打包網站帶回家                 -->
-        <!-- ========================================== -->
         <div id="bonus2" class="unit-divider bg-gradient-to-r from-rose-700 to-rose-900 mt-12 scroll-mt-24">
             <span class="inline-block py-1.5 px-4 rounded-full bg-rose-500/20 text-rose-100 text-sm font-black mb-4 tracking-widest uppercase border border-rose-400/30 shadow-[0_0_15px_rgba(244,63,94,0.2)]">BONUS 2</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">下課前必做：打包網站帶回家</h2>
@@ -665,9 +639,6 @@
             </ol>
         </section>
 
-        <!-- ========================================== -->
-        <!-- 課後加碼 3：正式上線 (Cloud Hosting)       -->
-        <!-- ========================================== -->
         <div id="bonus3" class="unit-divider bg-gradient-to-r from-slate-800 to-indigo-950 mt-12 scroll-mt-24">
             <span class="inline-block py-1.5 px-4 rounded-full bg-indigo-500/20 text-indigo-200 text-sm font-black mb-4 tracking-widest uppercase border border-indigo-400/30 shadow-[0_0_15px_rgba(99,102,241,0.2)]">BONUS 3</span>
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">進階觀念：如何讓網站正式搬上雲端？</h2>
@@ -709,9 +680,6 @@
         </section>
 
 
-        <!-- ========================================== -->
-        <!-- 結尾區塊                                   -->
-        <!-- ========================================== -->
         <div class="bg-gradient-to-br from-indigo-50 via-white to-blue-50 border border-indigo-100 p-10 rounded-3xl mt-16 text-center shadow-lg relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500"></div>
             <h2 class="text-4xl font-black text-indigo-900 mb-5 tracking-wide">🎉 恭喜完成架站！</h2>
@@ -728,7 +696,6 @@
 
     </main>
 
-    <!-- 頁尾 -->
     <footer class="bg-slate-900 text-slate-400 py-10 text-center mt-12 border-t-4 border-slate-800">
         <div class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm">
             <p class="mb-4 md:mb-0">商務網站架設實務課程 | 完整操作講義 (升級版 v2.0)</p>
