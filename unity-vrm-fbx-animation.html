@@ -2,747 +2,559 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unity VRM Animation Guide</title>
+    <!-- 加入 maximum-scale=1.0 防止手機點擊輸入框時意外放大畫面 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VRM & VRMA 動作播放器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary: #0ea5e9;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
-            --accent: #38bdf8;
-            --success: #10b981;
-            --warning: #f59e0b;
+        body { margin: 0; overflow: hidden; background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 50%, #ffe0b2 100%); font-family: sans-serif; touch-action: none; }
+        canvas { display: block; }
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        canvas {
+        #loading-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.4;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        h1 {
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
-        }
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            border-left: 5px solid var(--primary);
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-2px);
-        }
-        h2 {
-            color: var(--accent);
-            border-bottom: 1px solid #334155;
-            padding-bottom: 10px;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .step {
-            margin-bottom: 25px;
-            padding: 15px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            transition: background 0.3s;
-        }
-        .step.completed {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 3px solid var(--success);
-        }
-        .step-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            user-select: none;
-        }
-        .step-num {
-            background: var(--primary);
-            color: white;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
             justify-content: center;
+            align-items: center;
+            z-index: 100;
+            color: white;
+            flex-direction: column;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            font-size: 0.9rem;
-            flex-shrink: 0;
+            border-top: 4px solid #3b82f6;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
         }
-        .step.completed .step-num {
-            background: var(--success);
-        }
-        .step-title input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--success);
-        }
-        .step-content {
-            margin-left: 40px;
-            margin-top: 10px;
-        }
-        .step.completed .step-content {
-            color: #94a3b8;
-        }
-        .highlight {
-            background: #334155;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #38bdf8;
-            font-family: monospace;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .note {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid var(--warning);
-            padding: 10px 15px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
-            margin-top: 15px;
-        }
-        .alert {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid #ef4444;
-            padding: 10px 15px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
-            margin-top: 15px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            background-color: #334155;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 10px;
-            background-color: var(--success);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-        .progress-text {
-            text-align: right;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
-
-        /* Expression Grid */
-        .expression-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .exp-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 12px;
-        }
-        .exp-card h4 {
-            margin: 0 0 8px 0;
-            color: var(--accent);
-            border-bottom: 1px dashed #475569;
-            padding-bottom: 5px;
-        }
-        .exp-card ul {
-            margin: 0;
-            padding-left: 18px;
-            font-family: monospace;
-            color: #cbd5e1;
-        }
-        
-        /* Code Block */
-        .code-container {
-            position: relative;
-            margin-top: 15px;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(51, 65, 85, 0.9);
-            color: var(--text-main);
-            border: 1px solid #475569;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 5;
-        }
-        .copy-btn:hover {
-            background: #64748b;
-            color: #fff;
-        }
-        .copy-btn.copied {
-            background: var(--success);
-            border-color: var(--success);
-            color: #fff;
-        }
-        .code-block {
-            background: #020617;
-            padding: 45px 15px 15px 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid #334155;
-            color: #38bdf8;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-        .code-comment { color: #10b981; }
-        .code-keyword { color: #f472b6; }
-        .code-string { color: #fde047; }
-        .code-class { color: #fbbf24; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <canvas id="bgCanvas"></canvas>
 
-    <div class="container">
-        <header>
-            <h1>Unity VRM Animation Guide</h1>
-            <div class="subtitle">VRM 1.0 動作套用、VRMA匯出與表情系統深度解析</div>
-        </header>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div class="progress-text" id="progressText">完成度：0%</div>
-
-        <div class="card">
-            <h2>📝 課前準備</h2>
-            <ul>
-                <li><strong>軟體：</strong><a href="https://unity.com/releases/editor/archive" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Unity Editor</a> (建議使用 2021.3 或 2022.3 LTS 版本)。</li>
-                <li><strong>核心套件：</strong>請至 <a href="https://github.com/vrm-c/UniVRM/releases" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">UniVRM 官方 GitHub</a> 下載主程式 <span class="highlight">VRM-0.xxx.x.unitypackage</span>。</li>
-                <li><strong>匯出工具：</strong>請至 <a href="https://github.com/malaybaku/AnimationClipToVrmaSample/releases" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AnimationClipToVrma</a> 下載專用轉換工具 <span class="highlight">AnimationClipToVrma_0.2.x.unitypackage</span>。</li>
-                <li><strong>素材：</strong>一個 <code>.vrm</code> 虛擬角色檔案，以及一個 <code>.fbx</code> 動作檔案 (例如從 <a href="https://www.mixamo.com/" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Mixamo</a> 下載)。我們也會在任務四使用 <a href="https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">Unity-Chan! Model</a> 做為對照範例。</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>🚀 任務一：匯入 VRM 模型並套用 FBX 動作</h2>
-            
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">1</span>匯入套件與角色
-                </label>
-                <div class="step-content">
-                    <p>將下載好的 <strong>核心套件 (VRM-0.xxx)</strong> 與 <strong>匯出工具 (AnimationClipToVrma)</strong> 依序拖曳進 Unity 下方的 Project 面板中安裝。接著，將準備好的 <code>.vrm</code> 檔案直接拖曳進 Project 面板，Unity 會自動生成角色的 Prefab，並將該 Prefab 拖曳到左側 Hierarchy 中。</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">2</span>設定 FBX 為 Humanoid 骨架 (關鍵步驟)
-                </label>
-                <div class="step-content">
-                    <p>將 <code>.fbx</code> 動作檔案拖曳進 Project 面板。點擊該 FBX 檔案，在右側的 <strong>Inspector</strong> 面板中切換到 <strong>Rig</strong> 標籤。</p>
-                    <p>將 <span class="highlight">Animation Type</span> 從 Generic 更改為 <span class="highlight">Humanoid</span>，然後點擊右下角的 <strong>Apply</strong>。這能確保 FBX 的動作完美重定向 (Retargeting) 到 VRM 角色上。</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">3</span>設定 Animator 狀態機 (State Machine)
-                </label>
-                <div class="step-content">
-                    <p>在 Project 面板空白處點擊右鍵：<code>Create</code> -> <code>Animator Controller</code>，將其命名為 <code>VRM_Anim</code>。</p>
-                    <p>點選 Hierarchy 中的 VRM 角色，在右側的 <strong>Animator</strong> 元件中，將剛剛建立的 <code>VRM_Anim</code> 拖曳到 <strong>Controller</strong> 欄位裡。</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">4</span>套用動作並測試
-                </label>
-                <div class="step-content">
-                    <p>雙擊打開 <code>VRM_Anim</code> 進入 Animator 視窗。在 Project 面板中點擊 FBX 檔案旁邊的小三角形展開它，找到 <strong>Animation Clip</strong> (帶有三角形播放圖示的檔案)。</p>
-                    <p>將該 Clip 拖曳進 Animator 視窗中，它會自動變成橘色的預設狀態 (Default State)。按下 Unity 頂部的 Play 播放鍵，角色就會開始動作了！</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>💾 任務二：將 FBX 動作匯出成 VRMA 檔案</h2>
-            <p>傳統 FBX 動作需要透過外掛轉換才能變成標準的 VRMA 動作格式，方便在其他網頁或應用程式中重複使用。</p>
-            
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">5</span>開啟動作匯出器
-                </label>
-                <div class="step-content">
-                    <p>確保您已經安裝了 <code>AnimationClipToVrma</code> 工具包。在 Unity 頂部選單點擊 <span class="highlight">VRM</span> -> <span class="highlight">VRM Animation Exporter</span> 開啟匯出專用視窗。</p>
-                    <div class="note">
-                        <strong>💡 其他方式：</strong>您也可以直接在 Project 面板中對著 Animation Clip 點擊「右鍵」，選擇 <code>VRM</code> -> <code>Export VRM Animation</code> 快速呼叫。
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">6</span>設定 Animation Clip 與參考模型
-                </label>
-                <div class="step-content">
-                    <p>在開啟的 Exporter 視窗中，填入以下兩個關鍵欄位：</p>
-                    <ul>
-                        <li><strong>Animation Clip：</strong>拖入您展開 FBX 檔案後找到的三角形動作檔案。</li>
-                        <li><strong>Reference Model (參考模型)：</strong>拖入您在任務一匯入的 <code>.vrm</code> 角色 Prefab。<strong>這一步非常重要</strong>，轉換器需要參考標準的 VRM 模型來讀取正確的骨架比例。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">7</span>確認與匯出存檔
-                </label>
-                <div class="step-content">
-                    <p>確認視窗設定無誤後，點擊下方的 <strong>Export</strong>，設定檔名與存檔路徑，即可獲得標準的 <code>.vrma</code> 動作檔案。</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2>🎭 任務三：VRM 表情系統 (Expressions) 深度解析</h2>
-            <p>VRM 擁有標準化的表情系統，透過控制臉部網格的 BlendShape，我們可以在不同模型之間共用同一套表情程式碼。接下來我們將從基礎到進階，逐步掌握這套系統。</p>
-            
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">8</span>認識所有 VRM 預設表情 (Preset Expressions)
-                </label>
-                <div class="step-content">
-                    <p>在 VRM 1.0 中，表情主要透過 <code>ExpressionKey</code> 來呼叫，並分為三大控制部位：</p>
-                    <div class="expression-grid">
-                        <div class="exp-card">
-                            <h4>🙂 情緒 (Emotion)</h4>
-                            <p style="font-size: 0.85rem; margin-bottom:5px; color:#94a3b8;">控制眉毛、眼眶與整體臉部</p>
-                            <ul>
-                                <li>ExpressionKey.Happy</li>
-                                <li>ExpressionKey.Angry</li>
-                                <li>ExpressionKey.Sad</li>
-                                <li>ExpressionKey.Relaxed</li>
-                                <li>ExpressionKey.Surprised</li>
-                                <li>ExpressionKey.Neutral (恢復自然)</li>
-                            </ul>
-                        </div>
-                        <div class="exp-card">
-                            <h4>👄 唇型 (LipSync)</h4>
-                            <p style="font-size: 0.85rem; margin-bottom:5px; color:#94a3b8;">控制嘴巴開合與發音嘴型</p>
-                            <ul>
-                                <li>ExpressionKey.Aa (ㄚ)</li>
-                                <li>ExpressionKey.Ih (ㄧ)</li>
-                                <li>ExpressionKey.Ou (ㄨ)</li>
-                                <li>ExpressionKey.Ee (ㄝ)</li>
-                                <li>ExpressionKey.Oh (ㄛ)</li>
-                            </ul>
-                        </div>
-                        <div class="exp-card">
-                            <h4>👀 眨眼 (Blink)</h4>
-                            <p style="font-size: 0.85rem; margin-bottom:5px; color:#94a3b8;">控制眼皮閉合</p>
-                            <ul>
-                                <li>ExpressionKey.Blink (雙眼)</li>
-                                <li>ExpressionKey.BlinkLeft (左眼)</li>
-                                <li>ExpressionKey.BlinkRight (右眼)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">9</span>等級一：基礎控制 (一鍵觸發情緒)
-                </label>
-                <div class="step-content">
-                    <p>建立一個 C# 腳本命名為 <code>VRMBasicExpression</code>，綁定到場景中的空物件上，並將 VRM 角色拖入 <code>vrmInstance</code> 欄位。這示範了如何透過權重 (0.0f 到 1.0f) 來開關表情。</p>
-                    <div class="code-container">
-                        <button class="copy-btn" onclick="copyCode(this)">複製程式碼</button>
-                        <div class="code-block">
-<span class="code-keyword">using</span> UnityEngine;
-<span class="code-keyword">using</span> UniVRM10;
-
-<span class="code-keyword">public class</span> <span class="code-class">VRMBasicExpression</span> : MonoBehaviour
-{
-    <span class="code-keyword">public</span> Vrm10Instance vrmInstance;
-
-    <span class="code-keyword">void</span> Update()
-    {
-        <span class="code-keyword">if</span> (vrmInstance == null) <span class="code-keyword">return</span>;
-
-        <span class="code-comment">// 按下空白鍵時：將 Happy 權重設為 1.0 (完全開啟)</span>
-        <span class="code-keyword">if</span> (Input.GetKeyDown(KeyCode.Space))
-        {
-            vrmInstance.Runtime.Expression.SetWeight(ExpressionKey.Happy, 1.0f);
-        }
-
-        <span class="code-comment">// 放開空白鍵時：將 Happy 權重設為 0.0 (關閉)</span>
-        <span class="code-keyword">if</span> (Input.GetKeyUp(KeyCode.Space))
-        {
-            vrmInstance.Runtime.Expression.SetWeight(ExpressionKey.Happy, 0.0f);
-        }
-    }
-}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">10</span>等級二：進階控制 (平滑過渡與母音對嘴)
-                </label>
-                <div class="step-content">
-                    <p>有時候表情或說話不能只是 0 與 1 的切換，而是需要漸變。建立 <code>VRMLipSyncExample</code> 腳本，我們利用數學函式 <code>Mathf.PingPong</code> 讓角色連續發出「Aa(ㄚ)」的平滑嘴型，就像在呼吸或說話一樣。</p>
-                    <div class="code-container">
-                        <button class="copy-btn" onclick="copyCode(this)">複製程式碼</button>
-                        <div class="code-block">
-<span class="code-keyword">using</span> UnityEngine;
-<span class="code-keyword">using</span> UniVRM10;
-
-<span class="code-keyword">public class</span> <span class="code-class">VRMLipSyncExample</span> : MonoBehaviour
-{
-    <span class="code-keyword">public</span> Vrm10Instance vrmInstance;
-    <span class="code-keyword">public float</span> talkingSpeed = 5.0f; <span class="code-comment">// 嘴巴開合速度</span>
-
-    <span class="code-keyword">void</span> Update()
-    {
-        <span class="code-keyword">if</span> (vrmInstance == null) <span class="code-keyword">return</span>;
-
-        <span class="code-comment">// 計算平滑數值 (會在 0.0 到 1.0 之間來回彈跳)</span>
-        <span class="code-keyword">float</span> weight = Mathf.PingPong(Time.time * talkingSpeed, 1.0f);
-
-        <span class="code-comment">// 將數值動態指派給 Aa(ㄚ) 嘴型</span>
-        vrmInstance.Runtime.Expression.SetWeight(ExpressionKey.Aa, weight);
-    }
-}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">11</span>等級三：高階控制 (呼叫自訂表情)
-                </label>
-                <div class="step-content">
-                    <p>除了預設表情，許多模型師會在 VRM 中加入「星星眼 (StarEye)」、「貓耳下垂」等自訂表情。我們無法使用 <code>ExpressionKey.Happy</code> 這種預設語法，必須使用 <code>CreateCustom</code> 來動態呼叫。</p>
-                    <div class="code-container">
-                        <button class="copy-btn" onclick="copyCode(this)">複製程式碼</button>
-                        <div class="code-block">
-<span class="code-keyword">using</span> UnityEngine;
-<span class="code-keyword">using</span> UniVRM10;
-
-<span class="code-keyword">public class</span> <span class="code-class">VRMCustomExpression</span> : MonoBehaviour
-{
-    <span class="code-keyword">public</span> Vrm10Instance vrmInstance;
-    <span class="code-keyword">public string</span> customExpressionName = <span class="code-string">"star_eye"</span>; <span class="code-comment">// 填入模型師設定的表情名稱</span>
-
-    <span class="code-keyword">void</span> Update()
-    {
-        <span class="code-keyword">if</span> (vrmInstance == null) <span class="code-keyword">return</span>;
-
-        <span class="code-keyword">if</span> (Input.GetKeyDown(KeyCode.Return)) <span class="code-comment">// 按下 Enter 鍵</span>
-        {
-            <span class="code-comment">// 建立自訂的 ExpressionKey 並賦予權重 1.0</span>
-            ExpressionKey customKey = ExpressionKey.CreateCustom(customExpressionName);
-            vrmInstance.Runtime.Expression.SetWeight(customKey, 1.0f);
-        }
-    }
-}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">12</span>⚠️ 表情系統實作注意事項
-                </label>
-                <div class="step-content">
-                    <p>在開發 VRM 專案時，請務必遵守以下規範，避免產生 Bug：</p>
-                    <div class="alert">
-                        <strong>不要直接修改 SkinnedMeshRenderer：</strong><br>
-                        千萬不要用 Unity 原生的 <code>SetBlendShapeWeight()</code> 來改臉部網格。必須統一使用 <code>vrmInstance.Runtime.Expression.SetWeight()</code>。因為 VRM 內部有防止穿模的機制（例如設定了「大笑時覆蓋眨眼」），直接改網格會破壞這套保護機制。
-                    </div>
-                    <div class="note">
-                        <strong>權重的範圍：</strong><br>
-                        傳入 <code>SetWeight</code> 的數值必須是 <code>float</code> 型態，且範圍建議嚴格限制在 <strong>0.0f 到 1.0f</strong> 之間。超過 1.0 雖然有時有效，但極易造成模型臉部破圖 (Mesh Distortion)。
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>🔍 任務四：FBX 模型與 VRM 的差異 (以 Unity-Chan 為例)</h2>
-            <p>在 VRM 尚未普及之前，遊戲開發者通常直接使用 <code>.fbx</code> 格式的模型（例如著名的 Unity-Chan）。學習兩者的差異，能幫助你理解為什麼現代虛擬偶像與遊戲都傾向使用 VRM。</p>
-            
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">13</span>傳統 FBX 控制表情的痛點 (名稱不統一)
-                </label>
-                <div class="step-content">
-                    <p>如果你從 Asset Store 下載 <a href="https://assetstore.unity.com/packages/3d/characters/unity-chan-model-18705" target="_blank" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;"><strong>Unity-Chan! Model</strong></a> 並放入場景，你會發現她沒有 <code>Vrm10Instance</code>。要改變她的表情，你必須在她的臉部子物件 (例如 <code>MTH_DEF</code> 網格) 上找到 <strong>Skinned Mesh Renderer</strong> 元件。</p>
-                    <p><strong>最大痛點：</strong>Unity-Chan 的微笑可能叫 <code>smile1</code>，但換成另一個 FBX 角色可能叫 <code>Face_Happy</code>。因為缺乏標準，你每換一個 FBX 模型，程式碼就要全部重寫！</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">14</span>實作：FBX 專用的表情程式碼
-                </label>
-                <div class="step-content">
-                    <p>我們來看看控制傳統 FBX 模型 (如 Unity-Chan) 臉部表情的寫法。請注意這與 VRM 寫法的兩大差異：</p>
-                    <ol>
-                        <li>必須直接取得 <code>SkinnedMeshRenderer</code> 元件。</li>
-                        <li>權重數值 (Weight) 在 Unity 原生系統中是 <strong>0 到 100</strong>，而 VRM 是 <strong>0.0 到 1.0</strong>。</li>
-                    </ol>
-                    <div class="code-container">
-                        <button class="copy-btn" onclick="copyCode(this)">複製程式碼</button>
-                        <div class="code-block">
-<span class="code-keyword">using</span> UnityEngine;
-
-<span class="code-keyword">public class</span> <span class="code-class">FBXExpressionExample</span> : MonoBehaviour
-{
-    <span class="code-comment">// 需要手手動拖曳擁有 BlendShape 的「臉部網格」物件</span>
-    <span class="code-keyword">public</span> SkinnedMeshRenderer faceMeshRenderer;
-
-    <span class="code-comment">// FBX 的表情索引值 (可能要自己慢慢測試第幾個是笑臉)</span>
-    <span class="code-keyword">public int</span> smileBlendShapeIndex = 0;
-
-    <span class="code-keyword">void</span> Update()
-    {
-        <span class="code-keyword">if</span> (faceMeshRenderer == null) <span class="code-keyword">return</span>;
-
-        <span class="code-keyword">if</span> (Input.GetKeyDown(KeyCode.Space))
-        {
-            <span class="code-comment">// Unity 原生的表情控制：(索引值, 權重 0~100)</span>
-            <span class="code-comment">// 注意這裡輸入的是 100f，這與 VRM 的 1.0f 完全不同！</span>
-            faceMeshRenderer.SetBlendShapeWeight(smileBlendShapeIndex, 100f);
-        }
-
-        <span class="code-keyword">if</span> (Input.GetKeyUp(KeyCode.Space))
-        {
-            <span class="code-comment">// 恢復原狀，設為 0</span>
-            faceMeshRenderer.SetBlendShapeWeight(smileBlendShapeIndex, 0f);
-        }
-    }
-}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <label class="step-title">
-                    <input type="checkbox" class="step-checkbox">
-                    <span class="step-num">15</span>結論：為什麼 VRM 更好？
-                </label>
-                <div class="step-content">
-                    <p>透過比較，我們可以總結出 VRM (相對於 FBX) 在角色控制上的強大優勢：</p>
-                    <ul>
-                        <li><strong>通用性：</strong>VRM 統一了 <code>ExpressionKey.Happy</code>，同一套程式碼套用在 A 角色和 B 角色上都會正確笑出來。</li>
-                        <li><strong>防穿模機制：</strong>FBX 如果同時把「嘴巴張開」和「微笑」都調到 100，常常會導致牙齒穿出臉頰破圖；而 VRM 的設定檔允許防呆覆蓋。</li>
-                        <li><strong>統一材質：</strong>除了表情，FBX 的材質球 (Material) 常常在不同電腦或專案中遺失或變成粉紅色；VRM 內建了 MToon 標準動漫材質，確保匯入即用。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            &copy; 2026 資訊科技教學講義 | 實作中有任何問題，歡迎隨時提問。
-        </footer>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text" class="text-base sm:text-lg">載入中...</p>
     </div>
 
-    <script>
-        // 1. 進度條與勾選邏輯
-        const checkboxes = document.querySelectorAll('.step-checkbox');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const totalSteps = checkboxes.length;
+    <!-- 遊戲模式提示 UI (預設隱藏) -->
+    <div id="game-ui-hint" class="fixed top-5 left-1/2 -translate-x-1/2 z-20 bg-black/60 text-white px-5 py-2.5 rounded-full backdrop-blur-md text-sm border border-white/20 shadow-lg hidden">
+        🎮 <b>遊戲模式</b>：使用 <kbd class="bg-white/20 px-1.5 py-0.5 rounded text-yellow-300">W</kbd> <kbd class="bg-white/20 px-1.5 py-0.5 rounded text-yellow-300">A</kbd> <kbd class="bg-white/20 px-1.5 py-0.5 rounded text-yellow-300">S</kbd> <kbd class="bg-white/20 px-1.5 py-0.5 rounded text-yellow-300">D</kbd> 移動 | 按 <kbd class="bg-red-500/80 px-1.5 py-0.5 rounded text-white font-bold">ESC</kbd> 退出
+    </div>
 
-        function updateProgress() {
-            let completed = 0;
-            checkboxes.forEach(cb => {
-                const stepDiv = cb.closest('.step');
-                if (cb.checked) {
-                    completed++;
-                    stepDiv.classList.add('completed');
-                } else {
-                    stepDiv.classList.remove('completed');
+    <!-- UI 控制面板 (響應式：手機緊湊、平板並排、桌面寬扁) -->
+    <div id="main-ui-panel" class="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-10 w-[96vw] max-w-5xl">
+        <div class="glass-panel p-3 sm:p-4 text-white shadow-xl">
+            <!-- 核心排版容器 -->
+            <div class="flex flex-col lg:flex-row gap-3 sm:gap-4 items-center justify-between">
+                
+                <!-- 標題與手機版重置按鈕 -->
+                <div class="flex justify-between items-center w-full lg:w-auto shrink-0 border-b border-white/10 pb-2 lg:border-0 lg:pb-0">
+                    <div>
+                        <h1 class="text-base sm:text-lg lg:text-xl font-bold text-yellow-300 tracking-wider">VRM 動作播放器</h1>
+                        <div class="text-[10px] sm:text-xs text-gray-300 hidden sm:block mt-0.5">左鍵:旋轉 | 右鍵:平移 | 滾輪:縮放</div>
+                    </div>
+                    <!-- 手機/平板版 顯示的重置與暫停按鈕 -->
+                    <div class="flex flex-col gap-1.5 lg:hidden">
+                        <button class="btn-reset-cam bg-white/10 hover:bg-white/20 py-1.5 px-3 rounded-lg transition font-medium text-[11px] sm:text-xs border border-white/10 shadow active:scale-95 whitespace-nowrap">重置視角</button>
+                        <button class="btn-play-pause bg-white/10 hover:bg-white/20 py-1.5 px-3 rounded-lg transition font-medium text-[11px] sm:text-xs border border-white/10 shadow active:scale-95 whitespace-nowrap text-blue-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>暫停/播放</button>
+                        <button class="btn-game-mode bg-green-600/80 hover:bg-green-500 py-1.5 px-3 rounded-lg transition font-medium text-[11px] sm:text-xs border border-white/10 shadow active:scale-95 whitespace-nowrap text-white disabled:opacity-50 disabled:cursor-not-allowed" disabled>🎮 遊戲模式</button>
+                    </div>
+                </div>
+
+                <!-- 檔案載入區塊 (手機直排，平板/桌面橫排) -->
+                <div class="flex flex-col sm:flex-row gap-2 w-full lg:flex-1 lg:px-4 lg:border-x border-white/20">
+                    <div class="flex-1 bg-black/30 p-2 sm:p-2.5 rounded-lg border border-white/10 flex flex-col justify-center">
+                        <label class="block text-[11px] sm:text-xs font-medium text-gray-200 mb-1">1. 載入模型 (.vrm)</label>
+                        <input type="file" id="vrm-input" accept=".vrm" class="block w-full text-[11px] sm:text-xs text-slate-300
+                            file:mr-2 file:py-1 sm:file:py-1.5 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white file:font-semibold
+                            hover:file:bg-blue-700 cursor-pointer transition">
+                    </div>
+                    <div class="flex-1 bg-black/30 p-2 sm:p-2.5 rounded-lg border border-white/10 flex flex-col justify-center">
+                        <label class="block text-[11px] sm:text-xs font-medium text-gray-200 mb-1">2. 載入動畫 (.vrma)</label>
+                        <input type="file" id="vrma-input" accept=".vrma" disabled class="block w-full text-[11px] sm:text-xs text-slate-300
+                            file:mr-2 file:py-1 sm:file:py-1.5 file:px-3 sm:file:px-4 file:rounded-full file:border-0 file:bg-gray-600 file:text-white file:font-semibold
+                            disabled:opacity-50 cursor-pointer transition" title="請先載入 VRM 模型">
+                    </div>
+                </div>
+
+                <!-- 狀態顯示與桌面版重置按鈕 -->
+                <div class="flex justify-between items-center w-full lg:w-auto shrink-0 gap-3">
+                    <div id="status-panel" class="text-[10px] sm:text-xs w-full flex justify-between lg:flex-col lg:text-right gap-1 px-1 lg:px-0">
+                        <p id="vrm-info" class="text-blue-200 truncate max-w-[42vw] lg:max-w-[150px]">模型：未載入</p>
+                        <p id="vrma-info" class="text-purple-200 truncate max-w-[42vw] lg:max-w-[150px]">動畫：無</p>
+                    </div>
+                    <!-- 桌面版 顯示的重置與暫停按鈕 -->
+                    <div class="hidden lg:flex flex-col gap-2">
+                        <button class="btn-reset-cam bg-white/10 hover:bg-white/20 py-2 px-4 rounded-lg transition font-medium text-sm border border-white/10 shadow active:scale-95 whitespace-nowrap">重置視角</button>
+                        <button class="btn-play-pause bg-white/10 hover:bg-white/20 py-2 px-4 rounded-lg transition font-medium text-sm border border-white/10 shadow active:scale-95 whitespace-nowrap text-blue-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>暫停/播放</button>
+                        <button class="btn-game-mode bg-green-600/80 hover:bg-green-500 py-2 px-4 rounded-lg transition font-medium text-sm border border-white/10 shadow active:scale-95 whitespace-nowrap text-white disabled:opacity-50 disabled:cursor-not-allowed" disabled>🎮 遊戲模式</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- 手機版專屬操作提示 -->
+            <div class="text-[10px] text-gray-400 text-center mt-2 sm:hidden tracking-wide">
+                單指旋轉 | 雙指縮放與平移
+            </div>
+        </div>
+    </div>
+
+    <!-- 腳本引入 -->
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+                "@pixiv/three-vrm": "https://unpkg.com/@pixiv/three-vrm@3.0.0/lib/three-vrm.module.js",
+                "@pixiv/three-vrm-animation": "https://unpkg.com/@pixiv/three-vrm-animation@3.0.0/lib/three-vrm-animation.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
+        import { VRMAnimationLoaderPlugin, createVRMAnimationClip } from '@pixiv/three-vrm-animation';
+
+        // --- 全域變數 ---
+        let scene, camera, renderer, controls, clock;
+        let currentVrm = null;
+        let mixer = null;
+        let currentVrmAnimation = null; // ⭐ 新增：儲存目前載入的動畫資料
+        
+        let particlesMesh;
+        const particlesCount = 300;
+        let particleData = [];
+
+        // ⭐ 新增：遊戲模式狀態與按鍵追蹤
+        let isGameMode = false;
+        const keys = { w: false, a: false, s: false, d: false };
+        const moveSpeed = 3.0; // 移動速度
+
+        const vrmInput = document.getElementById('vrm-input');
+        const vrmaInput = document.getElementById('vrma-input');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const statusPanel = document.getElementById('status-panel');
+        const vrmInfo = document.getElementById('vrm-info');
+        const vrmaInfo = document.getElementById('vrma-info');
+
+        init();
+
+        function init() {
+            // 場景設定
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xfff8e1);
+            scene.fog = new THREE.Fog(0xfff8e1, 5, 15);
+
+            // 攝影機
+            camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.4, 3);
+
+            // 渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+            document.body.appendChild(renderer.domElement);
+
+            // 控制器
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.target.set(0, 1.2, 0);
+            // 手機版優化: 阻尼感讓滑動更滑順
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.update();
+
+            // ==========================================
+            // ⭐ 基礎全局光源 (數值已寫死) ⭐
+            // ==========================================
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.50); // 環境光: 0.50
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffedd5, 1.50); // 主向光: 1.50
+            directionalLight.position.set(-1.0, 2.0, 1.0).normalize();
+            scene.add(directionalLight);
+
+            const fillLight = new THREE.DirectionalLight(0xffd700, 0.60); // 側補光: 0.60
+            fillLight.position.set(1.0, 1.0, 1.0).normalize();
+            scene.add(fillLight);
+
+            // 地板
+            const gridHelper = new THREE.GridHelper(20, 20, 0xd32f2f, 0xffcc80);
+            scene.add(gridHelper);
+
+            clock = new THREE.Clock();
+
+            // 建立背景白煙特效
+            createSmokeParticles();
+
+            // 視窗縮放
+            window.addEventListener('resize', onWindowResize);
+
+            // 事件監聽：模型與動畫
+            vrmInput.addEventListener('change', (e) => loadVRM(e.target.files[0]));
+            vrmaInput.addEventListener('change', (e) => loadVRMA(e.target.files[0]));
+            
+            // 綁定所有視角重置按鈕 (響應式設計中有兩個)
+            document.querySelectorAll('.btn-reset-cam').forEach(btn => {
+                btn.onclick = () => {
+                    camera.position.set(0, 1.4, 3);
+                    controls.target.set(0, 1.2, 0);
+                    controls.update();
+                };
+            });
+
+            // ⭐ 綁定所有暫停/播放按鈕
+            let isPlaying = true;
+            document.querySelectorAll('.btn-play-pause').forEach(btn => {
+                btn.onclick = () => {
+                    if (!mixer) return;
+                    isPlaying = !isPlaying;
+                    mixer.timeScale = isPlaying ? 1 : 0;
+                    
+                    document.querySelectorAll('.btn-play-pause').forEach(b => {
+                        b.innerText = isPlaying ? "暫停/播放" : "▶ 繼續播放";
+                        if (!isPlaying) {
+                            b.classList.add('bg-blue-600/60', 'text-white');
+                            b.classList.remove('bg-white/10', 'text-blue-200');
+                        } else {
+                            b.classList.remove('bg-blue-600/60', 'text-white');
+                            b.classList.add('bg-white/10', 'text-blue-200');
+                        }
+                    });
+                };
+            });
+
+            // ⭐ 綁定遊戲模式按鈕與鍵盤事件
+            document.querySelectorAll('.btn-game-mode').forEach(btn => {
+                btn.onclick = () => {
+                    if (!currentVrm) return;
+                    isGameMode = true;
+                    document.getElementById('main-ui-panel').style.display = 'none'; // 隱藏主面板
+                    document.getElementById('game-ui-hint').style.display = 'block'; // 顯示操作提示
+                };
+            });
+
+            // 監聽鍵盤按下事件
+            window.addEventListener('keydown', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'w') keys.w = true;
+                if (k === 'a') keys.a = true;
+                if (k === 's') keys.s = true;
+                if (k === 'd') keys.d = true;
+                
+                // 按 ESC 退出遊戲模式
+                if (e.key === 'Escape' && isGameMode) {
+                    isGameMode = false;
+                    document.getElementById('main-ui-panel').style.display = 'block';
+                    document.getElementById('game-ui-hint').style.display = 'none';
+                    
+                    // 退回時稍微重置一下目標位置，以防視角跑掉
+                    controls.target.copy(currentVrm.scene.position).add(new THREE.Vector3(0, 1.2, 0));
                 }
             });
-            
-            const percentage = Math.round((completed / totalSteps) * 100);
-            progressBar.style.width = `${percentage}%`;
-            progressText.innerText = `完成度：${percentage}% (${completed}/${totalSteps})`;
+
+            // 監聽鍵盤放開事件
+            window.addEventListener('keyup', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'w') keys.w = false;
+                if (k === 'a') keys.a = false;
+                if (k === 's') keys.s = false;
+                if (k === 'd') keys.d = false;
+            });
+
+            animate();
         }
 
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', updateProgress);
-        });
+        // --- 產生柔和邊緣的材質 (用於白煙) ---
+        function createSmokeTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const context = canvas.getContext('2d');
+            const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)'); 
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); 
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, 64, 64);
+            return new THREE.CanvasTexture(canvas);
+        }
 
-        // 複製程式碼功能
-        function copyCode(btn) {
-            const codeBlock = btn.nextElementSibling;
-            const textToCopy = codeBlock.innerText;
+        // --- 白煙特效 ---
+        function createSmokeParticles() {
+            const geometry = new THREE.BufferGeometry();
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorArray = new Float32Array(particlesCount * 3);
             
-            const textArea = document.createElement("textarea");
-            textArea.value = textToCopy;
-            document.body.appendChild(textArea);
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                const originalText = btn.innerText;
-                btn.innerText = "✅ 已複製！";
-                btn.classList.add('copied');
+            for(let i = 0; i < particlesCount; i++) {
+                const radius = Math.random() * 1.5 + 0.3; 
+                const angle = Math.random() * Math.PI * 2; 
+                const y = Math.random() * 2.5;             
+                const speed = (Math.random() * 0.015 + 0.005); 
+                const floatSpeed = Math.random() * 0.01 + 0.005; 
                 
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            } catch (err) {
-                console.error('複製失敗', err);
-                btn.innerText = "❌ 複製失敗";
+                particleData.push({ radius, angle, y, speed, floatSpeed });
+
+                posArray[i*3] = Math.cos(angle) * radius;     
+                posArray[i*3+1] = y;                          
+                posArray[i*3+2] = Math.sin(angle) * radius;   
+
+                const shade = Math.random() * 0.2 + 0.8; 
+                colorArray[i*3] = shade;
+                colorArray[i*3+1] = shade;
+                colorArray[i*3+2] = shade;
             }
             
-            document.body.removeChild(textArea);
+            geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+            
+            const material = new THREE.PointsMaterial({
+                size: 1.5, 
+                map: createSmokeTexture(), 
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.15, 
+                depthWrite: false, 
+            });
+            
+            particlesMesh = new THREE.Points(geometry, material);
+            scene.add(particlesMesh);
         }
 
-        // 2. 背景特效
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
+        // --- 核心邏輯：載入 VRM ---
+        async function loadVRM(file) {
+            if (!file) return;
+            
+            showLoading(`正在載入模型：${file.name}`);
 
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            if (currentVrm) {
+                scene.remove(currentVrm.scene);
+                currentVrm = null;
+                mixer = null;
+            }
+
+            const url = URL.createObjectURL(file);
+            const loader = new GLTFLoader();
+
+            loader.register((parser) => {
+                return new VRMLoaderPlugin(parser);
+            });
+
+            try {
+                const gltf = await loader.loadAsync(url);
+                const vrm = gltf.userData.vrm;
+                
+                if (!vrm) throw new Error('檔案中未發現 VRM 資料');
+
+                VRMUtils.rotateVRM0(vrm);
+
+                // ==========================================
+                // ⭐ 角色綁定點光 (數值已寫死，移除輔助線) ⭐
+                // ==========================================
+                function attachLight(boneName, offset, color, intensity, distance) {
+                    const bone = vrm.humanoid.getNormalizedBoneNode(boneName);
+                    if (!bone) return;
+
+                    // 建立點光源並綁定
+                    const light = new THREE.PointLight(color, intensity, distance);
+                    light.position.copy(offset);
+                    bone.add(light);
+                }
+
+                // 身體主光源：強度 1.10
+                attachLight('spine', new THREE.Vector3(0, 0.2, -0.6), 0xffddaa, 1.10, 3.5);
+                
+                // 腿部輔助光：強度 0.40
+                attachLight('hips', new THREE.Vector3(0, -0.1, -0.6), 0xffffff, 0.40, 3.5);
+
+                // --- 後方點光 (數值與前方相同，Z軸相反以照向後腦/背部/後腿) ---
+                attachLight('spine', new THREE.Vector3(0, 0.2, 0.6), 0xffddaa, 1.10, 3.5);
+                attachLight('hips', new THREE.Vector3(0, -0.1, 0.6), 0xffffff, 0.40, 3.5);
+                // ==========================================
+
+                currentVrm = vrm;
+                scene.add(vrm.scene);
+
+                // ⭐ 新增：如果已經有載入過的動畫，直接套用到新模型上
+                if (currentVrmAnimation) {
+                    mixer = new THREE.AnimationMixer(currentVrm.scene);
+                    
+                    // 保持原本的暫停/播放狀態
+                    const playBtn = document.querySelector('.btn-play-pause');
+                    if (playBtn && playBtn.innerText.includes('繼續')) mixer.timeScale = 0;
+
+                    const clip = createVRMAnimationClip(currentVrmAnimation, currentVrm);
+                    const action = mixer.clipAction(clip);
+                    action.play();
+                    
+                    // 啟用暫停/播放按鈕
+                    document.querySelectorAll('.btn-play-pause').forEach(b => b.disabled = false);
+                }
+
+                vrmInfo.innerText = `模型：${file.name}`;
+                statusPanel.classList.remove('hidden');
+                vrmaInput.disabled = false;
+                vrmaInput.classList.replace('bg-gray-600', 'bg-purple-600');
+                
+                // ⭐ 啟用遊戲模式按鈕
+                document.querySelectorAll('.btn-game-mode').forEach(b => b.disabled = false);
+
+                hideLoading();
+            } catch (error) {
+                console.error('VRM 載入錯誤:', error);
+                hideLoading();
+                showErrorMessage('載入模型失敗，請檢查檔案格式。');
+            }
         }
 
-        window.addEventListener('resize', resize);
-        resize();
+        // --- 核心邏輯：載入 VRMA ---
+        async function loadVRMA(file) {
+            if (!file || !currentVrm) return;
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 1.5 + 1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#0ea5e9';
-                ctx.fill();
+            showLoading(`正在載入動畫：${file.name}`);
+
+            const url = URL.createObjectURL(file);
+            const loader = new GLTFLoader();
+
+            loader.register((parser) => {
+                return new VRMAnimationLoaderPlugin(parser);
+            });
+
+            try {
+                const gltf = await loader.loadAsync(url);
+                const vrmAnimations = gltf.userData.vrmAnimations;
+                
+                if (vrmAnimations && vrmAnimations.length > 0) {
+                    const vrmAnimation = vrmAnimations[0];
+                    currentVrmAnimation = vrmAnimation; // ⭐ 新增：將動畫資料儲存到全域變數
+
+                    mixer = new THREE.AnimationMixer(currentVrm.scene);
+                    
+                    const clip = createVRMAnimationClip(vrmAnimation, currentVrm);
+                    const action = mixer.clipAction(clip);
+                    action.play();
+
+                    vrmaInfo.innerText = `動畫：${file.name}`;
+                    
+                    // 啟用暫停/播放按鈕
+                    document.querySelectorAll('.btn-play-pause').forEach(btn => btn.disabled = false);
+                } else {
+                    throw new Error('該檔案中不含動畫資料');
+                }
+
+                hideLoading();
+            } catch (error) {
+                console.error('VRMA 載入錯誤:', error);
+                hideLoading();
+                showErrorMessage('載入動畫失敗：' + error.message);
             }
         }
 
-        for (let i = 0; i < 60; i++) {
-            particles.push(new Particle());
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
         function animate() {
-            ctx.clearRect(0, 0, width, height);
-            
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            // ⭐ 遊戲模式：第三人稱 WASD 移動邏輯
+            if (isGameMode && currentVrm) {
+                const moveAmt = moveSpeed * delta;
                 
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+                // 取得攝影機面向的前方與右方向量 (忽略 Y 軸以維持在平面移動)
+                const forward = new THREE.Vector3();
+                camera.getWorldDirection(forward);
+                forward.y = 0;
+                forward.normalize();
+                
+                const right = new THREE.Vector3();
+                right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+
+                const movement = new THREE.Vector3(0, 0, 0);
+                if (keys.w) movement.add(forward);
+                if (keys.s) movement.sub(forward);
+                if (keys.a) movement.sub(right);
+                if (keys.d) movement.add(right);
+
+                // 如果有按下移動鍵
+                if (movement.lengthSq() > 0) {
+                    movement.normalize().multiplyScalar(moveAmt);
+                    currentVrm.scene.position.add(movement);
+
+                    // ⭐ 修正：讓角色轉向面朝移動方向
+                    // 因 VRM 模型正面為 -Z 軸，lookAt 預設對齊 +Z 軸，因此目標位置需改為反向 (sub)
+                    const targetPos = currentVrm.scene.position.clone().sub(movement);
+                    currentVrm.scene.lookAt(targetPos);
                     
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(14, 165, 233, ${1 - dist/120})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
+                    // 讓攝影機的焦點 (OrbitControls target) 即時平滑跟隨角色
+                    controls.target.copy(currentVrm.scene.position).add(new THREE.Vector3(0, 1.2, 0));
                 }
             }
-            requestAnimationFrame(animate);
+
+            // 更新 OrbitControls 阻尼
+            controls.update();
+
+            // 粒子動畫
+            if (particlesMesh) {
+                const positions = particlesMesh.geometry.attributes.position.array;
+                for(let i = 0; i < particlesCount; i++) {
+                    const data = particleData[i];
+                    
+                    data.angle += data.speed;
+                    data.y += data.floatSpeed;
+                    
+                    if (data.y > 2.5) {
+                        data.y = 0;
+                    }
+
+                    positions[i*3] = Math.cos(data.angle) * data.radius;
+                    positions[i*3+1] = data.y;
+                    positions[i*3+2] = Math.sin(data.angle) * data.radius;
+                }
+                particlesMesh.geometry.attributes.position.needsUpdate = true;
+            }
+
+            if (mixer) mixer.update(delta);
+            if (currentVrm) currentVrm.update(delta);
+
+            renderer.render(scene, camera);
         }
-        
-        animate();
+
+        // --- UI 輔助函數 ---
+        function showLoading(text) {
+            loadingOverlay.style.display = 'flex';
+            document.getElementById('loading-text').innerText = text;
+        }
+
+        function hideLoading() {
+            loadingOverlay.style.display = 'none';
+        }
+
+        function showErrorMessage(msg) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50 text-sm sm:text-base';
+            errorDiv.innerText = msg;
+            document.body.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 4000);
+        }
     </script>
 </body>
 </html>
