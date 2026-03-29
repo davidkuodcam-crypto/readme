@@ -197,7 +197,7 @@
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
                 </div>
-                <p class="mt-4 text-sm text-gray-500 font-bold">👉 請先用瀏覽器打開這個 <code>test.html</code> 檔案確認網頁有正常顯示（<a href="test.html" target="_blank" class="text-blue-600 hover:text-blue-800 underline">點擊此處在新視窗開啟 test.html 測試網頁</a>），我們稍後就要把 GA4 裝進去！</p>
+                <p class="mt-4 text-sm text-gray-500 font-bold">👉 請先用瀏覽器打開這個 <code>test.html</code> 檔案確認網頁有正常顯示（<a href="javascript:void(0);" onclick="const p=window.location.pathname; window.open(p.endsWith('/')||p.endsWith('.html')?'test.html':p+'/test.html', '_blank')" class="text-blue-600 hover:text-blue-800 underline">點擊此處在新視窗開啟 test.html 測試網頁</a>），我們稍後就要把 GA4 裝進去！</p>
             </div>
 
             <hr class="my-8 border-gray-200">
@@ -530,7 +530,7 @@
                         <p class="text-gray-700 mb-3">請按照以下 3 個步驟進行完整的驗證測試：</p>
                         <ol class="list-decimal ml-5 space-y-3 text-gray-700">
                             <li><strong class="text-emerald-700">確認後台開關有開：</strong> 前往 GA4 後台的 <strong>⚙️ 管理 ＞ 資料收集和修改 ＞ 資料串流</strong>，點擊你的網頁串流。確認畫面中的<strong>「加強型評估」</strong>開關為藍色開啟狀態，且下方有顯示「網頁瀏覽、捲動、外連點擊、影片參與、檔案下載」等圖示（這非常重要，如缺少項目請點擊右側齒輪開啟）。</li>
-                            <li><strong class="text-emerald-700">在網頁上實際操作：</strong> 用瀏覽器開啟你的 <code>test.html</code>（<a href="test.html" target="_blank" class="text-blue-600 hover:text-blue-800 underline">點此開新視窗測試</a>，若有部署到 Vercel/GitHub Pages 或使用本機伺服器測試最佳）。依序：點擊 FB 連結、點擊下載 PDF、播放 YouTube 影片超過 10 秒、並用力將網頁滑到最底部的「恭喜滑到最底囉」。</li>
+                            <li><strong class="text-emerald-700">在網頁上實際操作：</strong> 用瀏覽器開啟你的 <code>test.html</code>（<a href="javascript:void(0);" onclick="const p=window.location.pathname; window.open(p.endsWith('/')||p.endsWith('.html')?'test.html':p+'/test.html', '_blank')" class="text-blue-600 hover:text-blue-800 underline">點此開新視窗測試</a>，若有部署到 Vercel/GitHub Pages 或使用本機伺服器測試最佳）。依序：點擊 FB 連結、點擊下載 PDF、播放 YouTube 影片超過 10 秒、並用力將網頁滑到最底部的「恭喜滑到最底囉」。</li>
                             <li><strong class="text-emerald-700">到「即時報表」收割成果：</strong> 操作完畢後，切換回 GA4 的 <strong>報表 ＞ 即時</strong>。等待約 15~30 秒，往下捲動找到<strong>「依 事件名稱 劃分的事件計數」</strong>卡片。你將會親眼見證 <code>click</code>, <code>file_download</code>, <code>video_start</code>, <code>scroll</code> 這些事件像魔法般一個個冒出來！</li>
                         </ol>
                     </div>
