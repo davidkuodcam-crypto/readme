@@ -156,8 +156,8 @@
 
   &lt;div class="card"&gt;
       &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
-      &lt;!-- GA 會自動追蹤 YouTube 播放、暫停與進度 --&gt;
-      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;!-- 注意：網址後方必須加上 ?enablejsapi=1，GA4 才能自動追蹤影片！ --&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
   &lt;/div&gt;&lt;br&gt;
 
   &lt;div class="card" style="text-align: center;"&gt;
@@ -344,6 +344,10 @@
             <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-lg mb-8">
                 <h4 class="font-bold text-yellow-800 mb-2">⚡ 實作任務：改造你的 test.html</h4>
                 <p class="text-gray-700">打開你剛才建立的 <code>test.html</code> 檔案，將這段追蹤程式碼<strong>貼在 <code>&lt;head&gt;</code> 標籤內的最上方</strong>！您可以直接複製下方的完整程式碼來覆蓋您的檔案：</p>
+                <div class="mt-3 p-3 bg-white rounded border border-yellow-300 text-sm">
+                    <strong class="text-blue-700">🔍 哪裡可以找到我的 G- ID？</strong><br>
+                    在您剛剛建立的「網頁串流詳細資料」畫面右上角，會有一組名為<strong>「評估 ID」</strong>（以 <strong>G-</strong> 開頭）的代碼。請複製它，並替換掉下方程式碼中的 <code>G-XXXXXXXXXX</code>。
+                </div>
             </div>
 
             <div class="code-block m-0 relative pt-10">
@@ -390,7 +394,8 @@
 
   &lt;div class="card"&gt;
       &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
-      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;!-- 注意：網址後方必須加上 ?enablejsapi=1，GA4 才能自動追蹤影片！ --&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
   &lt;/div&gt;&lt;br&gt;
 
   &lt;div class="card" style="text-align: center;"&gt;
@@ -476,7 +481,37 @@
                     <li><strong class="text-indigo-700">測試「檔案下載 (File download)」：</strong> 點擊「📥 下載課程大綱 (PDF)」，只要連結帶有 download 屬性或常見副檔名，GA 會自動偵測並記錄 <code>file_download</code> 次數。</li>
                     <li><strong class="text-indigo-700">測試「影片參與 (Video)」：</strong> 點擊播放網頁中的 YouTube 影片，GA 會自動幫你記錄訪客「開始播放」、「看到一半」、「看完了」等進度 (<code>video_start</code>, <code>video_progress</code>)！</li>
                 </ol>
-                <p class="mt-4 text-sm font-bold text-indigo-900">👉 測試完後，回到 GA4 的「即時」報表，往下滑找到「依事件名稱劃分的事件計數」，你就會看到 <code>scroll</code>, <code>click</code>, <code>file_download</code> 以及 <code>video_start</code> 自動增加了！</p>
+            </div>
+
+            <div class="qa-box warning">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>實戰常見盲點：我播放了 YouTube 影片，但 GA4 即時報表完全沒看到 video_start 影片參與事件，為什麼？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這是一個超級常見的陷阱！GA4 要能自動追蹤 YouTube 影片，需要開啟 YouTube 的 API 功能。</strong>
+                        <p class="mt-2 text-gray-700">請檢查你嵌入影片的 HTML 程式碼。你的 <code>&lt;iframe&gt;</code> 網址後面<strong>必須加上 <code>?enablejsapi=1</code></strong> 這個參數。如果沒有這個參數，GA4 就無法「聽」到影片是播放還是暫停。我們已經在範例程式碼中幫你加上了，你可以仔細觀察一下差異喔！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box advanced mt-2 mb-8">
+                <div class="qa-q">
+                    <span class="icon">🚀</span>
+                    <span>實戰測試：我要如何確保 test.html 的這 4 個變化都有成功傳給 GA4？</span>
+                </div>
+                <div class="qa-a flex-col">
+                    <div class="w-full">
+                        <p class="text-gray-700 mb-3">請按照以下 3 個步驟進行完整的驗證測試：</p>
+                        <ol class="list-decimal ml-5 space-y-3 text-gray-700">
+                            <li><strong class="text-emerald-700">確認後台開關有開：</strong> 前往 GA4 後台的 <strong>⚙️ 管理 ＞ 資料收集和修改 ＞ 資料串流</strong>，點擊你的網頁串流。確認畫面中的<strong>「加強型評估」</strong>開關為藍色開啟狀態，且下方有顯示「網頁瀏覽、捲動、外連點擊、影片參與、檔案下載」等圖示（這非常重要，如缺少項目請點擊右側齒輪開啟）。</li>
+                            <li><strong class="text-emerald-700">在網頁上實際操作：</strong> 用瀏覽器開啟你的 <code>test.html</code>（若有部署到 Vercel/GitHub Pages 或使用本機伺服器測試最佳）。依序：點擊 FB 連結、點擊下載 PDF、播放 YouTube 影片超過 10 秒、並用力將網頁滑到最底部的「恭喜滑到最底囉」。</li>
+                            <li><strong class="text-emerald-700">到「即時報表」收割成果：</strong> 操作完畢後，切換回 GA4 的 <strong>報表 ＞ 即時</strong>。等待約 15~30 秒，往下捲動找到<strong>「依 事件名稱 劃分的事件計數」</strong>卡片。你將會親眼見證 <code>click</code>, <code>file_download</code>, <code>video_start</code>, <code>scroll</code> 這些事件像魔法般一個個冒出來！</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
 
             <!-- 步驟五：自訂事件追蹤 -->
@@ -606,8 +641,8 @@
 
   &lt;div class="card"&gt;
       &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
-      &lt;!-- GA 會自動追蹤 YouTube 播放、暫停與進度 --&gt;
-      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;!-- 注意：網址後方必須加上 ?enablejsapi=1，GA4 才能自動追蹤影片！ --&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
   &lt;/div&gt;&lt;br&gt;
 
   &lt;div class="card" style="text-align: center;"&gt;
@@ -642,7 +677,7 @@
                         <p class="text-gray-700 mb-3">UTM 就是在你的原本網址後面，加上一串問號開頭的「追蹤暗號」。例如你的單頁網址上線後是：</p>
                         <code class="bg-gray-100 px-2 py-1 rounded text-red-600 block mb-3 font-mono">https://my-landing-page.com/</code>
                         
-                        <p class="text-gray-700 mb-2">如果你要把這個網址貼到 FB 粉絲團，請手動把它改成這樣再發布：</p>
+                        <p class="text-gray-700 mb-2">如果你要把這個網址貼到 FB 粉絲團，請手 manual 把它改成這樣再發布：</p>
                         <code class="bg-gray-100 px-2 py-1 rounded text-blue-700 block mb-3 font-mono text-sm">https://my-landing-page.com/<span class="bg-yellow-200">?utm_source=facebook&utm_medium=social&utm_campaign=summer_sale</span></code>
                         
                         <ul class="list-disc ml-5 space-y-2 text-gray-700 text-sm">
