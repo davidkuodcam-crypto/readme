@@ -1,60 +1,889 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>智慧商務特訓班</title>
-  
-  <!-- 🎯 GA4 追蹤碼 (請記得把 G-XXXXXXXXXX 換成你的 ID) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 實戰新手教學指南 | 從單頁網頁到進階 API 完整全攻略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自訂樣式增強閱讀體驗 */
+        body {
+            font-family: 'Helvetica Neue', Arial, 'LiHei Pro', '微軟正黑體', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .prose h2 {
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .prose h3 {
+            color: #1e293b;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .code-block {
+            font-family: 'Fira Code', Consolas, monospace;
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        /* Q&A 區塊樣式 */
+        .qa-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .qa-box.concept {
+            background-color: #fdf2f8; 
+            border-left-color: #ec4899;
+        }
+        .qa-box.warning {
+            background-color: #fffbeb; 
+            border-left-color: #f59e0b;
+        }
+        .qa-box.advanced {
+            background-color: #f0fdf4; 
+            border-left-color: #10b981;
+        }
+        .qa-box.master {
+            background-color: #f5f3ff;
+            border-left-color: #8b5cf6;
+        }
+        .qa-q {
+            font-weight: bold;
+            color: #1d4ed8;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.1rem;
+        }
+        .qa-box.concept .qa-q { color: #be185d; }
+        .qa-box.warning .qa-q { color: #b45309; }
+        .qa-box.advanced .qa-q { color: #047857; }
+        .qa-box.master .qa-q { color: #6d28d9; }
+        
+        .qa-a {
+            color: #334155;
+            display: flex;
+            align-items: flex-start;
+        }
+        .icon {
+            margin-right: 0.75rem;
+            font-size: 1.4rem;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.2rem;
+            height: 2.2rem;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
 
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        
+        <header class="bg-blue-700 text-white p-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">GA4 實戰新手教學指南</h1>
+            <p class="text-blue-100 text-xl font-light mt-3">從零開始，帶你完成「單頁網頁」到「進階系統架構」的數據分析全攻略</p>
+        </header>
 
-  <style>
+        <div class="p-8 md:p-12 prose max-w-none">
+            
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">學 GA4 最好的方式就是「邊做邊學」。我們今天將從一個<strong>「促銷活動單頁 (Landing Page)」</strong>開始，帶你申請帳號、貼上追蹤碼、設定按鈕監聽。到了講義後半段，我們更會帶領你跨入高階領域，解析<strong>「雲端學習系統 (LMS) 與伺服器 API 追蹤」</strong>的實務策略！</p>
+
+            <!-- 課前準備：範例網頁 -->
+            <div class="bg-slate-50 border border-slate-200 p-6 rounded-lg mb-10 shadow-sm">
+                <h3 class="text-2xl font-bold text-slate-800 mt-0 mb-4 flex items-center">
+                    <span class="text-3xl mr-2">💻</span> 課前準備：請先建立你的實驗網頁
+                </h3>
+                <p class="text-gray-700 mb-4">請在你的電腦上（或使用 VS Code）建立一個名為 <code>test.html</code> 的檔案，並將以下這段純 HTML 程式碼複製貼上、存檔。這是一個刻意設計用來測試 GA4 功能的簡單單頁網頁。</p>
+                
+                <div class="code-block m-0 relative pt-10">
+                    <div class="absolute top-0 left-0 w-full bg-gray-800 text-gray-300 text-sm px-4 py-2 rounded-t-lg flex justify-between items-center">
+                        <span class="font-bold">test.html (未安裝 GA 前)</span>
+                        <button onclick="copyCode(this, 'code-block-1')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded shadow cursor-pointer transition-colors text-xs font-bold">📋 複製代碼</button>
+                    </div>
+<pre><code id="code-block-1">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-TW"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  &lt;style&gt;
     body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
     /* 刻意製造一個很長的區塊，讓我們可以測試「網頁捲動」追蹤 */
     .spacer { height: 1500px; background: linear-gradient(white, #e2e8f0); margin-top: 50px; }
     .btn { padding: 15px 30px; font-size: 20px; background: #e11d48; color: white; border: none; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 10px; }
     .btn:hover { background: #be123c; }
     .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: inline-block; text-align: left; width: 80%; max-width: 600px; }
-  </style>
-</head>
-<body>
-  <h1>🔥 2024 智慧商務特訓班 🔥</h1>
-  <p>這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！</p>
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
 
-  <div class="card">
-      <h3>1. 測試自動點擊追蹤 (Outbound Click)</h3>
-      <a href="https://facebook.com" target="_blank" style="color: #2563eb;">👉 前往我們的 Facebook 粉絲團</a>
-  </div><br>
+  &lt;div class="card"&gt;
+      &lt;h3&gt;1. 測試自動點擊追蹤 (Outbound Click)&lt;/h3&gt;
+      &lt;a href="https://facebook.com" target="_blank" style="color: #2563eb;"&gt;👉 前往我們的 Facebook 粉絲團&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
 
-  <div class="card">
-      <h3>2. 測試檔案下載追蹤 (File Download)</h3>
-      <!-- 只要有 download 屬性或副檔名為 pdf/docx 等，GA就會自動抓 -->
-      <a href="syllabus.pdf" download style="color: #059669;">📥 下載課程大綱 (PDF)</a>
-  </div><br>
+  &lt;div class="card"&gt;
+      &lt;h3&gt;2. 測試檔案下載追蹤 (File Download)&lt;/h3&gt;
+      &lt;!-- 只要有 download 屬性或副檔名為 pdf/docx 等，GA就會自動抓 --&gt;
+      &lt;a href="syllabus.pdf" download style="color: #059669;"&gt;📥 下載課程大綱 (PDF)&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
 
-  <div class="card">
-      <h3>3. 測試 YouTube 影片追蹤 (Video Engagement)</h3>
-      <!-- GA 會自動追蹤 YouTube 播放、暫停與進度 -->
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-  </div><br>
+  &lt;div class="card"&gt;
+      &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
+      &lt;!-- GA 會自動追蹤 YouTube 播放、暫停與進度 --&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;/div&gt;&lt;br&gt;
 
-  <div class="card" style="text-align: center;">
-      <h3>4. 核心行動呼籲 (自訂事件追蹤)</h3>
-      <!-- 🎯 已綁定 onclick 的按鈕 -->
-      <button class="btn" id="signupBtn" onclick="gtag('event', 'login_button_click');">立即登入報名</button>
-  </div>
+  &lt;div class="card" style="text-align: center;"&gt;
+      &lt;h3&gt;4. 核心行動呼籲 (自訂事件追蹤)&lt;/h3&gt;
+      &lt;button class="btn" id="signupBtn"&gt;立即登入報名&lt;/button&gt;
+  &lt;/div&gt;
 
-  <!-- 空白捲動區塊 (測試 Scroll) -->
-  <div class="spacer">
-    <p style="padding-top: 50px; color: #64748b;">往下捲動查看更多資訊... (測試 90% 捲動追蹤)</p>
-  </div>
+  &lt;!-- 空白捲動區塊 (測試 Scroll) --&gt;
+  &lt;div class="spacer"&gt;
+    &lt;p style="padding-top: 50px; color: #64748b;"&gt;往下捲動查看更多資訊... (測試 90% 捲動追蹤)&lt;/p&gt;
+  &lt;/div&gt;
 
-  <h2>恭喜！你已經滑到最底囉！</h2>
+  &lt;h2&gt;恭喜！你已經滑到最底囉！&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <p class="mt-4 text-sm text-gray-500 font-bold">👉 請先用瀏覽器打開這個 <code>test.html</code> 檔案確認網頁有正常顯示，我們稍後就要把 GA4 裝進去！</p>
+            </div>
+
+            <hr class="my-8 border-gray-200">
+
+            <!-- 步驟一：建立流程 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12"><span class="step-number">1</span> 從頭建立 GA4 的 6 個標準步驟</h2>
+            <p>GA4 的核心架構分為三層：<strong>帳戶 (Account) ＞ 資源 (Property) ＞ 資料串流 (Data Stream)</strong>。建議每個獨立的專案都自己動手從頭建立一次：</p>
+
+            <div class="qa-box">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：我進到 GA 首頁了，但畫面上都是說明文字，沒看到建立「資源」(Property) 的按鈕？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：</strong>你目前可能停留在開發人員文件頁面！請注意畫面右上角，有沒有一個藍色按鈕寫著<strong>「前往 Analytics (分析)」</strong>？點擊它就能進入真正的後台。或者，直接在網址列輸入真正的 GA 後台網址：<a href="https://analytics.google.com/" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">https://analytics.google.com/</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🏢 三層架構圖解比喻 -->
+            <div class="qa-box concept shadow-md transform scale-100 hover:scale-[1.01] transition-transform duration-300 mt-6 mb-8">
+                <div class="qa-q text-xl">
+                    <span class="icon text-2xl">🏢</span>
+                    <span>圖解 GA4 三層架構：帳戶、資源、串流到底是什麼關係？</span>
+                </div>
+                <div class="qa-a flex-col">
+                    <div class="bg-white p-5 rounded-lg border border-pink-100 w-full">
+                        <p class="mb-3 text-gray-700">許多新手在這裡會被這三個名詞搞混。我們用<strong>「開連鎖餐飲集團」</strong>來做個最簡單的比喻：</p>
+                        <ul class="list-disc ml-5 space-y-4 text-gray-700">
+                            <li><strong class="text-pink-700 text-xl block mb-1">1. 帳戶 (Account) = 總公司</strong>
+                                這是最高層級。假設你成立了「大明餐飲集團（帳戶）」，用來統籌管理旗下所有的品牌與資產。
+                            </li>
+                            <li><strong class="text-blue-700 text-xl block mb-1">2. 資源 (Property) = 實體分店</strong>
+                                總公司旗下可能開了「台北信義店」、「高雄左營店」，甚至還有「線上訂餐網」。這每一個獨立運作的店面（獨立的網站或 App），就是一個「資源」。這也是我們平常看數據報表最主要的地方。
+                            </li>
+                            <li><strong class="text-green-700 text-xl block mb-1">3. 串流 (Data Stream) = 店內的監視器/收銀機管線</strong>
+                                分店蓋好後，你要知道客人都在幹嘛，所以會在店裡安裝監視器。你可以為「台北信義店（資源）」牽一條「大門監視器（Web 網頁串流）」，如果有專屬的點餐機，還可以再牽一條「點餐機監視器（App 串流）」。它們負責把顧客的行為（數據）源源不絕地傳回這家分店（資源）的資料庫裡。
+                            </li>
+                        </ul>
+                        <div class="mt-5 p-3 bg-pink-50 rounded border border-pink-200 text-gray-800 text-sm font-medium">
+                            <strong>💡 總結：</strong>「帳戶」大老闆（總公司），底下管著好幾個「資源」（分店），而每個「資源」裡面裝著好幾條「串流」（監視器）來接收外面的資料！
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold mt-6 mb-2 text-gray-800">建立步驟詳解：</h3>
+            <ol class="list-decimal ml-6 space-y-3 mb-4 text-gray-700">
+                <li><strong>第 1 步：</strong>進入「管理」後台（點擊畫面左下角的齒輪圖示 ⚙️ 管理）。</li>
+                <li><strong>第 2 步：</strong>點擊畫面上方的藍色按鈕 <strong>「建立」 ＞ 「建立帳戶」</strong>。</li>
+                <li><strong>第 3 步 (帳戶設定)：</strong>名稱輸入「雲端學院專案」。</li>
+            </ol>
+
+            <div class="qa-box warning mt-2 mb-6">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>深入釐清：建立帳戶時，有一區叫做「帳戶資料共用設定」，這到底是什麼意思？要打勾嗎？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：</strong>簡單來說，這是決定「你是否同意將收集到的匿名數據，分享給 Google 內部使用」的隱私權設定。
+                        <ul class="list-disc ml-5 mt-3 space-y-2 text-gray-700">
+                            <li><strong>Google 產品與服務：</strong> 幫 Google 訓練演算法。</li>
+                            <li><strong>基準化 (Benchmarking)：</strong> 讓你能跟業界平均數據做比較。</li>
+                            <li><strong>技術支援：</strong> <span class="bg-yellow-200 text-yellow-900 px-1 rounded font-bold">這個最重要！</span>允許 Google 客服看你的帳戶。如果以後有 Bug 要請 Google 抓漏，這個一定要開。</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-white bg-opacity-50 rounded border border-yellow-200">
+                            <strong>👉 實務建議：</strong> 對於初學者或一般專案，<strong>直接維持預設（全部打勾）最省事</strong>，這不會影響任何追蹤功能。點擊「下一步」。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ol class="list-decimal ml-6 space-y-3 mb-4 text-gray-700" start="4">
+                <li><strong>第 4 步 (資源設定，最重要)：</strong>名稱輸入「智慧商務活動單頁」，<strong class="text-red-500">時區請務必下拉改為「台灣」，幣別改為「新台幣」</strong>，點下一步。</li>
+                <li><strong>第 5 步 (商家詳細資料與業務目標)：</strong>產業類別可選「工作與教育」，規模選「小型」，點選「下一步」。進入「業務目標」選擇。</li>
+            </ol>
+
+            <div class="qa-box mt-2 mb-6">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：在最後一步「業務目標」，全都勾選會混淆嗎？只勾「其他」就不能看流量了嗎？選項可以之後再修改嗎？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這三個問題非常關鍵！</strong>
+                        <ol class="list-decimal ml-5 mt-2 space-y-2 text-gray-700">
+                            <li><strong>全都勾會混淆嗎？會的。</strong> 如果你勾選多個特定目標（如銷售、潛客戶），GA4 會建立大量重複的左側選單，對新手極度不友善。</li>
+                            <li><strong>只勾「其他」就看不到流量嗎？錯！</strong> 勾選「其他業務目標（取得基準報表）」，GA4 會給你最標準的「生命週期」報表，裡面的<strong>「獲客 (Acquisition)」</strong>分類，就是專門看網站流量和來源的核心報表！</li>
+                            <li><strong>可以之後修改嗎？可以！</strong> 未來隨時可以點擊左下角的「報表資料庫 (Library)」，像排版手機 APP 一樣自由新增、刪除你要顯示的選單。</li>
+                        </ol>
+                        <p class="mt-3 font-bold text-blue-700">👉 因此強烈建議只勾選最下方的「取得基準報表」(其他業務目標)，最後點擊「建立」。</p>
+                    </div>
+                </div>
+            </div>
+
+            <ol class="list-decimal ml-6 space-y-3 mb-4 text-gray-700" start="6">
+                <li><strong>第 6 步 (同意服務條款)：</strong>跳出合約視窗時，將國家/地區改為「台灣」，勾選同意並按下「我接受」。</li>
+            </ol>
+
+            <!-- 💥 核心觀念釐清區塊 -->
+            <div class="qa-box concept shadow-md transform scale-100 hover:scale-[1.01] transition-transform duration-300">
+                <div class="qa-q text-xl">
+                    <span class="icon text-2xl">🔥</span>
+                    <span>新手最容易卡關的巨大迷思：資源 = 網站嗎？</span>
+                </div>
+                <div class="qa-a flex-col">
+                    <div class="mb-4">
+                        <strong class="text-pink-700 block mb-2">學生提問：</strong>
+                        「我的資源名稱叫做『智慧商務網站』，產業別設為『遊戲』。請問，在 GA4 設定這一步，就是在『建立網站』嗎？產業別設錯會怎樣嗎？」
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-pink-100 w-full">
+                        <strong class="text-blue-700 block mb-2"><span class="icon text-lg">👨‍🏫</span>老師解答：完全不是喔！這兩者是分開的獨立事件。</strong>
+                        <p class="mt-3 text-gray-700">真正的「網站」是你要自己寫 HTML 程式碼架設出來的網頁（就像我們剛才做的 <code>test.html</code>）。而在 GA4 建立「資源」，只是在系統裡開一個<strong>「用來裝數據的空盒子」</strong>。</p>
+                        <p class="mt-2 text-sm text-gray-600"><strong class="text-red-600">產業別設定錯誤會怎樣嗎？完全不會影響數據收集！</strong> 你的按鈕點擊依然會 100% 準確記錄。「產業別」只是讓 Google 把你的匿名數據，跟全世界其他同產業的網站做平均比較而已，未來隨時可以修改。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步驟二 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12"><span class="step-number">2</span> 牽線安裝：建立資料串流與埋設追蹤碼</h2>
+            <p class="text-lg mb-4 text-gray-700">分店 (資源) 有了，現在我們要給它裝上「監視器 (串流)」，並把監視器的晶片 (程式碼) 埋進我們剛才寫好的 <code>test.html</code> 裡。</p>
+            
+            <ul class="list-disc ml-6 space-y-4 mb-6 text-gray-700">
+                <li>畫面來到「選擇平台」，請點擊 <strong>「網站」</strong>，進入設定資料串流的畫面。</li>
+            </ul>
+
+            <div class="qa-box">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：如果我的網頁還在自己電腦裡測試（例如 127.0.0.1 或 localhost），根本還沒有真正的網址怎麼辦？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：別擔心，網址可以先隨便填！</strong>
+                        <p class="mt-2 text-gray-700">在這裡填網址，最主要的目的是為了讓 GA4 系統發一組「專屬追蹤碼」給你。就算你填一個假的網址（例如 <code>www.test.com</code>），只要你最後有把那段追蹤碼正確貼進你的 HTML 檔案裡，GA4 一樣能順利收到你單機測試的數據喔！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box warning">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：我明明看到網址欄位有寫「www.mywebsite.com」，為什麼外框亮紅線，而且右上角的「建立並繼續」按鈕是灰色的不能點擊？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：因為那個欄位其實是「空的」！這是一個常見的視覺陷阱。</strong>
+                        <p class="mt-2 text-gray-700">你看到的 <code>www.mywebsite.com</code> 只是系統的「背景提示字 (Placeholder)」，不是你真的輸入的內容。你必須將滑鼠點擊那個欄位，<strong>親自用鍵盤輸入文字</strong>（例如輸入 <code>test.com</code>），紅框就會消失，按鈕也會變成藍色可以點擊囉！</p>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list-disc ml-6 space-y-4 mb-6 text-gray-700">
+                <li><strong>串流名稱：</strong> 取一個好記的名字，填寫「單頁網站追蹤」。</li>
+                <li><strong>加強型評估 (Enhanced measurement)：</strong> <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">請務必保持開啟（藍色勾勾）！這等等會用到。</span></li>
+            </ul>
+            
+            <p class="mb-4 text-gray-700">點擊 <strong>「建立串流」</strong> 後，畫面會跳出安裝指示。請切換到 <strong>「手動安裝」</strong>，並複製畫面上那段 <code>gtag.js</code> 程式碼。</p>
+            
+            <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-lg mb-8">
+                <h4 class="font-bold text-yellow-800 mb-2">⚡ 實作任務：改造你的 test.html</h4>
+                <p class="text-gray-700">打開你剛才建立的 <code>test.html</code> 檔案，將這段追蹤程式碼<strong>貼在 <code>&lt;head&gt;</code> 標籤內的最上方</strong>！您可以直接複製下方的完整程式碼來覆蓋您的檔案：</p>
+            </div>
+
+            <div class="code-block m-0 relative pt-10">
+                <div class="absolute top-0 left-0 w-full bg-gray-800 text-gray-300 text-sm px-4 py-2 rounded-t-lg flex justify-between items-center">
+                    <span class="font-bold">test.html (安裝 GA 後)</span>
+                    <button onclick="copyCode(this, 'code-block-2')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded shadow cursor-pointer transition-colors text-xs font-bold">📋 複製代碼</button>
+                </div>
+<pre><code id="code-block-2">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-TW"&gt;
+&lt;head&gt;
+  <span class="text-green-400 font-bold">&lt;!-- 🎯 關鍵：將 Google tag (gtag.js) 貼在這裡！請把 G-XXXXXXXXXX 換成你的 ID --&gt;</span>
+  &lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XXXXXXXXXX');
+  &lt;/script&gt;
+  
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
+    .spacer { height: 1500px; background: linear-gradient(white, #e2e8f0); margin-top: 50px; }
+    .btn { padding: 15px 30px; font-size: 20px; background: #e11d48; color: white; border: none; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 10px; }
+    .btn:hover { background: #be123c; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: inline-block; text-align: left; width: 80%; max-width: 600px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;1. 測試自動點擊追蹤 (Outbound Click)&lt;/h3&gt;
+      &lt;a href="https://facebook.com" target="_blank" style="color: #2563eb;"&gt;👉 前往我們的 Facebook 粉絲團&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;2. 測試檔案下載追蹤 (File Download)&lt;/h3&gt;
+      &lt;a href="syllabus.pdf" download style="color: #059669;"&gt;📥 下載課程大綱 (PDF)&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card" style="text-align: center;"&gt;
+      &lt;h3&gt;4. 核心行動呼籲 (自訂事件追蹤)&lt;/h3&gt;
+      &lt;button class="btn" id="signupBtn"&gt;立即登入報名&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="spacer"&gt;
+    &lt;p style="padding-top: 50px; color: #64748b;"&gt;往下捲動查看更多資訊... (測試 90% 捲動追蹤)&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;h2&gt;恭喜！你已經滑到最底囉！&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <div class="qa-box warning">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：如果我一開始忘記複製程式碼，或者日後想把追蹤碼貼到別的網站，該去 GA4 後台的哪裡找回它？還有怎麼幫資源改名？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這也是新手最常迷路的地方！請跟著以下路徑操作：</strong>
+                        <ol class="list-decimal ml-5 mt-2 space-y-2 text-gray-700">
+                            <li><strong>找回程式碼：</strong> 點擊 <strong>⚙️ 管理 ＞ 資料串流</strong> ＞ 點擊你的串流 ＞ 點擊右下角「查看代碼操作說明」。<span class="bg-yellow-200 text-yellow-900 px-1 rounded font-bold">重點提醒：</span>預設畫面會停留在「透過網站平台安裝」，請務必手動切換到旁邊的 <strong>「手動安裝」</strong> 頁籤，才能看到這段 <code>gtag.js</code> 喔！</li>
+                            <li><strong>徹底更改名稱：</strong> 若你發現左上角的名稱還是舊的，代表你只改了「串流名稱」。請到 <strong>⚙️ 管理 ＞ 資源設定 ＞ 資源詳細資料</strong>，修改裡面的「資源名稱」並儲存，整個資料夾才會徹底改名喔！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步驟三 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12"><span class="step-number">3</span> 驗證安裝 (觀看即時報表)</h2>
+            <p>代碼貼上並「儲存」HTML 檔案後，請用瀏覽器重新整理 (F5) 你的範例網頁。</p>
+            <p>接著回到 GA4 後台，點擊左側選單的 <strong>「報表」 ＞ 「即時」</strong>。如果設定正確，等個十幾秒鐘，你就會看見世界地圖上台灣亮起藍點，並顯示有「1」個使用者在線上！這代表你的真實網頁已經成功跟 GA4 系統連線了！</p>
+
+            <div class="qa-box concept">
+                <div class="qa-q">
+                    <span class="icon">💡</span>
+                    <span>學生提問：我把代碼放在 &lt;head&gt; 裡面，這樣是不是代表訪客「連線到網站但尚未登入」的情形，也會被監視記錄下來？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：完全正確！你抓到數據分析的核心邏輯了。這代表你成功追蹤了「網頁瀏覽量 (Page View)」。</strong>
+                        <p class="mt-2 text-gray-700">因為 <code>&lt;head&gt;</code> 是網頁載入時最先被讀取的地方，只要有人打開這個網址，GA4 就會立刻發送一個 <code>page_view</code> (網頁瀏覽) 事件。這在實務上非常重要！你可以藉此比較「有多少人來到這個頁面」對比「有多少人真的點擊登入」，這就是所謂的轉換率分析。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：如果我把同一段 GA 程式碼，複製貼上到「另一個完全不同的網站網域」，還會通嗎？該怎麼測試？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：還是會通的！GA4 其實是認那串 G- 開頭的「評估 ID」，而不是認一開始設定串流時填的網址。</strong>
+                        <h4 class="font-bold text-gray-800 mt-3 mb-2">重新測試的 3 個黃金步驟：</h4>
+                        <ol class="list-decimal ml-5 space-y-2 text-gray-700">
+                            <li><strong>用「無痕視窗」開啟新網站：</strong> 為了避免瀏覽器的快取或 AdBlock 攔截，強烈建議開一個新的無痕/私密視窗來瀏覽你的新網站。</li>
+                            <li><strong>回到 GA4 的「即時」報表：</strong> 點擊左側選單的 報表 ＞ 即時。</li>
+                            <li><strong>查看網頁標題卡片：</strong> 在即時報表往下捲動，找到<strong>「依 網頁標題和畫面名稱 劃分的瀏覽次數」</strong>卡片。只要看到新網站的標題出現，就代表跨站點追蹤成功囉！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-10 border-gray-200">
+
+            <!-- 步驟四：自動追蹤 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12 text-indigo-900"><span class="step-number bg-indigo-600">4</span> 單頁網頁絕招一：免寫程式的「加強型評估」✨</h2>
+            <p class="text-lg mb-4 text-gray-700">如果我們的網頁只有一頁，訪客點進來就沒有別的內頁可以跳轉了。這時候我們該如何知道訪客對我們的內容「感不感興趣」？其實 GA4 已經在背後偷偷幫你做了很多事：</p>
+            
+            <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-lg mb-8">
+                <p class="text-gray-700 mb-4">還記得建立串流時，我們保持打勾的<strong>「加強型評估」</strong>嗎？現在請你在你的範例網頁上進行以下測試：</p>
+                <ol class="list-decimal ml-6 space-y-4 text-gray-700">
+                    <li><strong class="text-indigo-700">測試「捲動 (Scroll)」：</strong> 我們在範例中放了一個很長的空白區塊。請你在網頁上「用力往下滑」，直到看到「恭喜滑到最底囉」。此時 GA 會自動記錄一個 <code>scroll</code> 事件！這能幫你判斷有多少人真的看完你的長篇文案。</li>
+                    <li><strong class="text-indigo-700">測試「外部連結點擊 (Click)」：</strong> 點擊範例網頁上的「👉 前往我們的 Facebook 粉絲團」。只要訪客點擊這種會離開你網站的外部網址，GA 也會自動記錄 <code>click</code> 事件。</li>
+                    <li><strong class="text-indigo-700">測試「檔案下載 (File download)」：</strong> 點擊「📥 下載課程大綱 (PDF)」，只要連結帶有 download 屬性或常見副檔名，GA 會自動偵測並記錄 <code>file_download</code> 次數。</li>
+                    <li><strong class="text-indigo-700">測試「影片參與 (Video)」：</strong> 點擊播放網頁中的 YouTube 影片，GA 會自動幫你記錄訪客「開始播放」、「看到一半」、「看完了」等進度 (<code>video_start</code>, <code>video_progress</code>)！</li>
+                </ol>
+                <p class="mt-4 text-sm font-bold text-indigo-900">👉 測試完後，回到 GA4 的「即時」報表，往下滑找到「依事件名稱劃分的事件計數」，你就會看到 <code>scroll</code>, <code>click</code>, <code>file_download</code> 以及 <code>video_start</code> 自動增加了！</p>
+            </div>
+
+            <!-- 步驟五：自訂事件追蹤 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12 text-emerald-900"><span class="step-number bg-emerald-600">5</span> 單頁網頁絕招二：追蹤特定「按鈕點擊」 🎯</h2>
+            <p class="text-lg mb-4 text-gray-700">「加強型評估」很聰明，但它只會追蹤「連向站外」的連結。如果你單頁中的按鈕是「開啟報名表單彈窗」或「登入系統」，並不會離開網頁，這時 GA 就抓不到了。這就需要用到 GA4 最強大的<strong>自訂事件追蹤 (Event Tracking)</strong> 功能。</p>
+            
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-lg mb-8">
+                <p class="text-gray-700 mb-3">要追蹤特定按鈕非常簡單，我們只需要在 HTML 原本的 <code>&lt;button&gt;</code> 標籤裡，加上一小段 <code>onclick</code> 的 JavaScript 程式碼即可：</p>
+                
+                <h4 class="font-bold text-emerald-800 mt-4 mb-2">⚡ 實作任務：修改 test.html 中的登入按鈕</h4>
+                
+                <div class="code-block m-0 mt-3 mb-2 relative pt-10">
+                    <div class="absolute top-0 left-0 w-full bg-gray-800 text-gray-300 text-sm px-4 py-2 rounded-t-lg flex justify-between items-center">
+                        <span class="font-bold">修改後的按鈕程式碼</span>
+                        <button onclick="copyCode(this, 'code-block-3')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded shadow cursor-pointer transition-colors text-xs font-bold">📋 複製片段</button>
+                    </div>
+<pre><code id="code-block-3">&lt;!-- 🎯 修改後：加上 GA4 事件追蹤的按鈕 --&gt;
+&lt;button class="btn" id="signupBtn" onclick="gtag('event', 'login_button_click');"&gt;立即登入報名&lt;/button&gt;</code></pre>
+                </div>
+                
+                <ul class="list-disc ml-6 space-y-1 text-sm text-gray-700 mt-3">
+                    <li><code>'event'</code>：固定寫法，告訴 GA4 系統這是一個事件。</li>
+                    <li><code>'login_button_click'</code>：你自己取的事件名稱 (強烈建議用英文小寫加底線來命名)。</li>
+                </ul>
+            </div>
+
+            <div class="qa-box warning">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問（實戰常見盲點）：我測試點了登入按鈕，也重新整理了網頁，為什麼 GA4 即時報表最上面的「活躍使用者」數字一直停在 1 都沒增加？這算同一次事件還是分開的事件？要從哪裡看？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這是一個超級棒的邏輯問題！答案是「分開的事件」，但屬於「同一個使用者」。</strong>
+                        <ol class="list-decimal ml-5 mt-2 space-y-2 text-gray-700">
+                            <li><strong>為什麼活躍使用者只有 1？</strong> 因為即時報表最上面計算的是「人頭」。既然都是你用同一台電腦測試，GA4 很聰明地知道這都是同一個人，人數自然不會增加。</li>
+                            <li><strong>事件是分開的嗎？</strong> 是的！你載入網頁會觸發一次 <code>page_view</code> 事件，點擊按鈕會觸發一次 <code>login_button_click</code> 事件，這兩者是完全獨立計算的。</li>
+                            <li><strong>要去哪裡看互動結果？</strong> 請在「即時」報表畫面<strong>往下捲動</strong>，找<strong>「依 事件名稱 劃分的事件計數」</strong>卡片。在這裡你就能清楚看到你自訂的 <code>login_button_click</code> 增加了幾次，這才是真正看「互動次數」的地方！</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box">
+                <div class="qa-q">
+                    <span class="icon">🙋‍♂️</span>
+                    <span>學生提問：我在測試時發現，GA4 報表上的數字沒有「立刻」跳動。它會自動更新嗎？還是我每次都要按 F5 重新整理網頁？到底要等多久？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：GA4 即時報表會「自動更新」，你不需要一直按重新整理！</strong>
+                        <p class="mt-2 text-gray-700">其實，從你點擊按鈕，到數據傳回 Google 伺服器，再到報表畫面上顯示出來，通常會有 <strong>10 到 30 秒左右的些微延遲</strong>。這是因為 GA4 為了節省資源，會把使用者的行為「打包」一小段時間後再一起發送。所以你只要開著畫面耐心等個半分鐘，數字就會自己跳動了！一直按瀏覽器的重新整理並不會讓它變快喔。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 開發者除錯教學 -->
+            <div class="qa-box advanced mt-8">
+                <div class="qa-q">
+                    <span class="icon">💻</span>
+                    <span>開發者必備技能：我按了按鈕，GA4 等了很久都沒反應，如何自己 Debug (除錯)？</span>
+                </div>
+                <div class="qa-a flex-col">
+                    <div class="w-full">
+                        <p class="text-gray-700 mb-2">作為開發者，你需要學會使用瀏覽器工具檢查「數據到底有沒有從前端發射出去」：</p>
+                        <ol class="list-decimal ml-5 space-y-2 text-gray-700">
+                            <li>在你的網頁上按下 <strong>F12</strong> (或右鍵選擇「檢查」) 打開開發者工具。</li>
+                            <li>切換到 <strong>Network (網路)</strong> 頁籤。在 Filter (過濾器) 欄位輸入 <strong><code>collect</code></strong>。</li>
+                            <li>現在去點擊你的「立即登入報名」按鈕。如果你看到 Network 彈出一條新的請求（通常開頭是 <code>collect?v=2...</code>），點開看 Payload (酬載) 裡面有 <code>en: login_button_click</code> (en 代表 Event Name)，就代表前端程式碼寫對了！數據已經成功發射給 Google！</li>
+                        </ol>
+                        <p class="mt-4 text-sm text-gray-600 bg-white p-3 rounded border border-green-200">💡 <strong>提示：</strong> 如果你覺得看 Network 太複雜，也可以安裝 Chrome 官方擴充功能 <strong>「Google Analytics Debugger」</strong>，開啟後它會直接在 Console 印出詳細漂亮的追蹤資訊喔。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最終完整版程式碼防呆區塊 -->
+            <div class="bg-slate-800 p-6 rounded-lg mb-10 mt-8 shadow-md border border-slate-700">
+                <h4 class="font-bold text-white mb-2 text-xl flex items-center"><span class="mr-2">🎁</span> 最終完整版程式碼 (防呆救援專用)</h4>
+                <p class="text-gray-300 text-sm mb-4">如果你前面的步驟有漏掉，或是不確定程式碼到底貼得對不對，可以直接點擊下方按鈕，複製這段包含了<strong>「GA4 追蹤碼」</strong>以及<strong>「按鈕 onclick 事件」</strong>的最終完整版 HTML，直接覆蓋你的檔案：</p>
+                
+                <div class="code-block m-0 relative pt-10 border border-slate-600">
+                    <div class="absolute top-0 left-0 w-full bg-slate-900 text-gray-300 text-sm px-4 py-2 rounded-t flex justify-between items-center">
+                        <span class="font-bold">test.html (最終完整測試版)</span>
+                        <button onclick="copyCode(this, 'code-block-final')" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded shadow cursor-pointer transition-colors text-xs font-bold flex items-center"><span class="mr-1">📋</span> 一鍵複製最終版</button>
+                    </div>
+<pre><code id="code-block-final">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-TW"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  
+  &lt;!-- 🎯 GA4 追蹤碼 (請記得把 G-XXXXXXXXXX 換成你的 ID) --&gt;
+  &lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XXXXXXXXXX');
+  &lt;/script&gt;
+
+  &lt;style&gt;
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
+    /* 刻意製造一個很長的區塊，讓我們可以測試「網頁捲動」追蹤 */
+    .spacer { height: 1500px; background: linear-gradient(white, #e2e8f0); margin-top: 50px; }
+    .btn { padding: 15px 30px; font-size: 20px; background: #e11d48; color: white; border: none; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 10px; }
+    .btn:hover { background: #be123c; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: inline-block; text-align: left; width: 80%; max-width: 600px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;1. 測試自動點擊追蹤 (Outbound Click)&lt;/h3&gt;
+      &lt;a href="https://facebook.com" target="_blank" style="color: #2563eb;"&gt;👉 前往我們的 Facebook 粉絲團&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;2. 測試檔案下載追蹤 (File Download)&lt;/h3&gt;
+      &lt;!-- 只要有 download 屬性或副檔名為 pdf/docx 等，GA就會自動抓 --&gt;
+      &lt;a href="syllabus.pdf" download style="color: #059669;"&gt;📥 下載課程大綱 (PDF)&lt;/a&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card"&gt;
+      &lt;h3&gt;3. 測試 YouTube 影片追蹤 (Video Engagement)&lt;/h3&gt;
+      &lt;!-- GA 會自動追蹤 YouTube 播放、暫停與進度 --&gt;
+      &lt;iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;/div&gt;&lt;br&gt;
+
+  &lt;div class="card" style="text-align: center;"&gt;
+      &lt;h3&gt;4. 核心行動呼籲 (自訂事件追蹤)&lt;/h3&gt;
+      &lt;!-- 🎯 已綁定 onclick 的按鈕 --&gt;
+      &lt;button class="btn" id="signupBtn" onclick="gtag('event', 'login_button_click');"&gt;立即登入報名&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 空白捲動區塊 (測試 Scroll) --&gt;
+  &lt;div class="spacer"&gt;
+    &lt;p style="padding-top: 50px; color: #64748b;"&gt;往下捲動查看更多資訊... (測試 90% 捲動追蹤)&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;h2&gt;恭喜！你已經滑到最底囉！&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- 步驟六：UTM 追蹤 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12 text-rose-900"><span class="step-number bg-rose-600">6</span> 單頁網頁絕招三：流量從哪來？(UTM 標籤)</h2>
+            <p class="text-lg mb-4 text-gray-700">單頁網頁做好了，你一定會把它貼到 FB、Line 或買廣告。但如果不做特殊處理，GA 很容易把這些流量混在一起，變成「Direct (來源不明)」。這時我們需要用 <strong>UTM 參數</strong> 幫網址貼上標籤！</p>
+            
+            <div class="qa-box master mt-6">
+                <div class="qa-q">
+                    <span class="icon">🏷️</span>
+                    <span>實戰演練：什麼是 UTM？該怎麼加？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <p class="text-gray-700 mb-3">UTM 就是在你的原本網址後面，加上一串問號開頭的「追蹤暗號」。例如你的單頁網址上線後是：</p>
+                        <code class="bg-gray-100 px-2 py-1 rounded text-red-600 block mb-3 font-mono">https://my-landing-page.com/</code>
+                        
+                        <p class="text-gray-700 mb-2">如果你要把這個網址貼到 FB 粉絲團，請手動把它改成這樣再發布：</p>
+                        <code class="bg-gray-100 px-2 py-1 rounded text-blue-700 block mb-3 font-mono text-sm">https://my-landing-page.com/<span class="bg-yellow-200">?utm_source=facebook&utm_medium=social&utm_campaign=summer_sale</span></code>
+                        
+                        <ul class="list-disc ml-5 space-y-2 text-gray-700 text-sm">
+                            <li><code>utm_source</code> = 來源 (例如 facebook, line, google)</li>
+                            <li><code>utm_medium</code> = 媒介 (例如 social 社群貼文, cpc 關鍵字廣告)</li>
+                            <li><code>utm_campaign</code> = 活動名稱 (例如 summer_sale 夏日促銷)</li>
+                        </ul>
+                        <p class="mt-3 text-gray-700 font-bold">💡 這樣做的好處：當訪客點擊這個加了料的網址進入你的網頁時，GA4 就會精準知道「這個人是被夏日促銷的 FB 貼文吸引來的」，這對評估行銷成效極度重要！你可以去 Google 搜尋「UTM 產生器」來輔助你建立網址。</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-10 border-gray-200">
+
+            <!-- 步驟七：進階 LMS 運用 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12 text-blue-900"><span class="step-number bg-blue-600">7</span> 進階實務：教育平台 (LMS) 的追蹤策略</h2>
+            <p class="text-lg mb-4 text-gray-700">如果你正在開發的是一個「線上學習平台」或「雲端課程系統」，前端追蹤的極限就會顯現。以下是更進階的系統架構實務：</p>
+            
+            <div class="qa-box advanced">
+                <div class="qa-q">
+                    <span class="icon">🎓</span>
+                    <span>重點剖析：在教育平台上，哪些學習行為是 GA4「能做」與「最推薦做」的？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <p class="mb-3 text-gray-700">我們可以透過 JavaScript 埋設事件，來掌握學生的關鍵互動：</p>
+                        <ol class="list-decimal ml-5 space-y-3 text-gray-700">
+                            <li><strong class="text-emerald-700">綁定「學號/工號」(最重要！)：</strong> GA4 有一個功能叫 <code>user_id</code>。只要學生一登入，我們就在程式碼加上 <code>gtag('config', 'G-XXXX', { 'user_id': '學號' });</code>。這樣能精確追蹤特定學生的學習軌跡。
+                                <div class="mt-3 p-3 bg-yellow-50 rounded border border-yellow-200 text-sm text-gray-800 shadow-sm">
+                                    <strong class="text-yellow-800">⚠️ 隱私與資安極度重要警告 (PII 規範)：</strong><br>
+                                    Google 嚴格禁止在 GA4 傳送任何「個人識別資訊 (Personally Identifiable Information, PII)」，包含真實姓名、身分證字號、未加密的 Email 或電話號碼。如果是學號，強烈建議在後端進行 <strong>Hash (雜湊加密)</strong>，或是轉換成無意義的內部流水號（例如：<code>student_uuid_001</code>）再傳給 GA4，以免違反 Google 政策導致整個帳戶被停權！
+                                </div>
+                            </li>
+                            <li><strong class="text-emerald-700">追蹤「打開了哪一份教材」：</strong> 當學生點擊打開教材時，送出包含「教材檔名」的事件，你就能知道哪份教材最熱門。</li>
+                            <li><strong class="text-emerald-700">追蹤「切換分頁」與「輔助功能」：</strong> 記錄學生切換到「AI 助教」分頁的次數，或是點擊「語音朗讀(TTS)」的次數，評估這些輔助功能有沒有人使用。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步驟八：大師班 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12 text-blue-900"><span class="step-number bg-blue-600">8</span> 大師班：無前端代碼追蹤與 Iframe 破解</h2>
+            <p class="text-lg mb-4 text-gray-700">為了追求極致的隱私、避免被擋廣告軟體 (AdBlock) 攔截，越來越多大型平台選擇「不要在 HTML 放任何 GA 追蹤碼」，而是採用<strong>「伺服器端追蹤 (Server-Side Tracking)」</strong>。</p>
+
+            <div class="qa-box master">
+                <div class="qa-q">
+                    <span class="icon">🛡️</span>
+                    <span>學生提問：我的教材是用 <code>&lt;iframe&gt;</code> 嵌入的外部 PDF 或網頁，我要怎麼偵測學生在 iframe 裡面的細部操作（滑鼠點了哪裡、捲動到哪裡）？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這是一個網頁安全的殘酷現實——你「無法」追蹤跨網域的 iframe 細部操作！</strong>
+                        <p class="mt-2 text-gray-700">基於瀏覽器的<strong>同源政策 (Same-Origin Policy)</strong>，如果 iframe 裡面的內容來自別的網址，你的外層網頁是絕對無法偷看到裡面的點擊或捲動的。不管是前端 gtag 還是後端發送都做不到。</p>
+                        <h4 class="font-bold text-gray-800 mt-4 mb-2">💡 實務上我們該怎麼解套？</h4>
+                        <ul class="list-disc ml-5 space-y-2 text-gray-700">
+                            <li><strong>替代方案 1 (最通用)：記錄「閱讀時長」。</strong> 我們無法知道他點了哪裡，但我們可以在他打開 iframe 時開始「計時」，關閉 iframe 時送出一個 <code>close_material</code> 事件並附上「觀看秒數」。這在教育平台上用來判定「有沒有認真看」已經非常足夠。</li>
+                            <li><strong>替代方案 2 (針對 YouTube)：使用官方 API。</strong> 如果嵌入的是 YouTube 影片，你可以改用 YouTube 的 IFrame Player API，它會主動把「播放、暫停、看完了」的訊號傳出來給你的網頁接收。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 圖解追蹤路徑 -->
+            <div class="bg-slate-50 p-6 rounded-lg mb-8 border border-slate-200 shadow-sm mt-6">
+                <h4 class="font-bold text-lg mb-4 text-slate-800 text-center">📊 圖解：前端 gtag.js vs 後端 Measurement Protocol 追蹤路徑</h4>
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 text-sm">
+                    <!-- 路徑一 -->
+                    <div class="flex-1 bg-white p-4 rounded shadow text-center border-t-4 border-blue-400 w-full">
+                        <div class="font-bold text-blue-700 mb-2 text-base">一般前端追蹤 (gtag.js)</div>
+                        <div class="text-gray-600 font-mono leading-relaxed">
+                            訪客瀏覽器<br>
+                            ↓<br>
+                            <span class="text-red-500 font-bold bg-red-50 px-2 rounded">極易被 AdBlock 攔截</span><br>
+                            ↓<br>
+                            GA4 伺服器
+                        </div>
+                    </div>
+                    <div class="mx-4 text-2xl font-bold text-slate-300">VS</div>
+                    <!-- 路徑二 -->
+                    <div class="flex-1 bg-white p-4 rounded shadow text-center border-t-4 border-purple-500 w-full">
+                        <div class="font-bold text-purple-700 mb-2 text-base">伺服器端追蹤 (API)</div>
+                        <div class="text-gray-600 font-mono leading-relaxed">
+                            訪客瀏覽器<br>
+                            ↓<br>
+                            你的後端伺服器 (Node.js/Python)<br>
+                            ↓<br>
+                            <span class="text-green-600 font-bold bg-green-50 px-2 rounded">繞過瀏覽器 100% 成功送達</span><br>
+                            ↓<br>
+                            GA4 伺服器
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box master">
+                <div class="qa-q">
+                    <span class="icon">🔑</span>
+                    <span>學生提問：建立 Measurement Protocol API 密碼時，它的「暱稱」必須叫做 GA4_API_SECRET 嗎？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：不用喔！「暱稱」隨便你取什麼都可以！</strong>
+                        <p class="mt-2 text-gray-700">「暱稱」（像是你打的 <code>CareConnect雲端學園</code>）只是為了讓你日後在 GA4 後台好辨認這把鑰匙是給誰用的，它不會影響程式運作。</p>
+                        <p class="mt-2 text-gray-700">真正重要的是建立後，系統配發給你的那串亂碼<strong class="text-purple-700">「密鑰值 (Secret Value)」</strong>（例如 <code>DQ6a2W7f...</code>）。你要複製的是這串「密鑰值」，並把它貼到 Python 程式碼裡面的 <code>GA4_API_SECRET = "貼在這裡"</code> 才對喔！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box master">
+                <div class="qa-q">
+                    <span class="icon">🥷</span>
+                    <span>學生提問：如果我不想在前端 test.html 寫任何 gtag 程式碼，我要怎麼把數據傳給 GA4？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：使用 GA4 的 Measurement Protocol API 進行「伺服器端發送」。</strong>
+                        <p class="mt-2 text-gray-700">你可以把原本的 gtag 腳本整段刪除。當學生在網頁上點擊了什麼按鈕，前端就打一支 API 給你的「後端伺服器 (例如 Python/Node.js)」。接著，由「後端伺服器」在背後默默發送 HTTP 請求給 Google 報備。這樣就算學生的瀏覽器裝了擋廣告外掛，數據也絕對不會掉！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-box master">
+                <div class="qa-q">
+                    <span class="icon">📊</span>
+                    <span>深入釐清：如果我使用了「伺服器端追蹤 (Measurement Protocol)」，可以達到什麼樣的統計數據？存在哪？GA 讀得到嗎？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：這將能取得極度精準且不會被阻擋的數據！</strong>
+                        <ul class="list-disc ml-5 mt-2 space-y-2 text-gray-700">
+                            <li><strong class="text-purple-700">能偵測到什麼數據？</strong><br>
+                                1. <strong>精準的身分綁定</strong>：因為是由後端解析登入 Token，GA4 能 100% 知道是「哪個學號」在操作，而非匿名訪客。<br>
+                                2. <strong>高階業務邏輯</strong>：例如我們剛提到的「教材閱讀時長 (看了幾秒)」、「AI 發問次數」、「頁籤切換偏好」都能被精準記錄。
+                            </li>
+                            <li><strong class="text-purple-700">資料存在哪？</strong><br>
+                                這些資料會直接繞過瀏覽器，從你的後端伺服器打 API 送到 <strong>Google Analytics (GA4) 的雲端伺服器資料庫</strong>中。它完全不會寫入你自己的資料庫，所以不佔用你的儲存空間與效能。
+                            </li>
+                            <li><strong class="text-purple-700">GA 讀得到嗎？</strong><br>
+                                <strong>100% 完美讀取！</strong> 因為這是 GA4 官方的標準做法。你在後端發送的這些事件名稱（如 <code>open_material</code>），會跟一般網頁追蹤的資料一樣，毫無違和地出現在 GA4 的「即時」與「事件」報表中供你分析！
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-10 border-gray-200">
+
+            <!-- 步驟九：基礎報表觀看教學 -->
+            <h2 class="text-3xl font-bold flex items-center mt-12"><span class="step-number">9</span> 收成時刻：24 小時後的正式報表怎麼看？</h2>
+            <p class="text-lg mb-4 text-gray-700">我們前面一直盯著看的「即時 (Realtime)」報表，只能顯示過去 30 分鐘內的數據。當你的網站上線幾天後，你要去哪裡看長期的數據統計呢？</p>
+            
+            <div class="qa-box warning mt-2 mb-6">
+                <div class="qa-q">
+                    <span class="icon">⏳</span>
+                    <span>新手常見恐慌：我昨天明明點了很多次按鈕，為什麼今天看報表卻是 0？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：因為 GA4 的標準報表有「資料處理延遲 (Data Processing Latency)」！</strong>
+                        <p class="mt-2 text-gray-700">你當下發生的行為，GA4 需要大約 <strong>24 到 48 小時</strong> 的時間來進行清洗、過濾機器人流量、以及彙整計算。所以「今天的數據，明天（甚至後天）看才最準」。千萬不要因為當天沒看到數據就去亂改程式碼！</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="font-bold text-gray-800 mt-8 mb-3 border-b border-pink-200 pb-2">🎯 實戰任務：找出最受歡迎的按鈕</h4>
+            <p class="text-gray-700 mb-4">過了兩天後，請跟著以下路徑去驗收你的成果，查看這三個最重要的報表：</p>
+
+            <div class="space-y-6 mt-6">
+                <!-- 報表 1 -->
+                <div class="border border-slate-200 rounded-lg p-5 shadow-sm bg-white hover:border-blue-300 transition-colors">
+                    <h4 class="text-xl font-bold text-slate-800 flex items-center mb-2">
+                        <span class="text-2xl mr-2">👥</span> 1. 獲客報表 (Traffic Acquisition)
+                    </h4>
+                    <p class="text-gray-600 mb-2"><strong>👉 路徑：</strong>左側選單「報表」 ＞ 「生命週期」 ＞ 「獲客」 ＞ 「流量獲客」</p>
+                    <p class="text-gray-700"><strong>🎯 可以看什麼：</strong> 解答<strong class="text-blue-600">「人從哪裡來」</strong>。你可以看到流量是自然搜尋、社群還是直接點擊。若你想看剛才設定的 UTM 來源，可以在表格第一欄標題點擊下拉，切換成 <strong>「工作階段 來源/媒介」</strong>，就能清楚看到 facebook 和 line 各自帶來多少人！</p>
+                </div>
+
+                <!-- 報表 2 -->
+                <div class="border border-slate-200 rounded-lg p-5 shadow-sm bg-white hover:border-blue-300 transition-colors">
+                    <h4 class="text-xl font-bold text-slate-800 flex items-center mb-2">
+                        <span class="text-2xl mr-2">🖱️</span> 2. 事件報表 (Events)
+                    </h4>
+                    <p class="text-gray-600 mb-2"><strong>👉 路徑：</strong>左側選單「報表」 ＞ 「生命週期」 ＞ 「參與」 ＞ 「事件」</p>
+                    <p class="text-gray-700"><strong>🎯 可以看什麼：</strong> 解答<strong class="text-emerald-600">「他們在網頁做了什麼」</strong>。這裡會列出所有的互動次數。找找看我們剛剛測試的 <code>page_view</code> (瀏覽)、<code>scroll</code> (滑動到底部)、以及你自訂的 <code>login_button_click</code> 或 <code>open_material</code>。往右看，你就能清楚知道這個按鈕在過去一段時間內，總共被點擊了幾次（事件計數），以及有多少個不同的人點過（總使用者人數）。</p>
+                </div>
+
+                <!-- 報表 3 -->
+                <div class="border border-slate-200 rounded-lg p-5 shadow-sm bg-white hover:border-blue-300 transition-colors">
+                    <h4 class="text-xl font-bold text-slate-800 flex items-center mb-2">
+                        <span class="text-2xl mr-2">📱</span> 3. 技術報表 (Tech details)
+                    </h4>
+                    <p class="text-gray-600 mb-2"><strong>👉 路徑：</strong>左側選單「報表」 ＞ 「使用者」 ＞ 「技術」 ＞ 「技術詳細資料」</p>
+                    <p class="text-gray-700"><strong>🎯 可以看什麼：</strong> 解答<strong class="text-purple-600">「他們用什麼設備看」</strong>。表格預設顯示瀏覽器，你可以點擊下拉切換成 <strong>「裝置類別 (Device Category)」</strong>，就能看出你的網頁究竟是 Mobile (手機) 訪客多，還是 Desktop (電腦) 訪客多，這對日後調整版面非常有幫助。</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <footer class="bg-slate-800 text-center p-8 text-slate-300">
+            <p class="mb-2">本講義為完整整合旗艦版，專為前端與系統開發學習者設計。</p>
+            <p class="font-bold text-white text-xl mt-3">🎉 恭喜你完成了這門極具挑戰的 GA4 數據分析實戰課！</p>
+        </footer>
+    </div>
+
+    <script>
+        // 複製代碼功能 (使用 fallback 方法以支援 iframe 限制環境)
+        function copyCode(button, elementId) {
+            const codeBlock = document.getElementById(elementId);
+            const textToCopy = codeBlock.innerText;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // 避免畫面跳動
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ 已複製！';
+                button.classList.replace('bg-blue-600', 'bg-green-600');
+                button.classList.replace('hover:bg-blue-500', 'hover:bg-green-500');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.replace('bg-green-600', 'bg-blue-600');
+                    button.classList.replace('hover:bg-green-500', 'hover:bg-blue-500');
+                }, 2000);
+            } catch (err) {
+                console.error('複製失敗', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
 </body>
 </html>
