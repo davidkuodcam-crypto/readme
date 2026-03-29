@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>智慧商務特訓班</title>
+  
+  <!-- 🎯 GA4 追蹤碼 (請記得把 G-XXXXXXXXXX 換成你的 ID) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
+    /* 刻意製造一個很長的區塊，讓我們可以測試「網頁捲動」追蹤 */
+    .spacer { height: 1500px; background: linear-gradient(white, #e2e8f0); margin-top: 50px; }
+    .btn { padding: 15px 30px; font-size: 20px; background: #e11d48; color: white; border: none; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 10px; }
+    .btn:hover { background: #be123c; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: inline-block; text-align: left; width: 80%; max-width: 600px; }
+  </style>
+</head>
+<body>
+  <h1>🔥 2026 智慧商務課程GA4範例 🔥</h1>
+  <p>這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！</p>
+
+  <div class="card">
+      <h3>1. 測試自動點擊追蹤 (Outbound Click)</h3>
+      <a href="https://facebook.com" target="_blank" style="color: #2563eb;">👉 前往我們的 Facebook 粉絲團</a>
+  </div><br>
+
+  <div class="card">
+      <h3>2. 測試檔案下載追蹤 (File Download)</h3>
+      <!-- 只要有 download 屬性或副檔名為 pdf/docx 等，GA就會自動抓 -->
+      <a href="syllabus.pdf" download style="color: #059669;">📥 下載課程大綱 (PDF)</a>
+  </div><br>
+
+  <div class="card">
+      <h3>3. 測試 YouTube 影片追蹤 (Video Engagement)</h3>
+      <!-- GA 會自動追蹤 YouTube 播放、暫停與進度 -->
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+  </div><br>
+
+  <div class="card" style="text-align: center;">
+      <h3>4. 核心行動呼籲 (自訂事件追蹤)</h3>
+      <!-- 🎯 已綁定 onclick 的按鈕 -->
+      <button class="btn" id="signupBtn" onclick="gtag('event', 'login_button_click');">立即登入報名</button>
+  </div>
+
+  <!-- 空白捲動區塊 (測試 Scroll) -->
+  <div class="spacer">
+    <p style="padding-top: 50px; color: #64748b;">往下捲動查看更多資訊... (測試 90% 捲動追蹤)</p>
+  </div>
+
+  <h2>恭喜！你已經滑到最底囉！</h2>
+</body>
+</html>
