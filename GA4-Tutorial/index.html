@@ -366,7 +366,7 @@
             
             <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-lg mb-8">
                 <h4 class="font-bold text-yellow-800 mb-2">⚡ 實作任務：改造你的 test.html</h4>
-                <p class="text-gray-700">打開你剛才建立的 <code>test.html</code> 檔案，將這段追蹤程式碼<strong>貼在 <code>&lt;head&gt;</code> 標籤內的最上方</strong>！您可以直接複製下方的完整程式碼來覆蓋您的檔案：</p>
+                <p class="text-gray-700 mb-4">打開你剛才建立的 <code>test.html</code> 檔案，將這段追蹤程式碼<strong>貼在 <code>&lt;head&gt;</code> 標籤內的最上方</strong>！您可以直接複製下方的完整程式碼來覆蓋您的檔案：</p>
                 <div class="mt-3 p-3 bg-white rounded border border-yellow-300 text-sm">
                     <strong class="text-blue-700">🔍 哪裡可以找到我的 G- ID？</strong><br>
                     在您剛剛建立的「網頁串流詳細資料」畫面右上角，會有一組名為<strong>「評估 ID」</strong>（以 <strong>G-</strong> 開頭）的代碼。請複製它，並替換掉下方程式碼中的 <code>G-XXXXXXXXXX</code>。
@@ -457,6 +457,24 @@
             <p>代碼貼上並「儲存」HTML 檔案後，請用瀏覽器重新整理 (F5) 你的範例網頁。</p>
             <p>接著回到 GA4 後台，點擊左側選單的 <strong>「報表」 ＞ 「即時」</strong>。如果設定正確，等個十幾秒鐘，你就會看見世界地圖上台灣亮起藍點，並顯示有「1」個使用者在線上！這代表你的真實網頁已經成功跟 GA4 系統連線了！</p>
 
+            <!-- 新增：即時總覽 vs 即時網頁的差別 -->
+            <div class="qa-box concept mb-8">
+                <div class="qa-q">
+                    <span class="icon">📊</span>
+                    <span>觀念釐清：GA4 左側選單的「即時總覽」和「即時網頁」有什麼差別？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：兩者的觀看重點不同：</strong>
+                        <ul class="list-disc ml-5 mt-2 space-y-2 text-gray-700">
+                            <li><strong class="text-blue-700">即時總覽：</strong> 看的是「網站整體全貌」。過去 30 分鐘內所有訪客的綜合數據，包含他們在哪裡(世界地圖)、從哪個管道來(來源)、總共做了哪些動作(事件計數綜合列表)。</li>
+                            <li><strong class="text-blue-700">即時網頁 (或「網頁和畫面」報表)：</strong> 看的是「頁面熱度」。專注於過去 30 分鐘內「具體是哪幾個網頁(URL/標題)」正在被觀看。如果你有很多分頁，這裡能一眼看出現在哪一篇文章最紅。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="qa-box concept">
                 <div class="qa-q">
                     <span class="icon">💡</span>
@@ -520,6 +538,29 @@
                 </div>
             </div>
 
+            <!-- 新增：如何找 link_url 及外連與來源的釐清 -->
+            <div class="qa-box">
+                <div class="qa-q">
+                    <span class="icon">🕵️‍♂️</span>
+                    <span>實戰常見盲點：我點了「前往 FB」的外部連結，即時報表有看到 click 事件，但沒看到 facebook 字樣，為什麼？</span>
+                </div>
+                <div class="qa-a">
+                    <span class="icon">👨‍🏫</span>
+                    <div>
+                        <strong>老師解答：GA4 不會直接把事件命名為 Facebook，你要點進去看「參數」！</strong>
+                        <ol class="list-decimal ml-5 mt-2 space-y-2 text-gray-700">
+                            <li>在「事件計數」卡片中，直接用滑鼠點擊藍色的 <strong><code>click</code></strong> 字樣。</li>
+                            <li>點進去後，尋找名為 <strong><code>link_url</code></strong> 的參數並點擊。</li>
+                            <li>你就會看到具體的目標網址（如 https://www.facebook.com/...）囉！</li>
+                        </ol>
+                        <p class="mt-3 text-sm text-gray-600 bg-white p-3 rounded border border-blue-200">
+                            <strong>💡 觀念澄清：</strong>「在網頁上點連結去 FB」叫作 <strong>外連點擊 (Outbound Click)</strong>，看 <code>click</code> 事件與 <code>link_url</code> 參數。<br>
+                            「在 FB 點貼文連結進來網頁」叫作 <strong>流量來源 (Source)</strong>，這時候才要看「依來源分類的使用者」卡片。千萬別搞混囉！
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="qa-box advanced mt-2 mb-8">
                 <div class="qa-q">
                     <span class="icon">🚀</span>
@@ -547,7 +588,7 @@
                     <div>
                         <strong>老師解答：請到「即時總覽」報表中的「事件計數」卡片查看！</strong>
                         <p class="mt-2 text-gray-700">當你在網頁用力滑到最底部（超過 90% 深度）時，GA4 會送出一個名為 <code>scroll</code> 的事件。請回到 GA4 後台，點擊左側選單的 <strong>「報表」 ＞ 「即時」</strong>。</p>
-                        <p class="mt-2 text-gray-700">在右側的即時總覽畫面中，往下尋找一張名為<strong>「事件計數 (劃分依據：事件名稱)」</strong>的卡片。你會在這張表單裡清楚看到 <code>scroll</code> 這個項目，旁邊的數值也會跟著增加 1 次喔！</p>
+                        <p class="mt-2 text-gray-700">在右側的即時總覽畫面中，往下尋找一張名為<strong>「事件計數 (劃分依據：事件名稱)」</strong>卡片。你會在這張表單裡清楚看到 <code>scroll</code> 這個項目，旁邊的數值也會跟著增加 1 次喔！</p>
                     </div>
                 </div>
             </div>
@@ -752,6 +793,38 @@
                             <li><strong>GA4 即時驗收：</strong> 點擊後，立刻打開 GA4 的 <strong>報表 ＞ 即時</strong> 報表。在畫面右下方尋找名為<strong>「依 最初獲得使用者的來源 劃分的使用者」</strong>的卡片。大約 10~15 秒後，你就會親眼看到來源的長條圖顯示出 <strong>facebook</strong>！這代表你已經成功攔截並精準追蹤到這篇貼文的點擊成效了！</li>
                         </ol>
                         <p class="mt-4 text-gray-700 font-bold">💡 這樣做的好處：當你到「流量獲客」正式報表查看時，就能一眼看出你的流量到底有幾成是 Facebook 貼文帶來的，這對於未來評估社群貼文或買廣告的轉換成效非常有幫助！</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增：UTM 測試常見除錯問題總結 -->
+            <div class="qa-box warning mt-8">
+                <div class="qa-q">
+                    <span class="icon">🚨</span>
+                    <span>UTM 實戰除錯大補帖：為什麼我親自點了 FB 貼文，GA4 報表卻看不到預期的結果？</span>
+                </div>
+                <div class="qa-a flex-col w-full">
+                    <span class="icon hidden md:block">👨‍🏫</span>
+                    <div class="w-full">
+                        <p class="mb-3 text-gray-700 font-bold">老師解答：這是測試 UTM 最常遇到的 3 個大魔王，請對照你的狀況：</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded border border-red-200">
+                                <h4 class="font-bold text-red-700 mb-1">狀況一：來源卡片沒看到 facebook？因為你被當成「舊朋友」了！</h4>
+                                <p class="text-sm text-gray-700 mb-2">「最初招攬到使用者的來源」卡片只記錄該設備<strong>「這輩子第一次」</strong>進網頁的管道。如果你剛才已經用同支手機測試過網頁，GA4 已經記住你的「最初來源」是 Direct，就算你現在點了 UTM 連結也不會變更。</p>
+                                <p class="text-sm font-bold text-blue-700">👉 破解法：使用手機或電腦的「無痕視窗/私密瀏覽」點擊臉書貼文；或者在即時報表將該卡片下拉選單切換成「工作階段來源 (Session Source)」，就能立刻看到 facebook！</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded border border-yellow-200">
+                                <h4 class="font-bold text-yellow-700 mb-1">狀況二：為什麼「廣告活動」卡片是空的或後來不見了？</h4>
+                                <p class="text-sm text-gray-700 mb-2">如果你只設定了 <code>utm_source</code> 和 <code>utm_medium</code>，而沒有在網址加上 <strong><code>&utm_campaign=自訂活動名稱</code></strong>，廣告活動卡片當然抓不到東西。另外，即時報表只保留「過去 30 分鐘」的資料，超過時間長條圖就會消失並進入歷史處理中。</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded border border-green-200">
+                                <h4 class="font-bold text-green-700 mb-1">狀況三：新朋友明明只點一次貼文，為什麼長條圖有這麼多根？</h4>
+                                <p class="text-sm text-gray-700 mb-2">即時圖表上的每一根長條代表<strong>「每一分鐘內的活躍程度」</strong>。當朋友點擊進入，會瞬間觸發多個事件 (<code>first_visit</code>, <code>page_view</code>, <code>session_start</code>)，且只要他在網頁上停留、滑動，GA4 就會持續送出 <code>user_engagement</code> 訊號。所以「點一次」不代表只有「一根長條」，長條圖反映的是他停留期間的互動密集度，以及包含其他測試者的綜合數據。</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
