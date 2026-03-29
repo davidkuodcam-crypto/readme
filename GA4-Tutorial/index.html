@@ -113,6 +113,29 @@
             
             <p class="text-xl text-gray-600 mb-8 leading-relaxed">學 GA4 最好的方式就是「邊做邊學」。我們今天將從一個<strong>「促銷活動單頁 (Landing Page)」</strong>開始，帶你申請帳號、貼上追蹤碼、設定按鈕監聽。到了講義後半段，我們更會帶領你跨入高階領域，解析<strong>「雲端學習系統 (LMS) 與伺服器 API 追蹤」</strong>的實務策略！</p>
 
+            <!-- 前言：認識 GA4 -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mb-10 shadow-sm">
+                <h2 class="text-2xl font-bold text-blue-900 mt-0 mb-4 flex items-center">
+                    <span class="text-3xl mr-2">📊</span> 前言：認識 Google Analytics 4 (GA4)
+                </h2>
+                <p class="text-gray-700 mb-3"><strong>Google Analytics (簡稱 GA)</strong> 是 Google 提供的一款免費且全球市佔率最高的網站數據分析工具。你可以把它想像成安裝在網站裡的「數位監視器」與「超級收銀機」，幫你記錄訪客從哪裡來、在網頁上看了什麼、點了哪些按鈕，最後有沒有完成報名或購買。</p>
+                <p class="text-gray-700 mb-3">而 <strong>GA4 (Google Analytics 4)</strong> 是這個工具的最新世代版本。為了因應現代網站與 APP 的發展，GA4 帶來了幾個對新手與開發者都非常友善的強大特色：</p>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700">
+                    <li><strong class="text-blue-700">以「事件 (Event)」為核心：</strong> 過去的舊版 GA 只能看「網頁看了幾次」，現在 GA4 把所有的互動（包含點擊、看影片、滑動）都視為獨立的「事件」，讓你更精確掌握使用者的每個微小動作。</li>
+                    <li><strong class="text-blue-700">無痛的「自動追蹤」魔法：</strong> 內建強大的「加強型評估」功能。你完全不用寫任何程式碼，只要在後台打開開關，GA4 就會自動幫你記錄「檔案下載」、「影片觀看」與「網頁滑動到底部」！</li>
+                    <li><strong class="text-blue-700">跨平台與 AI 預測：</strong> GA4 整合了網站與 APP 的數據，並加入了 Google 強大的 AI 機器學習技術，即使在注重隱私權的時代，依然能幫你填補數據漏洞並預測潛在客戶。
+                        <div class="mt-3 p-4 bg-white rounded-lg border border-blue-200 text-sm text-gray-700 shadow-sm">
+                            <strong class="text-blue-800 flex items-center mb-1"><span class="mr-1">🤖</span> 實戰展示：要怎麼「親眼看到」GA4 的 AI？</strong>
+                            你可以注意 GA4 後台的兩個地方，讓抽象的 AI 變得具體可見：<br>
+                            <ol class="list-decimal ml-5 mt-1 space-y-1">
+                                <li><strong>頂部搜尋列 (Analytics Intelligence)：</strong> 請直接在 GA4 畫面上方的搜尋框輸入日常對話（如：<em>"今天有多少使用者？"</em> 或 <em>"How many users today?"</em>），GA4 的 AI 會像 ChatGPT 一樣，直接從右側滑出精準的解答與圖表！</li>
+                                <li><strong>首頁的「洞察 (Insights)」卡片：</strong> 當你的網站累積幾週數據後，首頁右側會自動跳出洞察卡片，主動通知異常（例如：<em>「本週來自手機的流量暴增 40%」</em>），這就是機器學習在背後 24 小時監控防漏的成果。</li>
+                            </ol>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
             <!-- 課前準備：範例網頁 -->
             <div class="bg-slate-50 border border-slate-200 p-6 rounded-lg mb-10 shadow-sm">
                 <h3 class="text-2xl font-bold text-slate-800 mt-0 mb-4 flex items-center">
@@ -129,7 +152,7 @@
 &lt;html lang="zh-TW"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  &lt;title&gt;2026智慧商務課程GA4範例&lt;/title&gt;
   &lt;style&gt;
     body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
     /* 刻意製造一個很長的區塊，讓我們可以測試「網頁捲動」追蹤 */
@@ -140,7 +163,7 @@
   &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;h1&gt;🔥 2026 智慧商務課程GA4範例 🔥&lt;/h1&gt;
   &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
 
   &lt;div class="card"&gt;
@@ -174,7 +197,7 @@
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
                 </div>
-                <p class="mt-4 text-sm text-gray-500 font-bold">👉 請先用瀏覽器打開這個 <code>test.html</code> 檔案確認網頁有正常顯示，我們稍後就要把 GA4 裝進去！</p>
+                <p class="mt-4 text-sm text-gray-500 font-bold">👉 請先用瀏覽器打開這個 <code>test.html</code> 檔案確認網頁有正常顯示（<a href="test.html" target="_blank" class="text-blue-600 hover:text-blue-800 underline">點擊此處在新視窗開啟 test.html 測試網頁</a>），我們稍後就要把 GA4 裝進去！</p>
             </div>
 
             <hr class="my-8 border-gray-200">
@@ -369,7 +392,7 @@
   &lt;/script&gt;
   
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  &lt;title&gt;2026智慧商務課程GA4範例&lt;/title&gt;
   &lt;style&gt;
     body { font-family: sans-serif; text-align: center; padding: 50px; background: #fafafa; }
     .spacer { height: 1500px; background: linear-gradient(white, #e2e8f0); margin-top: 50px; }
@@ -379,7 +402,7 @@
   &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;h1&gt;🔥 2026 智慧商務課程GA4範例 🔥&lt;/h1&gt;
   &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
 
   &lt;div class="card"&gt;
@@ -507,7 +530,7 @@
                         <p class="text-gray-700 mb-3">請按照以下 3 個步驟進行完整的驗證測試：</p>
                         <ol class="list-decimal ml-5 space-y-3 text-gray-700">
                             <li><strong class="text-emerald-700">確認後台開關有開：</strong> 前往 GA4 後台的 <strong>⚙️ 管理 ＞ 資料收集和修改 ＞ 資料串流</strong>，點擊你的網頁串流。確認畫面中的<strong>「加強型評估」</strong>開關為藍色開啟狀態，且下方有顯示「網頁瀏覽、捲動、外連點擊、影片參與、檔案下載」等圖示（這非常重要，如缺少項目請點擊右側齒輪開啟）。</li>
-                            <li><strong class="text-emerald-700">在網頁上實際操作：</strong> 用瀏覽器開啟你的 <code>test.html</code>（若有部署到 Vercel/GitHub Pages 或使用本機伺服器測試最佳）。依序：點擊 FB 連結、點擊下載 PDF、播放 YouTube 影片超過 10 秒、並用力將網頁滑到最底部的「恭喜滑到最底囉」。</li>
+                            <li><strong class="text-emerald-700">在網頁上實際操作：</strong> 用瀏覽器開啟你的 <code>test.html</code>（<a href="test.html" target="_blank" class="text-blue-600 hover:text-blue-800 underline">點此開新視窗測試</a>，若有部署到 Vercel/GitHub Pages 或使用本機伺服器測試最佳）。依序：點擊 FB 連結、點擊下載 PDF、播放 YouTube 影片超過 10 秒、並用力將網頁滑到最底部的「恭喜滑到最底囉」。</li>
                             <li><strong class="text-emerald-700">到「即時報表」收割成果：</strong> 操作完畢後，切換回 GA4 的 <strong>報表 ＞ 即時</strong>。等待約 15~30 秒，往下捲動找到<strong>「依 事件名稱 劃分的事件計數」</strong>卡片。你將會親眼見證 <code>click</code>, <code>file_download</code>, <code>video_start</code>, <code>scroll</code> 這些事件像魔法般一個個冒出來！</li>
                         </ol>
                     </div>
@@ -603,7 +626,7 @@
 &lt;html lang="zh-TW"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;智慧商務特訓班&lt;/title&gt;
+  &lt;title&gt;2026智慧商務課程GA4範例&lt;/title&gt;
   
   &lt;!-- 🎯 GA4 追蹤碼 (請記得把 G-XXXXXXXXXX 換成你的 ID) --&gt;
   &lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
@@ -625,7 +648,7 @@
   &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;h1&gt;🔥 2024 智慧商務特訓班 🔥&lt;/h1&gt;
+  &lt;h1&gt;🔥 2026 智慧商務課程GA4範例 🔥&lt;/h1&gt;
   &lt;p&gt;這是一個用來測試 GA4 數據分析的完整單頁網頁 (Landing Page)！&lt;/p&gt;
 
   &lt;div class="card"&gt;
