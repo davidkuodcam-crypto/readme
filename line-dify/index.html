@@ -105,7 +105,7 @@
                             <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-50 text-center hover:-translate-y-1 transition-transform">
                                 <div class="bg-purple-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-2"><i data-lucide="building-2" class="w-6 h-6 text-purple-600"></i></div>
                                 <strong class="text-gray-800 block text-sm">企業/組織知識庫</strong>
-                                <span class="text-xs text-gray-500">規章講義快速查</span>
+                                <span class="text-xs text-gray-500">規章文件快速查</span>
                             </div>
                             <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-50 text-center hover:-translate-y-1 transition-transform">
                                 <div class="bg-orange-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-2"><i data-lucide="calendar-check" class="w-6 h-6 text-orange-600"></i></div>
@@ -185,14 +185,14 @@
                         </div>
 
                         <div class="mt-5 bg-blue-100/50 p-5 rounded-lg border border-blue-200">
-                            <strong class="text-blue-900 block mb-3 text-lg"><i data-lucide="play-circle" class="w-6 h-6 inline-block -mt-1 mr-1"></i> 實戰舉例：當信徒提問「這週日崇拜幾點？」</strong>
+                            <strong class="text-blue-900 block mb-3 text-lg"><i data-lucide="play-circle" class="w-6 h-6 inline-block -mt-1 mr-1"></i> 實戰舉例：當客戶提問「這週會議是幾點？」</strong>
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 text-sm">
-                                <li><strong class="text-green-700">【前端 App】客人發問：</strong>信徒打開手機裡的 LINE App 輸入問題並傳送。</li>
+                                <li><strong class="text-green-700">【前端 App】客人發問：</strong>客戶打開手機裡的 LINE App 輸入問題並傳送。</li>
                                 <li><strong class="text-green-800">【後台伺服器】接待與轉發：</strong>LINE 的官方伺服器接收到這個問題。因為我們設定了 Webhook，伺服器會像總機一樣，馬上把這句話打包丟給我們指定的 Vercel 網址。</li>
                                 <li><strong class="text-slate-700">【Vercel 中繼站】翻譯：</strong>住在 Vercel 裡的 Python 程式收到包裹。因為 LINE 傳來的 JSON 格式 Dify 聽不懂，Python 會把它「翻譯」成 Dify 懂的格式，並附上 Dify 的 API 金鑰，火速送往大腦。</li>
-                                <li><strong class="text-purple-700">【Dify 雲端大腦】思考：</strong>Dify 收到問題，翻找你之前上傳的教會週報知識庫（RAG），生成了一段精準的回應，交還給快遞員。</li>
+                                <li><strong class="text-purple-700">【Dify 雲端大腦】思考：</strong>Dify 收到問題，翻找你之前上傳的會議行程知識庫（RAG），生成了一段精準的回應，交還給快遞員。</li>
                                 <li><strong class="text-slate-700">【Vercel 中繼站】重新包裝：</strong>Python 程式接過答案，把它重新包裝成 LINE 規定的格式（如果裡面有網址，程式還會幫你變成漂亮的按鈕），然後帶上 LINE 的通行證送回後台。</li>
-                                <li><strong class="text-green-800">【LINE 後台 -> 前端 App】派送回覆：</strong>LINE 後台伺服器收到答案，立刻推播回信徒的手機 LINE App。「叮」一聲，信徒看到了完美的 AI 回覆！</li>
+                                <li><strong class="text-green-800">【LINE 後台 -> 前端 App】派送回覆：</strong>LINE 後台伺服器收到答案，立刻推播回客戶的手機 LINE App。「叮」一聲，客戶看到了完美的 AI 回覆！</li>
                             </ol>
                         </div>
                         
@@ -232,7 +232,7 @@
                             <i data-lucide="store" class="w-6 h-6"></i>
                             <h4 class="font-bold text-lg">官方帳號 (專案帳號)</h4>
                         </div>
-                        <p class="text-gray-600">就像是<strong class="text-gray-800">「房間」</strong>。這是你建立的機器人或服務（例如：文藻 AI 助教），提供給大眾加入好友。你可以用同一把鑰匙，管理多個不同的房間。</p>
+                        <p class="text-gray-600">就像是<strong class="text-gray-800">「房間」</strong>。這是你建立的機器人或服務（例如：AI 助教），提供給大眾加入好友。你可以用同一把鑰匙，管理多個不同的房間。</p>
                     </div>
                 </div>
                 <div class="px-6 pb-6">
@@ -405,7 +405,7 @@
                             <li><strong class="text-gray-800">觸發條件：</strong> 使用者傳送的訊息 <strong>「完全符合」</strong> 你設定的關鍵字。</li>
                             <li class="bg-gray-50 p-3 rounded-lg border border-gray-200">
                                 <strong class="text-red-600 flex items-center gap-1 mb-1"><i data-lucide="alert-circle" class="w-4 h-4"></i> 設定陷阱：</strong> 
-                                輸入詞彙後 <strong>必須按下 Enter 鍵</strong>，讓它變成一個「藍色標籤框框」才算成功。若設定為「聚會時間」，使用者傳「請問聚會時間」，則 <strong>不會</strong> 觸發（因為多了字）。
+                                輸入詞彙後 <strong>必須按下 Enter 鍵</strong>，讓它變成一個「藍色標籤框框」才算成功。若設定為「營業時間」，使用者傳「請問營業時間」，則 <strong>不會</strong> 觸發（因為多了字）。
                             </li>
                             <li><strong class="text-gray-800">用途：</strong> 針對特定問題給出精確答案（如：地址、匯款帳號、營業時間）。</li>
                         </ul>
@@ -423,7 +423,7 @@
                         <ul class="space-y-3 text-gray-600 mt-4">
                             <li><strong class="text-gray-800">觸發條件：</strong> 使用者傳送的訊息 <strong>「沒有命中」</strong> 任何關鍵字時，系統就會掉入這個墊底的回覆。</li>
                             <li><strong class="text-gray-800">用途：</strong> 當作客服導引。例如：<br>
-                                <div class="mt-2 bg-gray-100 text-gray-700 p-3 rounded-lg italic border-l-4 border-gray-300">「平安！感謝您的訊息。若是關於聚會時間或地點，請輸入關鍵字查詢。」</div>
+                                <div class="mt-2 bg-gray-100 text-gray-700 p-3 rounded-lg italic border-l-4 border-gray-300">「平安！感謝您的訊息。若是關於營業時間或地點，請輸入關鍵字查詢。」</div>
                             </li>
                         </ul>
                     </div>
@@ -507,7 +507,7 @@
                                 <!-- 關鍵修正：從管理後台出發 -->
                                 <li class="flex items-start gap-2">
                                     <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs font-bold mt-0.5 shrink-0 whitespace-nowrap">1. 啟用 API</span>
-                                    <span>請先回到 <strong><a href="https://manager.line.biz/" target="_blank" class="text-blue-600 underline font-medium">LINE 官方帳號管理後台</a></strong>，進入你已經建好的帳號（例如：新高台福教會）。點擊右上角的 <strong>「設定」</strong> > 左側選單的 <strong>「Messaging API」</strong>，然後點擊 <strong>「啟用 Messaging API」</strong>。</span>
+                                    <span>請先回到 <strong><a href="https://manager.line.biz/" target="_blank" class="text-blue-600 underline font-medium">LINE 官方帳號管理後台</a></strong>，進入你已經建好的帳號。點擊右上角的 <strong>「設定」</strong> > 左側選單的 <strong>「Messaging API」</strong>，然後點擊 <strong>「啟用 Messaging API」</strong>。</span>
                                 </li>
                                 <li class="flex items-start gap-2 pt-2 border-t border-gray-100">
                                     <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs font-bold mt-0.5 shrink-0 whitespace-nowrap">2. 綁定開發者</span>
@@ -921,7 +921,7 @@ requests</code></pre>
                                 <li>在跳出的對話框中設定：
                                     <ul class="list-disc ml-6 mt-2 space-y-1 text-gray-400">
                                         <li><strong class="text-gray-200">系統推理模型：</strong> 必選！這是機器人對話的大腦（例如選定 Gemini 或 GPT-4o）。</li>
-                                        <li><strong class="text-gray-200">Embedding 模型：</strong> 若之後要上傳教會講義做「知識庫」，請務必選定此模型（用來將文字轉為向量）。</li>
+                                        <li><strong class="text-gray-200">Embedding 模型：</strong> 若之後要上傳文件做「知識庫」，請務必選定此模型（用來將文字轉為向量）。</li>
                                         <li>Rerank、語音轉文字等其餘項目，目前可先保持空白。</li>
                                     </ul>
                                 </li>
@@ -969,7 +969,7 @@ requests</code></pre>
                         <div class="bg-red-900/30 border-l-4 border-red-500 p-4 rounded-r text-sm mt-3">
                             <strong class="text-red-400 flex items-center gap-1 mb-2 text-base"><i data-lucide="alert-triangle" class="w-5 h-5"></i> 教學時務必提醒學生的「兩個雷區」：</strong>
                             <ol class="list-decimal ml-5 space-y-3 text-red-200/90">
-                                <li><strong>隱私保護：</strong> 根據 Google 的政策，使用「免費版 API」傳送的對話內容與檔案，<strong>可能會被 Google 收集並由人工審閱來訓練未來的 AI 模型</strong>。請強烈告誡學生：<span class="underline font-bold text-white">絕對不要傳送真實的信徒個資、病歷、或是商業機密！</span></li>
+                                <li><strong>隱私保護：</strong> 根據 Google 的政策，使用「免費版 API」傳送的對話內容與檔案，<strong>可能會被 Google 收集並由人工審閱來訓練未來的 AI 模型</strong>。請強烈告誡學生：<span class="underline font-bold text-white">絕對不要傳送真實的客戶個資、病歷、或是商業機密！</span></li>
                                 <li><strong>短暫罷工：</strong> 如果全班同學在同一分鐘內一直狂傳訊息測試（超過 15 次），機器人會因為達到 RPM 上限而短暫「已讀不回」或是報錯。別緊張，等下一分鐘額度重置後就會自動恢復正常了。</li>
                             </ol>
                         </div>
