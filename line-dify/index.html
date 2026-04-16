@@ -575,12 +575,14 @@
 
                 <div class="space-y-6">
                     <!-- File 1: main.py -->
-                    <div>
-                        <div class="flex justify-between items-center bg-slate-800 text-gray-300 px-4 py-2 rounded-t-lg border-b border-slate-700 text-sm font-mono">
-                            <span>📄 api/main.py</span>
-                            <span class="text-xs bg-slate-700 px-2 py-1 rounded">這是我們的大腦中繼站</span>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="flex justify-between items-center bg-slate-800 text-gray-300 px-4 py-3 border-b border-slate-700 text-sm font-mono">
+                            <span class="flex items-center gap-2"><i data-lucide="file-code-2" class="w-4 h-4"></i> api/main.py</span>
+                            <button onclick="copyCode(this)" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded flex items-center gap-1 transition-colors text-white">
+                                <i data-lucide="copy" class="w-3 h-3"></i> 複製程式碼
+                            </button>
                         </div>
-                        <pre class="bg-slate-900 text-slate-50 p-4 rounded-b-lg text-sm font-mono overflow-x-auto whitespace-pre leading-relaxed border border-t-0 border-slate-800"><code>from fastapi import FastAPI, Request, Header, HTTPException
+                        <pre class="bg-slate-900 text-slate-50 p-4 text-sm font-mono overflow-x-auto whitespace-pre leading-relaxed"><code>from fastapi import FastAPI, Request, Header, HTTPException
 import requests
 import os
 import hmac
@@ -726,34 +728,67 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
                 }
             )
     return 'OK'</code></pre>
+                        <div class="p-5 bg-blue-50/50 border-t border-gray-100">
+                            <h4 class="font-bold text-blue-900 mb-2 flex items-center gap-2"><i data-lucide="book-open" class="w-5 h-5 text-blue-600"></i> 運作原理與環境變數解析</h4>
+                            <p class="text-sm text-gray-700 mb-2">這是整個系統的「大腦中繼站」，它是一個基於 FastAPI 框架的 Python 伺服器，主要負責三件事：</p>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1.5 ml-2 mb-3">
+                                <li><strong>接收與驗證：</strong>透過 <code>@app.post("/webhook")</code> 接收 LINE 傳來的訊息，並使用 <code class="text-pink-600 font-mono">LINE_CHANNEL_SECRET</code> 驗證訊息是否真的來自 LINE 官方，阻擋駭客的偽造攻擊。</li>
+                                <li><strong>呼叫 AI 與記憶：</strong>把收到的文字打包，並附上 <code class="text-pink-600 font-mono">DIFY_API_KEY</code>（大腦通關密碼）轉發給 Dify。同時，程式內建了 <code>user_sessions</code> 字典來記憶每個使用者的對話 ID（<code>conversation_id</code>），讓 AI 能夠「記住上下文」。</li>
+                                <li><strong>回傳結果：</strong>將 Dify 生成的答案重新包裝，並附上 <code class="text-pink-600 font-mono">LINE_CHANNEL_ACCESS_TOKEN</code>（發言憑證），請 LINE 官方將這段話傳給使用者。如果 AI 回覆裡有網址，還會自動轉成漂亮的 LINE 按鈕 (Flex Message)！</li>
+                            </ul>
+                            <div class="bg-white p-3 rounded border border-blue-100 shadow-sm">
+                                <p class="text-sm text-gray-700">🔑 <strong>環境變數怎麼運作？</strong> <br>程式碼最上方的 <code>os.getenv(...)</code> 就是在告訴伺服器：「<strong class="text-blue-700">請去 Vercel 後台抓取我們在 Step 3 填寫的那三把金鑰</strong>」。這樣我們就不需要把密碼赤裸裸地寫死在公開的程式碼檔案裡，確保了極高的資安防護！</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-4">
                         <!-- File 2: requirements.txt -->
-                        <div>
-                            <div class="bg-slate-800 text-gray-300 px-4 py-2 rounded-t-lg text-sm font-mono border-b border-slate-700">📄 requirements.txt</div>
-                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-b-lg text-sm font-mono overflow-x-auto border border-t-0 border-slate-800"><code>fastapi
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                            <div class="flex justify-between items-center bg-slate-800 text-gray-300 px-4 py-3 border-b border-slate-700 text-sm font-mono">
+                                <span class="flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4"></i> requirements.txt</span>
+                                <button onclick="copyCode(this)" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded flex items-center gap-1 transition-colors text-white">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> 複製
+                                </button>
+                            </div>
+                            <pre class="bg-slate-900 text-slate-50 p-4 text-sm font-mono overflow-x-auto grow"><code>fastapi
 uvicorn
 requests</code></pre>
+                            <div class="p-4 bg-gray-50 border-t border-gray-100">
+                                <p class="text-sm text-gray-700"><strong><i data-lucide="package" class="w-4 h-4 inline-block -mt-0.5 text-gray-500"></i> 套件清單：</strong>告訴 Vercel 雲端伺服器在啟動前，必須先幫我們安裝這三個外部的 Python 工具包，否則上面的 <code>main.py</code> 會因為找不到工具而跑不動。</p>
+                            </div>
                         </div>
                         
                         <!-- File 3: vercel.json -->
-                        <div>
-                            <div class="bg-slate-800 text-gray-300 px-4 py-2 rounded-t-lg text-sm font-mono border-b border-slate-700">📄 vercel.json</div>
-                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-b-lg text-sm font-mono overflow-x-auto border border-t-0 border-slate-800"><code>{
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                            <div class="flex justify-between items-center bg-slate-800 text-gray-300 px-4 py-3 border-b border-slate-700 text-sm font-mono">
+                                <span class="flex items-center gap-2"><i data-lucide="file-json" class="w-4 h-4"></i> vercel.json</span>
+                                <button onclick="copyCode(this)" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded flex items-center gap-1 transition-colors text-white">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> 複製
+                                </button>
+                            </div>
+                            <pre class="bg-slate-900 text-slate-50 p-4 text-sm font-mono overflow-x-auto grow"><code>{
   "rewrites": [
-    { 
-      "source": "/(.*)", 
-      "destination": "/api/main" 
-    }
+    { "source": "/(.*)", "destination": "/api/main" }
   ]
 }</code></pre>
+                            <div class="p-4 bg-gray-50 border-t border-gray-100">
+                                <p class="text-sm text-gray-700"><strong><i data-lucide="route" class="w-4 h-4 inline-block -mt-0.5 text-gray-500"></i> 路由設定檔：</strong>Vercel 伺服器的專屬指南針。它會把所有來到這個網站的訊號，強制導向給我們寫的 <code>api/main.py</code> 來接手處理。</p>
+                            </div>
                         </div>
 
                         <!-- File 4: .python-version -->
-                        <div>
-                            <div class="bg-slate-800 text-gray-300 px-4 py-2 rounded-t-lg text-sm font-mono border-b border-slate-700">📄 .python-version</div>
-                            <pre class="bg-slate-900 text-slate-50 p-4 rounded-b-lg text-sm font-mono overflow-x-auto border border-t-0 border-slate-800"><code>3.12</code></pre>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                            <div class="flex justify-between items-center bg-slate-800 text-gray-300 px-4 py-3 border-b border-slate-700 text-sm font-mono">
+                                <span class="flex items-center gap-2"><i data-lucide="file-badge-2" class="w-4 h-4"></i> .python-version</span>
+                                <button onclick="copyCode(this)" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded flex items-center gap-1 transition-colors text-white">
+                                    <i data-lucide="copy" class="w-3 h-3"></i> 複製
+                                </button>
+                            </div>
+                            <pre class="bg-slate-900 text-slate-50 p-4 text-sm font-mono overflow-x-auto grow"><code>3.12</code></pre>
+                            <div class="p-4 bg-gray-50 border-t border-gray-100">
+                                <p class="text-sm text-gray-700"><strong><i data-lucide="settings-2" class="w-4 h-4 inline-block -mt-0.5 text-gray-500"></i> 版本鎖定檔：</strong>強制要求 Vercel 伺服器提供 Python 3.12 的環境，避免因為系統版本太舊或太新導致程式碼無法相容崩潰。</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -987,6 +1022,47 @@ requests</code></pre>
     <!-- Initialize Lucide Icons -->
     <script>
         lucide.createIcons();
+
+        // 複製程式碼功能腳本
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement.nextElementSibling.querySelector('code') || btn.parentElement.nextElementSibling;
+            const textToCopy = codeBlock.innerText;
+
+            // 使用傳統的 execCommand 作為備用方案，解決預覽環境(iFrame)中的 clipboard API 權限被阻擋問題
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            
+            // 設定樣式以避免畫面跳動或捲動
+            textArea.style.position = "fixed"; 
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<i data-lucide="check" class="w-3 h-3 text-green-400"></i> <span class="text-green-400">已複製</span>';
+                    lucide.createIcons();
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalHtml;
+                        lucide.createIcons();
+                    }, 2000);
+                } else {
+                    btn.innerText = "複製失敗";
+                }
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                btn.innerText = "複製失敗";
+            }
+            
+            document.body.removeChild(textArea);
+        }
     </script>
 </body>
 </html>
