@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解密 AI 推薦系統 | 互動教學網</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .concept-diagram {
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* 自訂卷軸 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+        
+        .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 軟體模擬介面專用樣式 */
+        .mock-window {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .mock-header {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: #e2e8f0;
+            gap: 6px;
+        }
+        .mock-header-dark {
+            background: #202020;
+        }
+        .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+        
+        /* Flowchart styles */
+        .flow-line {
+            width: 2px;
+            background: linear-gradient(to bottom, #818cf8, #c084fc);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- 頂部導覽列 -->
+    <nav class="fixed top-0 w-full glass-card z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-indigo-200">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <span class="font-black text-xl tracking-wide text-slate-800 hidden sm:inline">AI 推薦教室</span>
+                </div>
+                <div class="hidden lg:flex items-center space-x-5 text-sm font-bold text-slate-600">
+                    <a href="#ch1" class="hover:text-indigo-600 transition">1. 推薦原理</a>
+                    <a href="#ch2" class="hover:text-emerald-600 transition">2. 商品關聯</a>
+                    <a href="#ch3" class="hover:text-rose-600 transition">3. 成效評估</a>
+                    <a href="#ch4" class="hover:text-purple-600 transition">4. AgentFlow</a>
+                    <a href="#ch5" class="hover:text-amber-600 transition">5. 未來應用</a>
+                    <!-- 實戰連結 -->
+                    <a href="https://wzu-recruitment.vercel.app/agentflow.html" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-full border border-indigo-200 ml-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> 實戰案例：文藻 AgentFlow
+                    </a>
+                </div>
+                <!-- 手機版實戰連結 (小螢幕顯示) -->
+                <div class="lg:hidden flex items-center">
+                    <a href="https://wzu-recruitment.vercel.app/agentflow.html" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-200">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> AgentFlow
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-50 text-center border-b border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-300/20 rounded-full blur-3xl -z-10"></div>
+        <div class="max-w-4xl mx-auto relative z-10 fade-in-up">
+            <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm mb-4 border border-indigo-200">人工智慧基礎觀念體驗課</span>
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
+                為什麼網購總能猜中你想買什麼？<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">解密 AI 推薦系統</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Netflix 的片單、Shopee 的猜你喜歡、IG 的探索頁面... <br>它們背後都有一個超級大腦。今天，我們不寫程式碼，直接用互動的方式，搞懂 AI 是如何「讀心」的！
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#ch1" class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    開始探索課程 <i class="fa-solid fa-arrow-down ml-2 animate-bounce"></i>
+                </a>
+                <a href="https://wzu-recruitment.vercel.app/agentflow.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-base font-bold text-indigo-700 bg-white hover:bg-indigo-50 border-2 border-indigo-200 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <i class="fa-solid fa-laptop-code mr-2"></i> 實戰案例：文藻 AgentFlow
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-32">
+
+        <!-- ==================== Chapter 1: 推薦基本原理 ==================== -->
+        <section id="ch1" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black text-slate-800 mb-4"><i class="fa-solid fa-1 text-indigo-300 mr-2"></i> 系統是怎麼認出你的喜好的？</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">推薦系統的核心就是「媒合」人與物品。AI 通常會使用兩種最經典的思考方式來為你挑選商品：</p>
+            </div>
+
+            <!-- 教學圖解區 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- 內容過濾圖解 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 concept-diagram relative">
+                    <span class="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">方法一</span>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">內容過濾 (Content-Based)</h3>
+                    <p class="text-sm text-slate-500 mb-6 h-10">「因為你喜歡這件物品的特徵，所以我推薦有相同特徵的給你。」</p>
+                    
+                    <div class="flex items-center justify-between bg-blue-50/50 p-4 rounded-2xl border border-blue-100 mb-4">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl shadow-sm mb-2 mx-auto"><i class="fa-solid fa-user text-slate-400"></i></div>
+                            <span class="text-xs font-bold text-slate-600">你看了</span>
+                        </div>
+                        <div class="text-blue-400 text-xl"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl shadow-sm mb-2 mx-auto"><i class="fa-solid fa-rocket"></i></div>
+                            <span class="text-xs font-bold text-slate-600">科幻片</span>
+                        </div>
+                        <div class="text-blue-400 text-xl"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-xl shadow-sm mb-2 mx-auto border-2 border-blue-400 border-dashed"><i class="fa-solid fa-robot text-blue-500"></i></div>
+                            <span class="text-xs font-bold text-blue-600">推薦: 其他科幻片</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 協同過濾圖解 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 concept-diagram relative">
+                    <span class="absolute top-4 right-4 bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">方法二</span>
+                    <h3 class="text-xl font-bold text-purple-800 mb-2">協同過濾 (Collaborative)</h3>
+                    <p class="text-sm text-slate-500 mb-6 h-10">「尋找跟你品味相似的『其他人』，把他們喜歡的推薦給你。」</p>
+                    
+                    <div class="flex items-center justify-between bg-purple-50/50 p-4 rounded-2xl border border-purple-100 mb-4">
+                        <div class="text-center">
+                            <div class="flex justify-center -space-x-2 mb-2">
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-sm shadow-sm border border-slate-200"><i class="fa-solid fa-user text-slate-400"></i></div>
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-sm shadow-sm border border-slate-200"><i class="fa-solid fa-user text-slate-400"></i></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">跟你相似的人</span>
+                        </div>
+                        <div class="text-purple-400 text-xl"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-purple-600 text-white rounded-lg flex items-center justify-center text-xl shadow-sm mb-2 mx-auto"><i class="fa-solid fa-masks-theater"></i></div>
+                            <span class="text-xs font-bold text-slate-600">看了懸疑片</span>
+                        </div>
+                        <div class="text-purple-400 text-xl"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl shadow-sm mb-2 mx-auto border-2 border-purple-400 border-dashed"><i class="fa-solid fa-user text-purple-500"></i></div>
+                            <span class="text-xs font-bold text-purple-600">推薦給你！</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 實作體驗區 -->
+            <div class="bg-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl text-slate-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-slate-900 font-black"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3 class="text-2xl font-bold text-white">實作體驗：電影推薦模擬器</h3>
+                </div>
+                
+                <div class="bg-slate-700/50 rounded-2xl p-6 mb-8 border border-slate-600">
+                    <div class="flex items-start md:items-center gap-4">
+                        <div class="w-16 h-16 bg-slate-600 rounded-full flex-shrink-0 flex items-center justify-center text-2xl"><i class="fa-solid fa-user-astronaut"></i></div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-1">目標用戶：小明</h4>
+                            <p class="text-sm text-slate-300 mb-2">小明過去看了很多太空科幻片，包含：</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-indigo-500/30 text-indigo-200 text-xs font-bold px-3 py-1 rounded-full border border-indigo-400/30">星際效應</span>
+                                <span class="bg-indigo-500/30 text-indigo-200 text-xs font-bold px-3 py-1 rounded-full border border-indigo-400/30">全面啟動</span>
+                                <span class="bg-indigo-500/30 text-indigo-200 text-xs font-bold px-3 py-1 rounded-full border border-indigo-400/30">銀翼殺手</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button onclick="generateRec('content')" class="group relative py-4 px-6 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all shadow-lg overflow-hidden">
+                        <div class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                        <i class="fa-solid fa-tags mr-2"></i> 啟動【內容過濾】AI
+                    </button>
+                    <button onclick="generateRec('collab')" class="group relative py-4 px-6 bg-purple-600 hover:bg-purple-500 text-white rounded-2xl font-bold transition-all shadow-lg overflow-hidden">
+                        <div class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                        <i class="fa-solid fa-users mr-2"></i> 啟動【協同過濾】AI
+                    </button>
+                </div>
+
+                <!-- 推薦結果顯示區 -->
+                <div id="rec-result" class="mt-8 hidden animate-fade-in">
+                    <div class="bg-slate-900 rounded-2xl p-6 border border-slate-600 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b" id="rec-border-color"></div>
+                        <h4 id="rec-title" class="text-xl font-bold mb-6 flex items-center gap-2"></h4>
+                        <div id="rec-items" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <!-- Items Injected Here -->
+                        </div>
+                        <div id="rec-explanation" class="text-sm text-slate-300 bg-slate-800 p-4 rounded-xl leading-relaxed border border-slate-700">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Chapter 2: 商品關聯設計 ==================== -->
+        <section id="ch2" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black text-slate-800 mb-4"><i class="fa-solid fa-2 text-emerald-400 mr-2"></i> 尋找隱藏的「啤酒與尿布」</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">除了看使用者的偏好，AI 還會分析「商品與商品」之間的關聯。著名的例子是超市發現，週末買「尿布」的爸爸們，通常也會順手買「啤酒」！這叫做<strong>關聯規則學習 (Association Rule)</strong>。</p>
+            </div>
+
+            <!-- 實作體驗區 -->
+            <div class="bg-slate-800 rounded-3xl p-6 md:p-10 shadow-sm border border-slate-700 relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 text-slate-700 opacity-30 text-[200px] pointer-events-none"><i class="fa-solid fa-shopping-cart"></i></div>
+                
+                <div class="flex items-center gap-3 mb-8 relative z-10">
+                    <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white font-black shadow-md"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h3 class="text-2xl font-bold text-white">實作體驗：購物籃資料探勘</h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 relative z-10">
+                    <!-- 交易紀錄 -->
+                    <div>
+                        <h4 class="text-sm font-bold text-emerald-400 mb-4 uppercase tracking-wider">超市最近的 5 筆原始訂單</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700 p-4 rounded-xl shadow-sm border border-slate-600 flex items-center transition hover:shadow-md hover:border-emerald-400">
+                                <span class="text-slate-400 font-mono w-10 font-bold">#01</span>
+                                <div class="flex flex-wrap gap-2"><span class="bg-slate-100 text-slate-700 text-sm px-3 py-1 rounded-lg">🥛 牛奶</span><span class="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-lg">🍞 麵包</span><span class="bg-red-100 text-red-800 text-sm px-3 py-1 rounded-lg">🍎 蘋果</span></div>
+                            </div>
+                            <div class="bg-slate-700 p-4 rounded-xl shadow-sm border border-slate-600 flex items-center transition hover:shadow-md hover:border-emerald-400">
+                                <span class="text-slate-400 font-mono w-10 font-bold">#02</span>
+                                <div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-lg">🍞 麵包</span><span class="bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-lg">🍓 果醬</span><span class="bg-stone-200 text-stone-800 text-sm px-3 py-1 rounded-lg">☕ 咖啡</span></div>
+                            </div>
+                            <div class="bg-slate-700 p-4 rounded-xl shadow-sm border border-slate-600 flex items-center transition hover:shadow-md hover:border-emerald-400">
+                                <span class="text-slate-400 font-mono w-10 font-bold">#03</span>
+                                <div class="flex flex-wrap gap-2"><span class="bg-slate-100 text-slate-700 text-sm px-3 py-1 rounded-lg">🥛 牛奶</span><span class="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-lg">🍞 麵包</span><span class="bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-lg">🍓 果醬</span></div>
+                            </div>
+                            <div class="bg-slate-700 p-4 rounded-xl shadow-sm border border-slate-600 flex items-center transition hover:shadow-md hover:border-emerald-400">
+                                <span class="text-slate-400 font-mono w-10 font-bold">#04</span>
+                                <div class="flex flex-wrap gap-2"><span class="bg-stone-200 text-stone-800 text-sm px-3 py-1 rounded-lg">☕ 咖啡</span><span class="bg-red-100 text-red-800 text-sm px-3 py-1 rounded-lg">🍎 蘋果</span></div>
+                            </div>
+                            <div class="bg-slate-700 p-4 rounded-xl shadow-sm border border-slate-600 flex items-center transition hover:shadow-md hover:border-emerald-400">
+                                <span class="text-slate-400 font-mono w-10 font-bold">#05</span>
+                                <div class="flex flex-wrap gap-2"><span class="bg-slate-100 text-slate-700 text-sm px-3 py-1 rounded-lg">🥛 牛奶</span><span class="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-lg">🍞 麵包</span><span class="bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-lg">🍓 果醬</span><span class="bg-stone-200 text-stone-800 text-sm px-3 py-1 rounded-lg">☕ 咖啡</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分析控制台 -->
+                    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-700 flex flex-col justify-center relative">
+                        <div class="absolute -top-4 right-8 bg-amber-400 text-amber-900 text-xs font-black px-4 py-2 rounded-full shadow-md transform rotate-3">試著扮演店長！</div>
+                        <h4 class="text-lg font-bold text-white mb-2">如果顧客結帳時拿了...</h4>
+                        <p class="text-sm text-slate-400 mb-6">AI 會如何掃描旁邊的 5 筆大數據，並給出加購建議？</p>
+                        
+                        <select id="item-selector" class="w-full p-4 rounded-xl border-2 border-slate-600 focus:outline-none focus:border-emerald-500 text-lg mb-6 bg-slate-800 text-white cursor-pointer appearance-none text-center font-bold transition-colors">
+                            <option value="🍞 麵包">🍞 顧客拿了：麵包</option>
+                            <option value="🥛 牛奶">🥛 顧客拿了：牛奶</option>
+                            <option value="☕ 咖啡">☕ 顧客拿了：咖啡</option>
+                        </select>
+                        <button onclick="analyzeAssociation()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shadow-md transition-all active:scale-95 text-lg">
+                            啟動關聯分析引擎 <i class="fa-solid fa-wand-magic-sparkles ml-2"></i>
+                        </button>
+                        
+                        <div id="association-result" class="hidden mt-8 text-center animate-fade-in bg-slate-800 rounded-xl p-6 border border-emerald-500/30">
+                            <div class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2">AI 結帳台加購推薦</div>
+                            <div id="assoc-item" class="text-3xl font-black text-white mb-3 drop-shadow-sm"></div>
+                            <p id="assoc-reason" class="text-sm text-slate-300 bg-slate-900 p-3 rounded-lg shadow-sm border border-slate-700"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Chapter 3: 成效評估 ==================== -->
+        <section id="ch3" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black text-slate-800 mb-4"><i class="fa-solid fa-3 text-rose-400 mr-2"></i> 怎麼知道 AI 到底聰不聰明？</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    推薦系統上線後，業界最愛用 <strong>A/B 測試 (A/B Testing)</strong> 來比較兩種演算法。而在評估時，我們必須搞懂兩個極為重要的觀念：<strong class="text-blue-600">點擊率 (CTR)</strong> 與 <strong class="text-rose-600">轉換率 (CVR)</strong>。
+                </p>
+            </div>
+
+            <!-- CTR vs CVR 觀念漏斗 -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-slate-700 text-white relative overflow-hidden max-w-4xl mx-auto">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl"></div>
+                <h4 class="text-xl font-bold text-white mb-6 text-center">🧐 點擊率 (CTR) vs 轉換率 (CVR) 有什麼不同？</h4>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                    <!-- 曝光 -->
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-600 flex-1 w-full">
+                        <div class="text-4xl mb-3">👁️</div>
+                        <h5 class="font-bold text-lg mb-1">曝光 (Impression)</h5>
+                        <p class="text-xs text-slate-400">100 人看到了這個推薦版位</p>
+                    </div>
+                    
+                    <div class="text-slate-500 hidden md:block"><i class="fa-solid fa-chevron-right text-2xl"></i></div>
+                    <div class="text-slate-500 md:hidden"><i class="fa-solid fa-chevron-down text-2xl"></i></div>
+                    
+                    <!-- 點擊 -->
+                    <div class="bg-blue-900/50 p-6 rounded-2xl border border-blue-500/30 flex-1 w-full relative">
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">點擊率 (CTR) 10%</span>
+                        <div class="text-4xl mb-3">👆</div>
+                        <h5 class="font-bold text-lg mb-1 text-blue-200">點擊 (Click)</h5>
+                        <p class="text-xs text-blue-300/80">被標題吸引，有 10 人點進去看</p>
+                    </div>
+
+                    <div class="text-slate-500 hidden md:block"><i class="fa-solid fa-chevron-right text-2xl"></i></div>
+                    <div class="text-slate-500 md:hidden"><i class="fa-solid fa-chevron-down text-2xl"></i></div>
+                    
+                    <!-- 轉換 -->
+                    <div class="bg-rose-900/50 p-6 rounded-2xl border border-rose-500/50 flex-1 w-full relative shadow-[0_0_15px_rgba(225,29,72,0.2)]">
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">轉換率 (CVR) 1%</span>
+                        <div class="text-4xl mb-3">🛒</div>
+                        <h5 class="font-bold text-lg mb-1 text-rose-200">轉換 (Conversion)</h5>
+                        <p class="text-xs text-rose-300/80">商品符合需求，1 人真正掏錢結帳</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-slate-800/50 p-4 rounded-xl text-sm text-slate-300 border border-slate-700">
+                    <strong class="text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 為什麼轉換率更重要？</strong> 如果 A 組文案用「標題黨（騙點擊）」，雖然 CTR 會很高，但用戶點進去發現被騙馬上跳出，CVR 就會是 0。只有推薦「用戶真正需要的東西」，才能提高轉換率，這才是企業賺錢的關鍵！
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Chapter 4: AgentFlow 進階解密 ==================== -->
+        <section id="ch4" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <span class="inline-block py-1 px-3 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-4 border border-purple-200">🔥 次世代 AI 技術</span>
+                <h2 class="text-3xl font-black text-slate-800 mb-4"><i class="fa-solid fa-network-wired text-purple-500 mr-2"></i> 進階解密：LLM 代理式推薦系統</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    傳統的推薦系統大多是「黑盒子」，只會默默算機率，無法告訴你「為什麼推薦這個」。<br>
+                    最新的技術引入了 <strong>大語言模型 (LLM)</strong> 與 <strong>代理工作流 (Agentic Workflow)</strong>，讓 AI 像真人顧問一樣思考，不僅能推理，還具備「可解釋性 (Explainable AI)」。
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-purple-900 rounded-3xl p-6 md:p-10 shadow-2xl text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-white/10 pb-6 relative z-10">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 flex items-center gap-3">
+                            <i class="fa-solid fa-laptop-code text-purple-400"></i> 實戰案例：文藻 AgentFlow 探索系統
+                        </h3>
+                        <p class="text-purple-200 text-sm">我們如何將「內容過濾」、「協同過濾」與「AI 推理」結合在一個系統中？</p>
+                    </div>
+                    <a href="https://wzu-recruitment.vercel.app/agentflow.html" target="_blank" rel="noopener noreferrer" class="mt-4 md:mt-0 px-6 py-3 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded-full transition-colors shadow-lg shadow-purple-500/30 flex items-center gap-2 group">
+                        開啟真實系統體驗 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- AgentFlow 工作流圖解 -->
+                <div class="relative py-4 z-10">
+                    <div class="flow-line top-4 bottom-4"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- Node 1 -->
+                        <div class="relative flex flex-col md:flex-row items-center md:items-start gap-6 bg-slate-800/80 p-6 rounded-2xl border border-slate-700 shadow-lg backdrop-blur-sm z-10 transform transition hover:-translate-y-1 hover:border-purple-400">
+                            <div class="w-16 h-16 bg-blue-500/20 border-2 border-blue-400 rounded-full flex items-center justify-center text-2xl shadow-[0_0_15px_rgba(59,130,246,0.5)] shrink-0 z-10 relative bg-slate-900">
+                                🕵️‍♂️
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-blue-400 mb-2">節點一：背景分析師 (Background Analyst)</h4>
+                                <p class="text-sm text-slate-300 mb-3"><strong>AI 任務：</strong> 讀取使用者的「高中背景、專長、興趣」。</p>
+                                <div class="bg-blue-900/30 border border-blue-500/30 p-3 rounded-lg text-sm text-blue-200">
+                                    <i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> <strong>原理應用：協同過濾的進化 (User-based) + RAG (檢索增強生成)</strong><br>
+                                    系統會連線到真實的生源資料庫，找出「跟你同高中的學長姐，過去都選擇了哪些科系？」這就像在問：「跟你背景相似的人買了什麼？」以此作為推薦的重要依據。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Node 2 -->
+                        <div class="relative flex flex-col md:flex-row items-center md:items-start gap-6 bg-slate-800/80 p-6 rounded-2xl border border-slate-700 shadow-lg backdrop-blur-sm z-10 transform transition hover:-translate-y-1 hover:border-purple-400">
+                            <div class="w-16 h-16 bg-purple-500/20 border-2 border-purple-400 rounded-full flex items-center justify-center text-2xl shadow-[0_0_15px_rgba(168,85,247,0.5)] shrink-0 z-10 relative bg-slate-900">
+                                🤝
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-purple-400 mb-2">節點二：科系媒合專家 (Department Matcher)</h4>
+                                <p class="text-sm text-slate-300 mb-3"><strong>AI 任務：</strong> 將第一關的分析報告，與文藻各科系的特色進行比對，挑選出最適合的 Top 3 科系。</p>
+                                <div class="bg-purple-900/30 border border-purple-500/30 p-3 rounded-lg text-sm text-purple-200">
+                                    <i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> <strong>原理應用：內容過濾的進化 (Content-based)</strong><br>
+                                    傳統內容過濾只能比對簡單的「標籤」(如: 喜好英文 = 英文系)。但在 LLM 的加持下，AI 能進行「深度語意理解」。例如看出你喜歡「與人互動」又懂「基礎程式」，進而推薦「數位內容應用與管理系」。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="relative flex flex-col md:flex-row items-center md:items-start gap-6 bg-slate-800/80 p-6 rounded-2xl border border-slate-700 shadow-lg backdrop-blur-sm z-10 transform transition hover:-translate-y-1 hover:border-purple-400">
+                            <div class="w-16 h-16 bg-emerald-500/20 border-2 border-emerald-400 rounded-full flex items-center justify-center text-2xl shadow-[0_0_15px_rgba(16,185,129,0.5)] shrink-0 z-10 relative bg-slate-900">
+                                🎓
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-emerald-400 mb-2">節點三：入學管道顧問 (Admission Consultant)</h4>
+                                <p class="text-sm text-slate-300 mb-3"><strong>AI 任務：</strong> 根據推薦的科系，幫學生找出最有利的升學管道（如：特殊選才、繁星、統測登記分發）。</p>
+                                <div class="bg-emerald-900/30 border border-emerald-500/30 p-3 rounded-lg text-sm text-emerald-200">
+                                    <i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i> <strong>原理應用：混合規則引擎 (Rule-based constraints)</strong><br>
+                                    AI 最怕「胡說八道 (幻覺)」。為了確保推薦的管道真實可行，系統強制 AI 讀取 <code>DEFAULT_DEPT_DATA</code> 檔案。如果學生是「普通高中」，AI 就絕對不會推薦他去走「高職統測分發」的管道。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <p class="text-slate-300 mb-4 font-medium">這就是推薦系統的未來：不只是算數字，而是<strong class="text-white text-lg mx-1 border-b-2 border-purple-500">擁有邏輯、懂得解釋、並且能被信任的 AI 代理人。</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Chapter 5: 未來應用 (軟體模擬實作引導) ==================== -->
+        <section id="ch5" class="scroll-mt-24 mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black text-slate-800 mb-4"><i class="fa-solid fa-rocket text-amber-500 mr-2"></i> 學了這些，未來能做什麼？</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">推薦系統不是工程師的專利。我們直接打開<strong class="text-indigo-600">業界常用的軟體後台</strong>，看看各行各業是如何操作 AI 演算法的！<br><span class="text-amber-600 font-bold">👇 請點擊下方卡片展開軟體模擬實作：</span></p>
+            </div>
+
+            <!-- 卡片區 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- 應用 1 -->
+                <div onclick="openGuide('eco')" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-8 border-t-4 border-amber-400 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">電商與行銷企劃</h3>
+                    <p class="text-sm text-slate-600 mb-6">操作 <strong>FB 廣告後台與 GA 報表</strong>。利用 A/B 測試找出轉換率最高的廣告，創造百萬營收。</p>
+                    <button class="w-full py-2 bg-amber-50 text-amber-700 font-bold rounded-lg group-hover:bg-amber-500 group-hover:text-white transition-colors">💻 打開廣告後台模擬 <i class="fa-solid fa-chevron-down ml-1"></i></button>
+                </div>
+
+                <!-- 應用 2 -->
+                <div onclick="openGuide('creator')" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-8 border-t-4 border-blue-600 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">自媒體與內容創作者</h3>
+                    <p class="text-sm text-slate-600 mb-6">操作 <strong>YouTube Studio 後台</strong>。學會設定標籤 (Tags) 餵給 AI，並看懂後台的觀眾續看率圖表。</p>
+                    <button class="w-full py-2 bg-blue-50 text-blue-700 font-bold rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">💻 打開 YT 工作室模擬 <i class="fa-solid fa-chevron-down ml-1"></i></button>
+                </div>
+
+                <!-- 應用 3 -->
+                <div onclick="openGuide('media')" class="cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-8 border-t-4 border-emerald-400 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">媒體識讀與獨立思考</h3>
+                    <p class="text-sm text-slate-600 mb-6">操作 <strong>影音平台首頁</strong>。破解長輩手機裡的「健康偏方農場」，主動調教演算法打破資訊繭房。</p>
+                    <button class="w-full py-2 bg-emerald-50 text-emerald-700 font-bold rounded-lg group-hover:bg-emerald-500 group-hover:text-white transition-colors">💻 打開影音 APP 模擬 <i class="fa-solid fa-chevron-down ml-1"></i></button>
+                </div>
+            </div>
+
+            <!-- ================= 動態實作引導區 (軟體模擬介面) ================= -->
+            
+            <!-- 1. 電子商務 實作 -->
+            <div id="guide-eco" class="guide-container hidden animate-fade-in bg-slate-100 rounded-3xl p-6 shadow-2xl border border-slate-300">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-slate-800"><i class="fa-solid fa-bullseye text-blue-600 mr-2"></i> 模擬介面：數位廣告管理員 (Ads Manager)</h3>
+                    <button onclick="closeGuides()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                </div>
+                
+                <div class="mock-window bg-white">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-red"></div><div class="mock-dot dot-yellow"></div><div class="mock-dot dot-green"></div>
+                        <div class="ml-4 text-xs text-slate-500 font-mono bg-white px-3 py-1 rounded shadow-sm w-full">business.facebook.com/adsmanager</div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div id="eco-step-1" class="guide-step">
+                            <div class="border-b border-slate-200 pb-3 mb-4 flex justify-between items-center">
+                                <h4 class="font-bold text-slate-700 text-lg">⚙️ 建立新的 A/B 測試行銷活動</h4>
+                                <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">目標：提高購買轉換率 (CVR)</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-4">系統洞察顯示：購買「筆電」的受眾有高機率購買「滑鼠」。你準備發布廣告，請選擇你要測試的主題標題：</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="border border-slate-200 rounded-lg p-4 bg-slate-50 hover:border-blue-400 cursor-pointer transition-all" onclick="playGuideStep('eco', 2, 'A')">
+                                    <div class="text-xs text-slate-400 font-bold mb-2 uppercase">設定廣告變體 A (誇張標題)</div>
+                                    <div class="bg-white p-3 border border-slate-200 rounded text-sm mb-3 shadow-sm font-bold">
+                                        太扯了！買筆電竟然送這個...價值破萬！老闆瘋了！
+                                    </div>
+                                    <button class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-sm">選擇 A 並發布測試</button>
+                                </div>
+                                <div class="border border-slate-200 rounded-lg p-4 bg-slate-50 hover:border-blue-400 cursor-pointer transition-all" onclick="playGuideStep('eco', 2, 'B')">
+                                    <div class="text-xs text-slate-400 font-bold mb-2 uppercase">設定廣告變體 B (痛點精準)</div>
+                                    <div class="bg-white p-3 border border-slate-200 rounded text-sm mb-3 shadow-sm font-bold">
+                                        開學季專屬：買高效能筆電，免費升級電競靜音滑鼠！
+                                    </div>
+                                    <button class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-sm">選擇 B 並發布測試</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="eco-step-2" class="guide-step hidden animate-fade-in">
+                            <div class="border-b border-slate-200 pb-3 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie text-orange-500 text-xl"></i>
+                                <h4 class="font-bold text-slate-700 text-lg">模擬介面：Google Analytics 轉換報表</h4>
+                            </div>
+                            
+                            <div id="eco-result-A" class="hidden">
+                                <p class="text-sm text-slate-600 mb-4">你發布了 <strong class="text-slate-800">變體 A (誇張標題)</strong>。經過 24 小時的報表如下：</p>
+                                <div class="flex flex-wrap gap-4 mb-6">
+                                    <div class="flex-1 bg-white border-l-4 border-blue-500 shadow-sm p-4 rounded">
+                                        <div class="text-xs text-slate-500 font-bold">點擊率 (CTR)</div>
+                                        <div class="text-2xl font-black text-blue-600">18.5% <i class="fa-solid fa-arrow-up text-sm text-green-500"></i></div>
+                                    </div>
+                                    <div class="flex-1 bg-white border-l-4 border-red-500 shadow-sm p-4 rounded">
+                                        <div class="text-xs text-slate-500 font-bold">購買轉換率 (CVR)</div>
+                                        <div class="text-2xl font-black text-red-600">0.12% <i class="fa-solid fa-arrow-down text-sm text-red-500"></i></div>
+                                    </div>
+                                </div>
+                                <div class="bg-amber-50 border border-amber-200 p-3 rounded text-sm text-amber-800">
+                                    <i class="fa-solid fa-lightbulb"></i> <strong>企劃洞察：</strong> 「騙點擊」雖然讓 CTR 飆高，但浪費了廣告預算，實際帶來的營收極低。
+                                </div>
+                            </div>
+
+                            <div id="eco-result-B" class="hidden">
+                                <p class="text-sm text-slate-600 mb-4">你發布了 <strong class="text-slate-800">變體 B (痛點精準)</strong>。經過 24 小時的報表如下：</p>
+                                <div class="flex flex-wrap gap-4 mb-6">
+                                    <div class="flex-1 bg-white border-l-4 border-slate-400 shadow-sm p-4 rounded">
+                                        <div class="text-xs text-slate-500 font-bold">點擊率 (CTR)</div>
+                                        <div class="text-2xl font-black text-slate-700">4.2% <i class="fa-solid fa-minus text-sm text-slate-400"></i></div>
+                                    </div>
+                                    <div class="flex-1 bg-white border-l-4 border-green-500 shadow-sm p-4 rounded">
+                                        <div class="text-xs text-slate-500 font-bold">購買轉換率 (CVR)</div>
+                                        <div class="text-2xl font-black text-green-600">8.90% <i class="fa-solid fa-arrow-up text-sm text-green-500"></i></div>
+                                    </div>
+                                </div>
+                                <div class="bg-emerald-50 border border-emerald-200 p-3 rounded text-sm text-emerald-800">
+                                    <i class="fa-solid fa-lightbulb"></i> <strong>企劃洞察：</strong> 利用誠實的文案篩選精準受眾，這才是創造百萬營收的正確方式！
+                                </div>
+                            </div>
+                            <button onclick="closeGuides()" class="mt-6 w-full py-2 border border-slate-300 text-slate-600 rounded hover:bg-slate-50 font-bold text-sm">關閉後台</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 內容創作者 實作 -->
+            <div id="guide-creator" class="guide-container hidden animate-fade-in bg-[#181818] rounded-3xl p-6 shadow-2xl border border-[#3f3f3f]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-white"><i class="fa-brands fa-youtube text-red-500 mr-2"></i> 模擬介面：YouTube 工作室</h3>
+                    <button onclick="closeGuides()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                </div>
+                
+                <div class="mock-window bg-[#282828] text-gray-200">
+                    <div class="mock-header mock-header-dark">
+                        <div class="mock-dot dot-red"></div><div class="mock-dot dot-yellow"></div><div class="mock-dot dot-green"></div>
+                        <div class="ml-4 text-xs text-gray-400 font-mono bg-[#181818] px-3 py-1 rounded w-full">studio.youtube.com/video/edit</div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row">
+                        <div class="hidden md:block w-48 border-r border-[#3f3f3f] p-4 text-sm font-bold text-gray-400 space-y-4">
+                            <div class="text-white bg-[#3f3f3f] p-2 rounded"><i class="fa-solid fa-pen mr-2"></i> 詳細資訊</div>
+                            <div class="p-2 hover:bg-[#3f3f3f] rounded"><i class="fa-solid fa-chart-simple mr-2"></i> 數據分析</div>
+                        </div>
+                        
+                        <div class="p-6 flex-1">
+                            <div id="creator-step-1" class="guide-step">
+                                <h4 class="font-bold text-white text-lg mb-1">影片詳細資訊</h4>
+                                <p class="text-xs text-gray-400 mb-6">這部影片叫「10分鐘 Python 自動記帳教學」。請設定要餵給演算法的 <strong>標籤 (Tags)</strong>：</p>
+                                
+                                <div class="bg-[#181818] border border-[#3f3f3f] p-4 rounded mb-6">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <button onclick="playGuideStep('creator', 2, 'A')" class="text-left bg-[#282828] border border-[#3f3f3f] p-3 rounded hover:border-[#3ea6ff] transition-colors">
+                                            <div class="flex flex-wrap gap-1 mb-2">
+                                                <span class="bg-[#3f3f3f] text-gray-300 text-xs px-2 py-1 rounded-full">搞笑必看</span>
+                                                <span class="bg-[#3f3f3f] text-gray-300 text-xs px-2 py-1 rounded-full">流量密碼</span>
+                                            </div>
+                                            <span class="text-xs text-[#3ea6ff] font-bold">點擊套用此組標籤並發布</span>
+                                        </button>
+                                        
+                                        <button onclick="playGuideStep('creator', 2, 'B')" class="text-left bg-[#282828] border border-[#3f3f3f] p-3 rounded hover:border-[#3ea6ff] transition-colors">
+                                            <div class="flex flex-wrap gap-1 mb-2">
+                                                <span class="bg-[#3f3f3f] text-gray-300 text-xs px-2 py-1 rounded-full">Python教學</span>
+                                                <span class="bg-[#3f3f3f] text-gray-300 text-xs px-2 py-1 rounded-full">程式語言</span>
+                                            </div>
+                                            <span class="text-xs text-[#3ea6ff] font-bold">點擊套用此組標籤並發布</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="creator-step-2" class="guide-step hidden animate-fade-in">
+                                <h4 class="font-bold text-white text-lg mb-4"><i class="fa-solid fa-chart-simple text-[#3ea6ff] mr-2"></i> 影片成效數據分析</h4>
+                                
+                                <div id="creator-result-A" class="hidden">
+                                    <div class="bg-[#181818] border border-[#3f3f3f] p-5 rounded mb-4">
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span class="text-gray-300">觀眾續看率</span>
+                                            <span class="text-[#ff4e45] font-bold">極差 (前 10 秒流失 90%)</span>
+                                        </div>
+                                        <div class="text-sm text-gray-300 bg-[#3f3f3f] p-3 mt-4 rounded border-l-4 border-[#ff4e45]">
+                                            <strong>系統狀態：已停止推薦。</strong> 亂下的「搞笑」標籤推給了錯誤觀眾。觀眾看不懂立刻跳出，系統判定為劣質內容。
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="creator-result-B" class="hidden">
+                                    <div class="bg-[#181818] border border-[#3f3f3f] p-5 rounded mb-4">
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span class="text-gray-300">觀眾續看率</span>
+                                            <span class="text-[#2ba640] font-bold">極佳 (平均觀看 85%)</span>
+                                        </div>
+                                        <div class="text-sm text-gray-300 bg-[#3f3f3f] p-3 mt-4 rounded border-l-4 border-[#2ba640]">
+                                            <strong>系統狀態：大量推薦中！</strong> 正確標籤找到了對的工程師。他們看完後觸發了「協同過濾」，系統正自動推廣給其他潛在粉絲！
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="closeGuides()" class="mt-4 px-4 py-2 bg-[#3f3f3f] hover:bg-[#4f4f4f] text-white text-sm font-bold rounded">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 媒體識讀 實作 (幫長輩打破健康謠言繭房) -->
+            <div id="guide-media" class="guide-container hidden animate-fade-in bg-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl border-t-4 border-emerald-400">
+                <div class="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
+                    <h3 class="text-2xl font-bold text-emerald-400"><i class="fa-solid fa-shield-halved mr-2"></i> 媒體識讀：逃離「假新聞繭房」</h3>
+                    <button onclick="closeGuides()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-10">
+                    <!-- 左側：手機模擬器 -->
+                    <div class="w-full md:w-1/3 flex justify-center">
+                        <div class="w-[280px] bg-black rounded-[2rem] border-4 border-slate-700 overflow-hidden shadow-2xl relative h-[520px] flex flex-col">
+                            <!-- Status Bar -->
+                            <div class="h-6 w-full flex justify-between items-center px-4 text-[10px] text-white absolute top-0 z-10 bg-black/80 pt-1">
+                                <span>12:00</span>
+                                <div class="flex gap-1"><i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></div>
+                            </div>
+                            
+                            <!-- APP Header -->
+                            <div class="bg-black text-white p-3 border-b border-gray-800 mt-6 flex justify-between items-center">
+                                <div class="font-bold text-lg"><i class="fa-brands fa-youtube text-red-500 mr-1"></i> 首頁推薦</div>
+                                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                            </div>
+
+                            <!-- Feed Content -->
+                            <div id="phone-feed" class="flex-1 overflow-y-auto bg-black text-white p-2 space-y-4">
+                                <!-- 初始狀態：滿滿的農場文 -->
+                                <div id="feed-toxic" class="space-y-4">
+                                    <div class="bg-slate-900 rounded-lg overflow-hidden pb-2">
+                                        <div class="h-32 bg-slate-800 flex items-center justify-center text-5xl">🍋</div>
+                                        <div class="px-2 pt-2 text-sm font-bold text-red-400">震驚！每天喝這個，癌症遠離你...</div>
+                                        <div class="px-2 text-xs text-gray-500">健康養生大師 · 觀看次數：100萬次</div>
+                                    </div>
+                                    <div class="bg-slate-900 rounded-lg overflow-hidden pb-2">
+                                        <div class="h-32 bg-slate-800 flex items-center justify-center text-5xl">🧄</div>
+                                        <div class="px-2 pt-2 text-sm font-bold text-red-400">醫生不敢說的秘密：大蒜治百病</div>
+                                        <div class="px-2 text-xs text-gray-500">每天一點小知識 · 觀看次數：85萬次</div>
+                                    </div>
+                                    <div class="bg-slate-900 rounded-lg overflow-hidden pb-2">
+                                        <div class="h-32 bg-slate-800 flex items-center justify-center text-5xl">☢️</div>
+                                        <div class="px-2 pt-2 text-sm font-bold text-red-400">微波爐有毒？這三種食物千萬別放</div>
+                                        <div class="px-2 text-xs text-gray-500">生活駭客 · 觀看次數：200萬次</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 成功調教狀態：正常醫生頻道 -->
+                                <div id="feed-healthy" class="space-y-4 hidden animate-fade-in">
+                                    <div class="bg-emerald-900/30 border border-emerald-800 rounded-lg overflow-hidden pb-2">
+                                        <div class="h-32 bg-slate-800 flex items-center justify-center text-5xl">👨‍⚕️</div>
+                                        <div class="px-2 pt-2 text-sm font-bold text-emerald-400">家醫科：破解網路十大健康謠言</div>
+                                        <div class="px-2 text-xs text-gray-400"><i class="fa-solid fa-circle-check text-blue-500 mr-1"></i>台大醫院官方頻道</div>
+                                    </div>
+                                    <div class="bg-slate-900 rounded-lg overflow-hidden pb-2">
+                                        <div class="h-32 bg-slate-800 flex items-center justify-center text-5xl">🏃‍♂️</div>
+                                        <div class="px-2 pt-2 text-sm font-bold text-white">銀髮族每天十分鐘居家運動</div>
+                                        <div class="px-2 text-xs text-gray-500">物理治療師阿滴</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側：步驟解說與按鈕 -->
+                    <div class="w-full md:w-2/3 flex flex-col justify-center">
+                        
+                        <!-- 步驟 1 -->
+                        <div id="media-step-1" class="guide-step">
+                            <div class="inline-block bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-3 animate-pulse">警報：發現重度資訊繭房</div>
+                            <h4 class="text-xl font-bold text-white mb-3">你借用了媽媽的手機...</h4>
+                            <p class="text-slate-300 mb-6 leading-relaxed">
+                                打開首頁一看，發現全都是<strong class="text-rose-400">沒有科學根據的「健康農場文」</strong>！<br>
+                                因為演算法發現長輩很容易被「恐懼訴求」的標題吸引點擊，於是就拼命推薦同類影片。媽媽不知不覺被困在危險的「假知識繭房」中。
+                            </p>
+                            <h5 class="font-bold text-emerald-400 mb-3">身為懂得演算法運作的聰明人，你要怎麼幫媽媽？</h5>
+                            
+                            <div class="space-y-3">
+                                <button onclick="playMediaStep('A')" class="w-full text-left p-4 bg-slate-700 hover:bg-rose-500/20 hover:border-rose-400 border border-slate-600 rounded-xl transition-all">
+                                    <strong class="block text-white mb-1"><i class="fa-solid fa-eye-slash mr-2 text-slate-400"></i>被動無視</strong>
+                                    <span class="text-sm text-slate-400">放著不管，反正只是看看影片，不要干涉大人的自由。</span>
+                                </button>
+                                <button onclick="playMediaStep('B')" class="w-full text-left p-4 bg-slate-700 hover:bg-emerald-500/20 hover:border-emerald-400 border border-slate-600 rounded-xl transition-all">
+                                    <strong class="block text-white mb-1"><i class="fa-solid fa-wrench mr-2 text-emerald-400"></i>主動調教演算法 (Hard Reset)</strong>
+                                    <span class="text-sm text-slate-400">對農場文按下「不感興趣」，並利用搜尋欄主動尋找「正規醫生頻道」點擊訂閱。</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 步驟 2 (結果 A) -->
+                        <div id="media-result-A" class="guide-step hidden animate-fade-in">
+                            <div class="bg-rose-900/30 border-l-4 border-rose-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-xl font-bold text-rose-400 mb-2">❌ 繭房持續惡化</h4>
+                                <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                                    你選擇了不作為。AI 以為媽媽真的非常喜歡這些偏方。一個月後，媽媽開始跟著影片亂喝東西，甚至排斥去醫院看正規醫生。
+                                </p>
+                                <div class="bg-slate-900 p-3 rounded text-sm text-slate-400">
+                                    <strong>💡 媒體識讀重點：</strong> 演算法沒有道德觀，它只在乎「點擊率」。如果不具備媒體識讀能力主動篩選，大腦就會被劣質資訊餵養。
+                                </div>
+                            </div>
+                            <button onclick="resetGuide('media')" class="px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors">重新選擇</button>
+                        </div>
+
+                        <!-- 步驟 2 (結果 B) -->
+                        <div id="media-result-B" class="guide-step hidden animate-fade-in">
+                            <div class="bg-emerald-900/30 border-l-4 border-emerald-500 p-6 rounded-xl mb-6">
+                                <h4 class="text-xl font-bold text-emerald-400 mb-2">🎉 成功打破資訊繭房！</h4>
+                                <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                                    你對假新聞按下了「不感興趣」(給予負回饋)，並點擊了正規醫生的影片(給予正回饋)。<br>
+                                    <strong class="text-white">👉 請看左邊的手機畫面：</strong> 演算法瞬間被你重新洗牌，現在首頁充滿了真正有益健康的優質內容！
+                                </p>
+                                <div class="bg-slate-900 p-3 rounded text-sm text-slate-400">
+                                    <strong>💡 媒體識讀重點：</strong> 當你了解演算法的原理，你就不再是被動的接收者。你可以「反向操作」，主動調教 AI，成為自己大腦真正的主人！
+                                </div>
+                            </div>
+                            <button onclick="closeGuides()" class="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition-colors">完成體驗</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm border-t-4 border-indigo-500">
+        <div class="mb-4">
+            <i class="fa-solid fa-brain text-2xl text-indigo-500"></i>
+        </div>
+        <p class="font-bold text-slate-300 mb-1">AI 推薦機制互動教室</p>
+        <p>掌握科技原理，做自己大腦的主人</p>
+        <p class="mt-6 opacity-50">&copy; 2026. Designed for Education.</p>
+    </footer>
+
+    <!-- Custom Modal for Notifications -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300 text-center border border-slate-100">
+            <div id="modal-icon" class="text-6xl mb-4 text-emerald-500 drop-shadow-sm"><i class="fa-solid fa-circle-check"></i></div>
+            <h3 id="modal-title" class="text-2xl font-black mb-2 text-slate-800">通知</h3>
+            <p id="modal-message" class="text-slate-500 mb-8 leading-relaxed">訊息內容</p>
+            <button onclick="closeModal()" class="w-full py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors shadow-md active:scale-95">知道了</button>
+        </div>
+    </div>
+
+    <!-- JavaScript 邏輯區 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    keyframes: {
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        // --- Custom Modal Logic ---
+        function showModal(title, message, type = 'info') {
+            const modal = document.getElementById('custom-modal');
+            const icon = document.getElementById('modal-icon');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            
+            if(type === 'success') {
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                icon.className = 'text-6xl mb-4 text-emerald-500 drop-shadow-sm';
+            } else if (type === 'warning') {
+                icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                icon.className = 'text-6xl mb-4 text-amber-500 drop-shadow-sm';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+                icon.className = 'text-6xl mb-4 text-blue-500 drop-shadow-sm';
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- Module 1: Recommendation Engine ---
+        function generateRec(type) {
+            const resultBox = document.getElementById('rec-result');
+            const title = document.getElementById('rec-title');
+            const itemsContainer = document.getElementById('rec-items');
+            const explanation = document.getElementById('rec-explanation');
+            const borderColor = document.getElementById('rec-border-color');
+            
+            resultBox.classList.remove('hidden');
+            itemsContainer.innerHTML = ''; 
+
+            if (type === 'content') {
+                borderColor.className = "absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-blue-400 to-blue-600";
+                title.innerHTML = "<i class='fa-solid fa-tags text-blue-400'></i> <span class='text-white'>內容過濾推薦清單</span>";
+                
+                const movies = [
+                    { name: "地心引力", desc: "符合標籤：太空/求生", icon: "🚀", color: "blue" },
+                    { name: "絕地救援", desc: "符合標籤：科幻/太空", icon: "🪐", color: "blue" },
+                    { name: "異形", desc: "符合標籤：科幻/驚悚", icon: "👽", color: "blue" }
+                ];
+                
+                movies.forEach(m => {
+                    itemsContainer.innerHTML += `
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-blue-400 transition-colors group">
+                            <div class="text-3xl mb-2 group-hover:scale-110 transition-transform origin-left">${m.icon}</div>
+                            <div class="font-bold text-lg text-white">${m.name}</div>
+                            <div class="text-xs text-slate-400 mt-1">${m.desc}</div>
+                        </div>`;
+                });
+                explanation.innerHTML = "<strong class='text-blue-400'>📌 系統解析：</strong> 模型只分析了「電影本身的特徵」。好處是精準且絕對安全，壞處是小明永遠只會看到太空科幻片，容易陷入資訊同溫層（資訊繭房）。";
+            
+            } else {
+                borderColor.className = "absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-400 to-purple-600";
+                title.innerHTML = "<i class='fa-solid fa-users text-purple-400'></i> <span class='text-white'>協同過濾推薦清單</span>";
+                
+                const movies = [
+                    { name: "駭客任務", desc: "相似品味用戶也愛看", icon: "🕶️", color: "purple" },
+                    { name: "黑暗騎士", desc: "科幻迷群體強烈推薦", icon: "🦇", color: "purple" },
+                    { name: "奧本海默", desc: "跟隨相似用戶的熱潮", icon: "💣", color: "purple" }
+                ];
+                
+                movies.forEach(m => {
+                    itemsContainer.innerHTML += `
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-purple-400 transition-colors group">
+                            <div class="text-3xl mb-2 group-hover:scale-110 transition-transform origin-left">${m.icon}</div>
+                            <div class="font-bold text-lg text-white">${m.name}</div>
+                            <div class="text-xs text-slate-400 mt-1">${m.desc}</div>
+                        </div>`;
+                });
+                explanation.innerHTML = "<strong class='text-purple-400'>📌 系統解析：</strong> 模型引入了「其他真實人類的行為數據」。這能推薦跨類型（如動作、傳記）的作品給小明，帶來驚喜感！這也是 Netflix 等平台目前最愛用的底層邏輯。";
+            }
+            
+            setTimeout(() => {
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        // --- Module 2: Association Rules ---
+        function analyzeAssociation() {
+            const selectedItem = document.getElementById('item-selector').value;
+            const resultBox = document.getElementById('association-result');
+            const assocItemLabel = document.getElementById('assoc-item');
+            const reasonLabel = document.getElementById('assoc-reason');
+            
+            resultBox.classList.remove('hidden');
+            
+            if (selectedItem === '🍞 麵包') {
+                assocItemLabel.innerHTML = '🍓 果醬 / 🥛 牛奶';
+                reasonLabel.innerHTML = '【信賴度極高】在有買麵包的 4 筆訂單中，買果醬跟牛奶的機率高達 75%！';
+            } else if (selectedItem === '🥛 牛奶') {
+                assocItemLabel.innerHTML = '🍞 麵包';
+                reasonLabel.innerHTML = '【100% 關聯】買牛奶的 3 筆訂單中，全部都買了麵包！強烈建議將兩者綁在一起做促銷。';
+            } else if (selectedItem === '☕ 咖啡') {
+                assocItemLabel.innerHTML = '🍎 蘋果 / 🍞 麵包';
+                reasonLabel.innerHTML = '【弱關聯】數據顯示咖啡的關聯性較分散，可以考慮建立新的「下午茶套餐」來培養關聯習慣。';
+            }
+        }
+
+        // --- Module 3: A/B Testing ---
+        let votesA = 0;
+        let votesB = 0;
+
+        function vote(option) {
+            if (option === 'A') {
+                votesA++;
+                showModal('投票成功！', '你的一票已經送入大數據監測中心。', 'success');
+            } else {
+                votesB++;
+                showModal('投票成功！', '你的一票已經送入大數據監測中心。', 'success');
+            }
+            updateChart();
+        }
+
+        function updateChart() {
+            const total = votesA + votesB;
+            if (total === 0) return;
+            const pctA = Math.round((votesA / total) * 100);
+            const pctB = Math.round((votesB / total) * 100);
+            document.getElementById('count-A').innerText = votesA;
+            document.getElementById('count-B').innerText = votesB;
+            document.getElementById('pct-A').innerText = pctA + '%';
+            document.getElementById('pct-B').innerText = pctB + '%';
+            document.getElementById('bar-A').style.width = pctA + '%';
+            document.getElementById('bar-B').style.width = pctB + '%';
+        }
+
+        // --- Module 4: Dynamic Interactive Guides (Mock UIs) ---
+        function openGuide(guideId) {
+            document.querySelectorAll('.guide-container').forEach(el => {
+                el.classList.add('hidden');
+            });
+            resetGuide(guideId);
+            const targetGuide = document.getElementById('guide-' + guideId);
+            targetGuide.classList.remove('hidden');
+            setTimeout(() => {
+                targetGuide.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function closeGuides() {
+            document.querySelectorAll('.guide-container').forEach(el => {
+                el.classList.add('hidden');
+            });
+        }
+
+        function resetGuide(guideId) {
+            if(guideId === 'media') {
+                document.getElementById('media-step-1').classList.remove('hidden');
+                document.getElementById('media-result-A').classList.add('hidden');
+                document.getElementById('media-result-B').classList.add('hidden');
+                document.getElementById('feed-toxic').classList.remove('hidden');
+                document.getElementById('feed-healthy').classList.add('hidden');
+                return;
+            }
+
+            document.querySelectorAll(`#guide-${guideId} .guide-step`).forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('animate-fade-in');
+            });
+            document.querySelectorAll(`#guide-${guideId} [id^="${guideId}-result-"]`).forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.getElementById(`${guideId}-step-1`).classList.remove('hidden');
+        }
+
+        function playGuideStep(guideId, nextStep, choice = null) {
+            document.querySelectorAll(`#guide-${guideId} .guide-step`).forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            const stepEl = document.getElementById(`${guideId}-step-${nextStep}`);
+            stepEl.classList.remove('hidden');
+            stepEl.classList.add('animate-fade-in');
+
+            if (choice) {
+                document.getElementById(`${guideId}-result-A`).classList.add('hidden');
+                document.getElementById(`${guideId}-result-B`).classList.add('hidden');
+                document.getElementById(`${guideId}-result-${choice}`).classList.remove('hidden');
+                document.getElementById(`${guideId}-result-${choice}`).classList.add('animate-fade-in');
+            }
+        }
+
+        // 特別為媒體識讀設計的流程控制
+        function playMediaStep(choice) {
+            document.getElementById('media-step-1').classList.add('hidden');
+            
+            if (choice === 'A') {
+                document.getElementById('media-result-A').classList.remove('hidden');
+            } else if (choice === 'B') {
+                document.getElementById('media-result-B').classList.remove('hidden');
+                // 切換手機螢幕畫面
+                document.getElementById('feed-toxic').classList.add('hidden');
+                document.getElementById('feed-healthy').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
